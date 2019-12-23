@@ -1,0 +1,15 @@
+# import * from './generated/prisma.graphql'
+
+type Mutation {
+  createRecipe(
+    name: String
+    style: String
+    type: RecipeType
+    estimatedOG: Float
+    estimatedFG: Float
+  ): Recipe!
+}
+
+type Query {
+  recipes: [Recipe]!
+}

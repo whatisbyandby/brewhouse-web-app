@@ -1,0 +1,189 @@
+type User {
+  id: ID! @id
+  name: String!
+  email: String!
+}
+
+enum RecipeType {
+  ALL_GRAIN
+  EXTRACT
+  PARTIAL_MASH
+  WINE
+  MEAD
+  KOMBUCHA
+}
+
+enum StyleType {
+  LAGER
+  ALE
+}
+
+type Style {
+  id: ID! @id
+  name: String!
+  category: String!
+  categoryNumber: Int!
+  styleLetter: String!
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+type Recipe {
+  id: ID! @id
+  name: String!
+  style: String!
+  type: RecipeType!
+  estimatedOG: Float
+  estimatedFG: Float
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  notes: String
+  # user: User!
+}
+
+type Batch {
+  id: ID! @id
+  brewDate: DateTime!
+  recipe: Recipe!
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+}
+
+type IngredientProfile {
+  id: ID! @id
+  name: String!
+}
+
+type EquipmentProfile {
+  id: ID! @id
+  name: String!
+  batchSize: Float!
+}
+
+type FermentationStep {
+  id: ID! @id
+  name: String!
+  duration: Int!
+  startTemp: Float!
+  endTemp: Float!
+}
+
+type FermentationProfile {
+  id: ID! @id
+  name: String!
+  forYeastType: YeastType!
+  steps: [FermentationStep]!
+}
+
+enum MashStepType {
+  INFUSION
+}
+
+type MashStep {
+  id: ID! @id
+  name: String!
+  type: MashStepType!
+  stepTime: Int!
+  stepTemp: Float!
+  rampTime: Float!
+  endTemp: Float!
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+type MashProfile {
+  id: ID! @id
+  name: String!
+  steps: [MashStep]!
+}
+
+enum YeastForm {
+  LIQUID
+  DRY
+  SLURRY
+}
+
+enum YeastType {
+  ALE
+  LAGER
+  HYBRID 
+}
+
+enum FlocculationType {
+  VERY_HIGH
+  HIGH
+  MEDIUM 
+  LOW
+}
+
+type YeastProfile {
+  id: ID! @id
+  name: String!
+  type: YeastType!
+  form: YeastForm!
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+enum IngredientUse {
+  MASH
+  BOIL
+  WHIRLPOOL
+  PRIMARY
+  SECONDARY
+}
+
+type IngredientAddition {
+  id: ID! @id
+  amount: Float
+  recipe: Recipe!
+}
+
+type HopProfile {
+  id: ID! @id
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+type HopAddition {
+  id: ID! @id
+  IBUs: Float
+
+}
+
+type YeastAddition {
+  id: ID! @id
+  timesCultured: Int
+}
+
+

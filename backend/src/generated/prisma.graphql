@@ -1,0 +1,5316 @@
+# source: https://us1.prisma.sh/scott-1f4a83/brewery-web-app/dev
+# timestamp: Sun Dec 22 2019 22:58:11 GMT-0700 (Mountain Standard Time)
+
+type AggregateBatch {
+  count: Int!
+}
+
+type AggregateEquipmentProfile {
+  count: Int!
+}
+
+type AggregateFermentationProfile {
+  count: Int!
+}
+
+type AggregateFermentationStep {
+  count: Int!
+}
+
+type AggregateHopAddition {
+  count: Int!
+}
+
+type AggregateHopProfile {
+  count: Int!
+}
+
+type AggregateIngredientAddition {
+  count: Int!
+}
+
+type AggregateIngredientProfile {
+  count: Int!
+}
+
+type AggregateMashProfile {
+  count: Int!
+}
+
+type AggregateMashStep {
+  count: Int!
+}
+
+type AggregateRecipe {
+  count: Int!
+}
+
+type AggregateStyle {
+  count: Int!
+}
+
+type AggregateUser {
+  count: Int!
+}
+
+type AggregateYeast {
+  count: Int!
+}
+
+type Batch implements Node {
+  id: ID!
+  brewDate: DateTime!
+  recipe: Recipe!
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+}
+
+"""A connection to a list of items."""
+type BatchConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [BatchEdge]!
+  aggregate: AggregateBatch!
+}
+
+input BatchCreateInput {
+  id: ID
+  brewDate: DateTime!
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+  recipe: RecipeCreateOneInput!
+}
+
+"""An edge in a connection."""
+type BatchEdge {
+  """The item at the end of the edge."""
+  node: Batch!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum BatchOrderByInput {
+  id_ASC
+  id_DESC
+  brewDate_ASC
+  brewDate_DESC
+  tastingNotes_ASC
+  tastingNotes_DESC
+  measuredOG_ASC
+  measuredOG_DESC
+  measuredFG_ASC
+  measuredFG_DESC
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+type BatchPreviousValues {
+  id: ID!
+  brewDate: DateTime!
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+}
+
+type BatchSubscriptionPayload {
+  mutation: MutationType!
+  node: Batch
+  updatedFields: [String!]
+  previousValues: BatchPreviousValues
+}
+
+input BatchSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BatchSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BatchSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BatchSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: BatchWhereInput
+}
+
+input BatchUpdateInput {
+  brewDate: DateTime
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+  recipe: RecipeUpdateOneRequiredInput
+}
+
+input BatchUpdateManyMutationInput {
+  brewDate: DateTime
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+}
+
+input BatchWhereInput {
+  """Logical AND on all given filters."""
+  AND: [BatchWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [BatchWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [BatchWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  brewDate: DateTime
+
+  """All values that are not equal to given value."""
+  brewDate_not: DateTime
+
+  """All values that are contained in given list."""
+  brewDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  brewDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  brewDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  brewDate_lte: DateTime
+
+  """All values greater than the given value."""
+  brewDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  brewDate_gte: DateTime
+  tastingNotes: String
+
+  """All values that are not equal to given value."""
+  tastingNotes_not: String
+
+  """All values that are contained in given list."""
+  tastingNotes_in: [String!]
+
+  """All values that are not contained in given list."""
+  tastingNotes_not_in: [String!]
+
+  """All values less than the given value."""
+  tastingNotes_lt: String
+
+  """All values less than or equal the given value."""
+  tastingNotes_lte: String
+
+  """All values greater than the given value."""
+  tastingNotes_gt: String
+
+  """All values greater than or equal the given value."""
+  tastingNotes_gte: String
+
+  """All values containing the given string."""
+  tastingNotes_contains: String
+
+  """All values not containing the given string."""
+  tastingNotes_not_contains: String
+
+  """All values starting with the given string."""
+  tastingNotes_starts_with: String
+
+  """All values not starting with the given string."""
+  tastingNotes_not_starts_with: String
+
+  """All values ending with the given string."""
+  tastingNotes_ends_with: String
+
+  """All values not ending with the given string."""
+  tastingNotes_not_ends_with: String
+  measuredOG: Float
+
+  """All values that are not equal to given value."""
+  measuredOG_not: Float
+
+  """All values that are contained in given list."""
+  measuredOG_in: [Float!]
+
+  """All values that are not contained in given list."""
+  measuredOG_not_in: [Float!]
+
+  """All values less than the given value."""
+  measuredOG_lt: Float
+
+  """All values less than or equal the given value."""
+  measuredOG_lte: Float
+
+  """All values greater than the given value."""
+  measuredOG_gt: Float
+
+  """All values greater than or equal the given value."""
+  measuredOG_gte: Float
+  measuredFG: Float
+
+  """All values that are not equal to given value."""
+  measuredFG_not: Float
+
+  """All values that are contained in given list."""
+  measuredFG_in: [Float!]
+
+  """All values that are not contained in given list."""
+  measuredFG_not_in: [Float!]
+
+  """All values less than the given value."""
+  measuredFG_lt: Float
+
+  """All values less than or equal the given value."""
+  measuredFG_lte: Float
+
+  """All values greater than the given value."""
+  measuredFG_gt: Float
+
+  """All values greater than or equal the given value."""
+  measuredFG_gte: Float
+  recipe: RecipeWhereInput
+}
+
+input BatchWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type EquipmentProfile implements Node {
+  id: ID!
+  name: String!
+  batchSize: Float!
+}
+
+"""A connection to a list of items."""
+type EquipmentProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [EquipmentProfileEdge]!
+  aggregate: AggregateEquipmentProfile!
+}
+
+input EquipmentProfileCreateInput {
+  id: ID
+  name: String!
+  batchSize: Float!
+}
+
+"""An edge in a connection."""
+type EquipmentProfileEdge {
+  """The item at the end of the edge."""
+  node: EquipmentProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum EquipmentProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  batchSize_ASC
+  batchSize_DESC
+}
+
+type EquipmentProfilePreviousValues {
+  id: ID!
+  name: String!
+  batchSize: Float!
+}
+
+type EquipmentProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: EquipmentProfile
+  updatedFields: [String!]
+  previousValues: EquipmentProfilePreviousValues
+}
+
+input EquipmentProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EquipmentProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EquipmentProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EquipmentProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: EquipmentProfileWhereInput
+}
+
+input EquipmentProfileUpdateInput {
+  name: String
+  batchSize: Float
+}
+
+input EquipmentProfileUpdateManyMutationInput {
+  name: String
+  batchSize: Float
+}
+
+input EquipmentProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [EquipmentProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [EquipmentProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [EquipmentProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  batchSize: Float
+
+  """All values that are not equal to given value."""
+  batchSize_not: Float
+
+  """All values that are contained in given list."""
+  batchSize_in: [Float!]
+
+  """All values that are not contained in given list."""
+  batchSize_not_in: [Float!]
+
+  """All values less than the given value."""
+  batchSize_lt: Float
+
+  """All values less than or equal the given value."""
+  batchSize_lte: Float
+
+  """All values greater than the given value."""
+  batchSize_gt: Float
+
+  """All values greater than or equal the given value."""
+  batchSize_gte: Float
+}
+
+input EquipmentProfileWhereUniqueInput {
+  id: ID
+}
+
+type FermentationProfile implements Node {
+  id: ID!
+  name: String!
+  forYeastType: YeastType!
+  steps(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationStep!]
+}
+
+"""A connection to a list of items."""
+type FermentationProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FermentationProfileEdge]!
+  aggregate: AggregateFermentationProfile!
+}
+
+input FermentationProfileCreateInput {
+  id: ID
+  name: String!
+  forYeastType: YeastType!
+  steps: FermentationStepCreateManyInput
+}
+
+"""An edge in a connection."""
+type FermentationProfileEdge {
+  """The item at the end of the edge."""
+  node: FermentationProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FermentationProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  forYeastType_ASC
+  forYeastType_DESC
+}
+
+type FermentationProfilePreviousValues {
+  id: ID!
+  name: String!
+  forYeastType: YeastType!
+}
+
+type FermentationProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: FermentationProfile
+  updatedFields: [String!]
+  previousValues: FermentationProfilePreviousValues
+}
+
+input FermentationProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentationProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentationProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentationProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FermentationProfileWhereInput
+}
+
+input FermentationProfileUpdateInput {
+  name: String
+  forYeastType: YeastType
+  steps: FermentationStepUpdateManyInput
+}
+
+input FermentationProfileUpdateManyMutationInput {
+  name: String
+  forYeastType: YeastType
+}
+
+input FermentationProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentationProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentationProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentationProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  forYeastType: YeastType
+
+  """All values that are not equal to given value."""
+  forYeastType_not: YeastType
+
+  """All values that are contained in given list."""
+  forYeastType_in: [YeastType!]
+
+  """All values that are not contained in given list."""
+  forYeastType_not_in: [YeastType!]
+  steps_every: FermentationStepWhereInput
+  steps_some: FermentationStepWhereInput
+  steps_none: FermentationStepWhereInput
+}
+
+input FermentationProfileWhereUniqueInput {
+  id: ID
+}
+
+type FermentationStep implements Node {
+  id: ID!
+  name: String!
+  duration: Int!
+  startTemp: Float!
+  endTemp: Float!
+}
+
+"""A connection to a list of items."""
+type FermentationStepConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FermentationStepEdge]!
+  aggregate: AggregateFermentationStep!
+}
+
+input FermentationStepCreateInput {
+  id: ID
+  name: String!
+  duration: Int!
+  startTemp: Float!
+  endTemp: Float!
+}
+
+input FermentationStepCreateManyInput {
+  create: [FermentationStepCreateInput!]
+  connect: [FermentationStepWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type FermentationStepEdge {
+  """The item at the end of the edge."""
+  node: FermentationStep!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FermentationStepOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  duration_ASC
+  duration_DESC
+  startTemp_ASC
+  startTemp_DESC
+  endTemp_ASC
+  endTemp_DESC
+}
+
+type FermentationStepPreviousValues {
+  id: ID!
+  name: String!
+  duration: Int!
+  startTemp: Float!
+  endTemp: Float!
+}
+
+input FermentationStepScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentationStepScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentationStepScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentationStepScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  duration: Int
+
+  """All values that are not equal to given value."""
+  duration_not: Int
+
+  """All values that are contained in given list."""
+  duration_in: [Int!]
+
+  """All values that are not contained in given list."""
+  duration_not_in: [Int!]
+
+  """All values less than the given value."""
+  duration_lt: Int
+
+  """All values less than or equal the given value."""
+  duration_lte: Int
+
+  """All values greater than the given value."""
+  duration_gt: Int
+
+  """All values greater than or equal the given value."""
+  duration_gte: Int
+  startTemp: Float
+
+  """All values that are not equal to given value."""
+  startTemp_not: Float
+
+  """All values that are contained in given list."""
+  startTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  startTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  startTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  startTemp_lte: Float
+
+  """All values greater than the given value."""
+  startTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  startTemp_gte: Float
+  endTemp: Float
+
+  """All values that are not equal to given value."""
+  endTemp_not: Float
+
+  """All values that are contained in given list."""
+  endTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  endTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  endTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  endTemp_lte: Float
+
+  """All values greater than the given value."""
+  endTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  endTemp_gte: Float
+}
+
+type FermentationStepSubscriptionPayload {
+  mutation: MutationType!
+  node: FermentationStep
+  updatedFields: [String!]
+  previousValues: FermentationStepPreviousValues
+}
+
+input FermentationStepSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentationStepSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentationStepSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentationStepSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FermentationStepWhereInput
+}
+
+input FermentationStepUpdateDataInput {
+  name: String
+  duration: Int
+  startTemp: Float
+  endTemp: Float
+}
+
+input FermentationStepUpdateInput {
+  name: String
+  duration: Int
+  startTemp: Float
+  endTemp: Float
+}
+
+input FermentationStepUpdateManyDataInput {
+  name: String
+  duration: Int
+  startTemp: Float
+  endTemp: Float
+}
+
+input FermentationStepUpdateManyInput {
+  create: [FermentationStepCreateInput!]
+  connect: [FermentationStepWhereUniqueInput!]
+  set: [FermentationStepWhereUniqueInput!]
+  disconnect: [FermentationStepWhereUniqueInput!]
+  delete: [FermentationStepWhereUniqueInput!]
+  update: [FermentationStepUpdateWithWhereUniqueNestedInput!]
+  updateMany: [FermentationStepUpdateManyWithWhereNestedInput!]
+  deleteMany: [FermentationStepScalarWhereInput!]
+  upsert: [FermentationStepUpsertWithWhereUniqueNestedInput!]
+}
+
+input FermentationStepUpdateManyMutationInput {
+  name: String
+  duration: Int
+  startTemp: Float
+  endTemp: Float
+}
+
+input FermentationStepUpdateManyWithWhereNestedInput {
+  where: FermentationStepScalarWhereInput!
+  data: FermentationStepUpdateManyDataInput!
+}
+
+input FermentationStepUpdateWithWhereUniqueNestedInput {
+  where: FermentationStepWhereUniqueInput!
+  data: FermentationStepUpdateDataInput!
+}
+
+input FermentationStepUpsertWithWhereUniqueNestedInput {
+  where: FermentationStepWhereUniqueInput!
+  update: FermentationStepUpdateDataInput!
+  create: FermentationStepCreateInput!
+}
+
+input FermentationStepWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentationStepWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentationStepWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentationStepWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  duration: Int
+
+  """All values that are not equal to given value."""
+  duration_not: Int
+
+  """All values that are contained in given list."""
+  duration_in: [Int!]
+
+  """All values that are not contained in given list."""
+  duration_not_in: [Int!]
+
+  """All values less than the given value."""
+  duration_lt: Int
+
+  """All values less than or equal the given value."""
+  duration_lte: Int
+
+  """All values greater than the given value."""
+  duration_gt: Int
+
+  """All values greater than or equal the given value."""
+  duration_gte: Int
+  startTemp: Float
+
+  """All values that are not equal to given value."""
+  startTemp_not: Float
+
+  """All values that are contained in given list."""
+  startTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  startTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  startTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  startTemp_lte: Float
+
+  """All values greater than the given value."""
+  startTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  startTemp_gte: Float
+  endTemp: Float
+
+  """All values that are not equal to given value."""
+  endTemp_not: Float
+
+  """All values that are contained in given list."""
+  endTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  endTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  endTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  endTemp_lte: Float
+
+  """All values greater than the given value."""
+  endTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  endTemp_gte: Float
+}
+
+input FermentationStepWhereUniqueInput {
+  id: ID
+}
+
+enum FlocculationType {
+  VERY_HIGH
+  HIGH
+  MEDIUM
+  LOW
+}
+
+type HopAddition implements Node {
+  id: ID!
+  IBUs: Float
+}
+
+"""A connection to a list of items."""
+type HopAdditionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [HopAdditionEdge]!
+  aggregate: AggregateHopAddition!
+}
+
+input HopAdditionCreateInput {
+  id: ID
+  IBUs: Float
+}
+
+"""An edge in a connection."""
+type HopAdditionEdge {
+  """The item at the end of the edge."""
+  node: HopAddition!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum HopAdditionOrderByInput {
+  id_ASC
+  id_DESC
+  IBUs_ASC
+  IBUs_DESC
+}
+
+type HopAdditionPreviousValues {
+  id: ID!
+  IBUs: Float
+}
+
+type HopAdditionSubscriptionPayload {
+  mutation: MutationType!
+  node: HopAddition
+  updatedFields: [String!]
+  previousValues: HopAdditionPreviousValues
+}
+
+input HopAdditionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HopAdditionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HopAdditionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HopAdditionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: HopAdditionWhereInput
+}
+
+input HopAdditionUpdateInput {
+  IBUs: Float
+}
+
+input HopAdditionUpdateManyMutationInput {
+  IBUs: Float
+}
+
+input HopAdditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HopAdditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HopAdditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HopAdditionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  IBUs: Float
+
+  """All values that are not equal to given value."""
+  IBUs_not: Float
+
+  """All values that are contained in given list."""
+  IBUs_in: [Float!]
+
+  """All values that are not contained in given list."""
+  IBUs_not_in: [Float!]
+
+  """All values less than the given value."""
+  IBUs_lt: Float
+
+  """All values less than or equal the given value."""
+  IBUs_lte: Float
+
+  """All values greater than the given value."""
+  IBUs_gt: Float
+
+  """All values greater than or equal the given value."""
+  IBUs_gte: Float
+}
+
+input HopAdditionWhereUniqueInput {
+  id: ID
+}
+
+type HopProfile implements Node {
+  id: ID!
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+"""A connection to a list of items."""
+type HopProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [HopProfileEdge]!
+  aggregate: AggregateHopProfile!
+}
+
+input HopProfileCreateInput {
+  id: ID
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+"""An edge in a connection."""
+type HopProfileEdge {
+  """The item at the end of the edge."""
+  node: HopProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum HopProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  origin_ASC
+  origin_DESC
+  alpha_ASC
+  alpha_DESC
+  use_ASC
+  use_DESC
+}
+
+type HopProfilePreviousValues {
+  id: ID!
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+type HopProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: HopProfile
+  updatedFields: [String!]
+  previousValues: HopProfilePreviousValues
+}
+
+input HopProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HopProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HopProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HopProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: HopProfileWhereInput
+}
+
+input HopProfileUpdateInput {
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+input HopProfileUpdateManyMutationInput {
+  name: String
+  origin: String
+  alpha: Float
+  use: IngredientUse
+}
+
+input HopProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HopProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HopProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HopProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  origin: String
+
+  """All values that are not equal to given value."""
+  origin_not: String
+
+  """All values that are contained in given list."""
+  origin_in: [String!]
+
+  """All values that are not contained in given list."""
+  origin_not_in: [String!]
+
+  """All values less than the given value."""
+  origin_lt: String
+
+  """All values less than or equal the given value."""
+  origin_lte: String
+
+  """All values greater than the given value."""
+  origin_gt: String
+
+  """All values greater than or equal the given value."""
+  origin_gte: String
+
+  """All values containing the given string."""
+  origin_contains: String
+
+  """All values not containing the given string."""
+  origin_not_contains: String
+
+  """All values starting with the given string."""
+  origin_starts_with: String
+
+  """All values not starting with the given string."""
+  origin_not_starts_with: String
+
+  """All values ending with the given string."""
+  origin_ends_with: String
+
+  """All values not ending with the given string."""
+  origin_not_ends_with: String
+  alpha: Float
+
+  """All values that are not equal to given value."""
+  alpha_not: Float
+
+  """All values that are contained in given list."""
+  alpha_in: [Float!]
+
+  """All values that are not contained in given list."""
+  alpha_not_in: [Float!]
+
+  """All values less than the given value."""
+  alpha_lt: Float
+
+  """All values less than or equal the given value."""
+  alpha_lte: Float
+
+  """All values greater than the given value."""
+  alpha_gt: Float
+
+  """All values greater than or equal the given value."""
+  alpha_gte: Float
+  use: IngredientUse
+
+  """All values that are not equal to given value."""
+  use_not: IngredientUse
+
+  """All values that are contained in given list."""
+  use_in: [IngredientUse!]
+
+  """All values that are not contained in given list."""
+  use_not_in: [IngredientUse!]
+}
+
+input HopProfileWhereUniqueInput {
+  id: ID
+}
+
+type IngredientAddition implements Node {
+  id: ID!
+  amount: Float
+  recipe: Recipe!
+}
+
+"""A connection to a list of items."""
+type IngredientAdditionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [IngredientAdditionEdge]!
+  aggregate: AggregateIngredientAddition!
+}
+
+input IngredientAdditionCreateInput {
+  id: ID
+  amount: Float
+  recipe: RecipeCreateOneInput!
+}
+
+"""An edge in a connection."""
+type IngredientAdditionEdge {
+  """The item at the end of the edge."""
+  node: IngredientAddition!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum IngredientAdditionOrderByInput {
+  id_ASC
+  id_DESC
+  amount_ASC
+  amount_DESC
+}
+
+type IngredientAdditionPreviousValues {
+  id: ID!
+  amount: Float
+}
+
+type IngredientAdditionSubscriptionPayload {
+  mutation: MutationType!
+  node: IngredientAddition
+  updatedFields: [String!]
+  previousValues: IngredientAdditionPreviousValues
+}
+
+input IngredientAdditionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IngredientAdditionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IngredientAdditionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IngredientAdditionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: IngredientAdditionWhereInput
+}
+
+input IngredientAdditionUpdateInput {
+  amount: Float
+  recipe: RecipeUpdateOneRequiredInput
+}
+
+input IngredientAdditionUpdateManyMutationInput {
+  amount: Float
+}
+
+input IngredientAdditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IngredientAdditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IngredientAdditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IngredientAdditionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  recipe: RecipeWhereInput
+}
+
+input IngredientAdditionWhereUniqueInput {
+  id: ID
+}
+
+type IngredientProfile implements Node {
+  id: ID!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type IngredientProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [IngredientProfileEdge]!
+  aggregate: AggregateIngredientProfile!
+}
+
+input IngredientProfileCreateInput {
+  id: ID
+  name: String!
+}
+
+"""An edge in a connection."""
+type IngredientProfileEdge {
+  """The item at the end of the edge."""
+  node: IngredientProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum IngredientProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type IngredientProfilePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type IngredientProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: IngredientProfile
+  updatedFields: [String!]
+  previousValues: IngredientProfilePreviousValues
+}
+
+input IngredientProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IngredientProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IngredientProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IngredientProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: IngredientProfileWhereInput
+}
+
+input IngredientProfileUpdateInput {
+  name: String
+}
+
+input IngredientProfileUpdateManyMutationInput {
+  name: String
+}
+
+input IngredientProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [IngredientProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [IngredientProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [IngredientProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input IngredientProfileWhereUniqueInput {
+  id: ID
+}
+
+enum IngredientUse {
+  MASH
+  BOIL
+  WHIRLPOOL
+  PRIMARY
+  SECONDARY
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type MashProfile implements Node {
+  id: ID!
+  name: String!
+  steps(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashStep!]
+}
+
+"""A connection to a list of items."""
+type MashProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MashProfileEdge]!
+  aggregate: AggregateMashProfile!
+}
+
+input MashProfileCreateInput {
+  id: ID
+  name: String!
+  steps: MashStepCreateManyInput
+}
+
+"""An edge in a connection."""
+type MashProfileEdge {
+  """The item at the end of the edge."""
+  node: MashProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MashProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+}
+
+type MashProfilePreviousValues {
+  id: ID!
+  name: String!
+}
+
+type MashProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: MashProfile
+  updatedFields: [String!]
+  previousValues: MashProfilePreviousValues
+}
+
+input MashProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MashProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MashProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MashProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MashProfileWhereInput
+}
+
+input MashProfileUpdateInput {
+  name: String
+  steps: MashStepUpdateManyInput
+}
+
+input MashProfileUpdateManyMutationInput {
+  name: String
+}
+
+input MashProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MashProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MashProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MashProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  steps_every: MashStepWhereInput
+  steps_some: MashStepWhereInput
+  steps_none: MashStepWhereInput
+}
+
+input MashProfileWhereUniqueInput {
+  id: ID
+}
+
+type MashStep implements Node {
+  id: ID!
+  name: String!
+  type: MashStepType!
+  stepTime: Int!
+  stepTemp: Float!
+  rampTime: Float!
+  endTemp: Float!
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+"""A connection to a list of items."""
+type MashStepConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MashStepEdge]!
+  aggregate: AggregateMashStep!
+}
+
+input MashStepCreateInput {
+  id: ID
+  name: String!
+  type: MashStepType!
+  stepTime: Int!
+  stepTemp: Float!
+  rampTime: Float!
+  endTemp: Float!
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepCreateManyInput {
+  create: [MashStepCreateInput!]
+  connect: [MashStepWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type MashStepEdge {
+  """The item at the end of the edge."""
+  node: MashStep!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MashStepOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  stepTime_ASC
+  stepTime_DESC
+  stepTemp_ASC
+  stepTemp_DESC
+  rampTime_ASC
+  rampTime_DESC
+  endTemp_ASC
+  endTemp_DESC
+  waterGrainRatio_ASC
+  waterGrainRatio_DESC
+  decoctionAmount_ASC
+  decoctionAmount_DESC
+  infuseTemp_ASC
+  infuseTemp_DESC
+}
+
+type MashStepPreviousValues {
+  id: ID!
+  name: String!
+  type: MashStepType!
+  stepTime: Int!
+  stepTemp: Float!
+  rampTime: Float!
+  endTemp: Float!
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MashStepScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MashStepScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MashStepScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: MashStepType
+
+  """All values that are not equal to given value."""
+  type_not: MashStepType
+
+  """All values that are contained in given list."""
+  type_in: [MashStepType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [MashStepType!]
+  stepTime: Int
+
+  """All values that are not equal to given value."""
+  stepTime_not: Int
+
+  """All values that are contained in given list."""
+  stepTime_in: [Int!]
+
+  """All values that are not contained in given list."""
+  stepTime_not_in: [Int!]
+
+  """All values less than the given value."""
+  stepTime_lt: Int
+
+  """All values less than or equal the given value."""
+  stepTime_lte: Int
+
+  """All values greater than the given value."""
+  stepTime_gt: Int
+
+  """All values greater than or equal the given value."""
+  stepTime_gte: Int
+  stepTemp: Float
+
+  """All values that are not equal to given value."""
+  stepTemp_not: Float
+
+  """All values that are contained in given list."""
+  stepTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  stepTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  stepTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  stepTemp_lte: Float
+
+  """All values greater than the given value."""
+  stepTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  stepTemp_gte: Float
+  rampTime: Float
+
+  """All values that are not equal to given value."""
+  rampTime_not: Float
+
+  """All values that are contained in given list."""
+  rampTime_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rampTime_not_in: [Float!]
+
+  """All values less than the given value."""
+  rampTime_lt: Float
+
+  """All values less than or equal the given value."""
+  rampTime_lte: Float
+
+  """All values greater than the given value."""
+  rampTime_gt: Float
+
+  """All values greater than or equal the given value."""
+  rampTime_gte: Float
+  endTemp: Float
+
+  """All values that are not equal to given value."""
+  endTemp_not: Float
+
+  """All values that are contained in given list."""
+  endTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  endTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  endTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  endTemp_lte: Float
+
+  """All values greater than the given value."""
+  endTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  endTemp_gte: Float
+  waterGrainRatio: Float
+
+  """All values that are not equal to given value."""
+  waterGrainRatio_not: Float
+
+  """All values that are contained in given list."""
+  waterGrainRatio_in: [Float!]
+
+  """All values that are not contained in given list."""
+  waterGrainRatio_not_in: [Float!]
+
+  """All values less than the given value."""
+  waterGrainRatio_lt: Float
+
+  """All values less than or equal the given value."""
+  waterGrainRatio_lte: Float
+
+  """All values greater than the given value."""
+  waterGrainRatio_gt: Float
+
+  """All values greater than or equal the given value."""
+  waterGrainRatio_gte: Float
+  decoctionAmount: Float
+
+  """All values that are not equal to given value."""
+  decoctionAmount_not: Float
+
+  """All values that are contained in given list."""
+  decoctionAmount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  decoctionAmount_not_in: [Float!]
+
+  """All values less than the given value."""
+  decoctionAmount_lt: Float
+
+  """All values less than or equal the given value."""
+  decoctionAmount_lte: Float
+
+  """All values greater than the given value."""
+  decoctionAmount_gt: Float
+
+  """All values greater than or equal the given value."""
+  decoctionAmount_gte: Float
+  infuseTemp: Float
+
+  """All values that are not equal to given value."""
+  infuseTemp_not: Float
+
+  """All values that are contained in given list."""
+  infuseTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  infuseTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  infuseTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  infuseTemp_lte: Float
+
+  """All values greater than the given value."""
+  infuseTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  infuseTemp_gte: Float
+}
+
+type MashStepSubscriptionPayload {
+  mutation: MutationType!
+  node: MashStep
+  updatedFields: [String!]
+  previousValues: MashStepPreviousValues
+}
+
+input MashStepSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MashStepSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MashStepSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MashStepSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MashStepWhereInput
+}
+
+enum MashStepType {
+  INFUSION
+}
+
+input MashStepUpdateDataInput {
+  name: String
+  type: MashStepType
+  stepTime: Int
+  stepTemp: Float
+  rampTime: Float
+  endTemp: Float
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepUpdateInput {
+  name: String
+  type: MashStepType
+  stepTime: Int
+  stepTemp: Float
+  rampTime: Float
+  endTemp: Float
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepUpdateManyDataInput {
+  name: String
+  type: MashStepType
+  stepTime: Int
+  stepTemp: Float
+  rampTime: Float
+  endTemp: Float
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepUpdateManyInput {
+  create: [MashStepCreateInput!]
+  connect: [MashStepWhereUniqueInput!]
+  set: [MashStepWhereUniqueInput!]
+  disconnect: [MashStepWhereUniqueInput!]
+  delete: [MashStepWhereUniqueInput!]
+  update: [MashStepUpdateWithWhereUniqueNestedInput!]
+  updateMany: [MashStepUpdateManyWithWhereNestedInput!]
+  deleteMany: [MashStepScalarWhereInput!]
+  upsert: [MashStepUpsertWithWhereUniqueNestedInput!]
+}
+
+input MashStepUpdateManyMutationInput {
+  name: String
+  type: MashStepType
+  stepTime: Int
+  stepTemp: Float
+  rampTime: Float
+  endTemp: Float
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+input MashStepUpdateManyWithWhereNestedInput {
+  where: MashStepScalarWhereInput!
+  data: MashStepUpdateManyDataInput!
+}
+
+input MashStepUpdateWithWhereUniqueNestedInput {
+  where: MashStepWhereUniqueInput!
+  data: MashStepUpdateDataInput!
+}
+
+input MashStepUpsertWithWhereUniqueNestedInput {
+  where: MashStepWhereUniqueInput!
+  update: MashStepUpdateDataInput!
+  create: MashStepCreateInput!
+}
+
+input MashStepWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MashStepWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MashStepWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MashStepWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: MashStepType
+
+  """All values that are not equal to given value."""
+  type_not: MashStepType
+
+  """All values that are contained in given list."""
+  type_in: [MashStepType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [MashStepType!]
+  stepTime: Int
+
+  """All values that are not equal to given value."""
+  stepTime_not: Int
+
+  """All values that are contained in given list."""
+  stepTime_in: [Int!]
+
+  """All values that are not contained in given list."""
+  stepTime_not_in: [Int!]
+
+  """All values less than the given value."""
+  stepTime_lt: Int
+
+  """All values less than or equal the given value."""
+  stepTime_lte: Int
+
+  """All values greater than the given value."""
+  stepTime_gt: Int
+
+  """All values greater than or equal the given value."""
+  stepTime_gte: Int
+  stepTemp: Float
+
+  """All values that are not equal to given value."""
+  stepTemp_not: Float
+
+  """All values that are contained in given list."""
+  stepTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  stepTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  stepTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  stepTemp_lte: Float
+
+  """All values greater than the given value."""
+  stepTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  stepTemp_gte: Float
+  rampTime: Float
+
+  """All values that are not equal to given value."""
+  rampTime_not: Float
+
+  """All values that are contained in given list."""
+  rampTime_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rampTime_not_in: [Float!]
+
+  """All values less than the given value."""
+  rampTime_lt: Float
+
+  """All values less than or equal the given value."""
+  rampTime_lte: Float
+
+  """All values greater than the given value."""
+  rampTime_gt: Float
+
+  """All values greater than or equal the given value."""
+  rampTime_gte: Float
+  endTemp: Float
+
+  """All values that are not equal to given value."""
+  endTemp_not: Float
+
+  """All values that are contained in given list."""
+  endTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  endTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  endTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  endTemp_lte: Float
+
+  """All values greater than the given value."""
+  endTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  endTemp_gte: Float
+  waterGrainRatio: Float
+
+  """All values that are not equal to given value."""
+  waterGrainRatio_not: Float
+
+  """All values that are contained in given list."""
+  waterGrainRatio_in: [Float!]
+
+  """All values that are not contained in given list."""
+  waterGrainRatio_not_in: [Float!]
+
+  """All values less than the given value."""
+  waterGrainRatio_lt: Float
+
+  """All values less than or equal the given value."""
+  waterGrainRatio_lte: Float
+
+  """All values greater than the given value."""
+  waterGrainRatio_gt: Float
+
+  """All values greater than or equal the given value."""
+  waterGrainRatio_gte: Float
+  decoctionAmount: Float
+
+  """All values that are not equal to given value."""
+  decoctionAmount_not: Float
+
+  """All values that are contained in given list."""
+  decoctionAmount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  decoctionAmount_not_in: [Float!]
+
+  """All values less than the given value."""
+  decoctionAmount_lt: Float
+
+  """All values less than or equal the given value."""
+  decoctionAmount_lte: Float
+
+  """All values greater than the given value."""
+  decoctionAmount_gt: Float
+
+  """All values greater than or equal the given value."""
+  decoctionAmount_gte: Float
+  infuseTemp: Float
+
+  """All values that are not equal to given value."""
+  infuseTemp_not: Float
+
+  """All values that are contained in given list."""
+  infuseTemp_in: [Float!]
+
+  """All values that are not contained in given list."""
+  infuseTemp_not_in: [Float!]
+
+  """All values less than the given value."""
+  infuseTemp_lt: Float
+
+  """All values less than or equal the given value."""
+  infuseTemp_lte: Float
+
+  """All values greater than the given value."""
+  infuseTemp_gt: Float
+
+  """All values greater than or equal the given value."""
+  infuseTemp_gte: Float
+}
+
+input MashStepWhereUniqueInput {
+  id: ID
+}
+
+type Mutation {
+  createUser(data: UserCreateInput!): User!
+  createStyle(data: StyleCreateInput!): Style!
+  createBatch(data: BatchCreateInput!): Batch!
+  createIngredientProfile(data: IngredientProfileCreateInput!): IngredientProfile!
+  createEquipmentProfile(data: EquipmentProfileCreateInput!): EquipmentProfile!
+  createFermentationProfile(data: FermentationProfileCreateInput!): FermentationProfile!
+  createMashProfile(data: MashProfileCreateInput!): MashProfile!
+  createYeast(data: YeastCreateInput!): Yeast!
+  createIngredientAddition(data: IngredientAdditionCreateInput!): IngredientAddition!
+  createHopProfile(data: HopProfileCreateInput!): HopProfile!
+  createHopAddition(data: HopAdditionCreateInput!): HopAddition!
+  createRecipe(data: RecipeCreateInput!): Recipe!
+  createFermentationStep(data: FermentationStepCreateInput!): FermentationStep!
+  createMashStep(data: MashStepCreateInput!): MashStep!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateStyle(data: StyleUpdateInput!, where: StyleWhereUniqueInput!): Style
+  updateBatch(data: BatchUpdateInput!, where: BatchWhereUniqueInput!): Batch
+  updateIngredientProfile(data: IngredientProfileUpdateInput!, where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  updateEquipmentProfile(data: EquipmentProfileUpdateInput!, where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
+  updateFermentationProfile(data: FermentationProfileUpdateInput!, where: FermentationProfileWhereUniqueInput!): FermentationProfile
+  updateMashProfile(data: MashProfileUpdateInput!, where: MashProfileWhereUniqueInput!): MashProfile
+  updateYeast(data: YeastUpdateInput!, where: YeastWhereUniqueInput!): Yeast
+  updateIngredientAddition(data: IngredientAdditionUpdateInput!, where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  updateHopProfile(data: HopProfileUpdateInput!, where: HopProfileWhereUniqueInput!): HopProfile
+  updateHopAddition(data: HopAdditionUpdateInput!, where: HopAdditionWhereUniqueInput!): HopAddition
+  updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
+  updateFermentationStep(data: FermentationStepUpdateInput!, where: FermentationStepWhereUniqueInput!): FermentationStep
+  updateMashStep(data: MashStepUpdateInput!, where: MashStepWhereUniqueInput!): MashStep
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteStyle(where: StyleWhereUniqueInput!): Style
+  deleteBatch(where: BatchWhereUniqueInput!): Batch
+  deleteIngredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  deleteEquipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
+  deleteFermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
+  deleteMashProfile(where: MashProfileWhereUniqueInput!): MashProfile
+  deleteYeast(where: YeastWhereUniqueInput!): Yeast
+  deleteIngredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  deleteHopProfile(where: HopProfileWhereUniqueInput!): HopProfile
+  deleteHopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
+  deleteRecipe(where: RecipeWhereUniqueInput!): Recipe
+  deleteFermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
+  deleteMashStep(where: MashStepWhereUniqueInput!): MashStep
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertStyle(where: StyleWhereUniqueInput!, create: StyleCreateInput!, update: StyleUpdateInput!): Style!
+  upsertBatch(where: BatchWhereUniqueInput!, create: BatchCreateInput!, update: BatchUpdateInput!): Batch!
+  upsertIngredientProfile(where: IngredientProfileWhereUniqueInput!, create: IngredientProfileCreateInput!, update: IngredientProfileUpdateInput!): IngredientProfile!
+  upsertEquipmentProfile(where: EquipmentProfileWhereUniqueInput!, create: EquipmentProfileCreateInput!, update: EquipmentProfileUpdateInput!): EquipmentProfile!
+  upsertFermentationProfile(where: FermentationProfileWhereUniqueInput!, create: FermentationProfileCreateInput!, update: FermentationProfileUpdateInput!): FermentationProfile!
+  upsertMashProfile(where: MashProfileWhereUniqueInput!, create: MashProfileCreateInput!, update: MashProfileUpdateInput!): MashProfile!
+  upsertYeast(where: YeastWhereUniqueInput!, create: YeastCreateInput!, update: YeastUpdateInput!): Yeast!
+  upsertIngredientAddition(where: IngredientAdditionWhereUniqueInput!, create: IngredientAdditionCreateInput!, update: IngredientAdditionUpdateInput!): IngredientAddition!
+  upsertHopProfile(where: HopProfileWhereUniqueInput!, create: HopProfileCreateInput!, update: HopProfileUpdateInput!): HopProfile!
+  upsertHopAddition(where: HopAdditionWhereUniqueInput!, create: HopAdditionCreateInput!, update: HopAdditionUpdateInput!): HopAddition!
+  upsertRecipe(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe!
+  upsertFermentationStep(where: FermentationStepWhereUniqueInput!, create: FermentationStepCreateInput!, update: FermentationStepUpdateInput!): FermentationStep!
+  upsertMashStep(where: MashStepWhereUniqueInput!, create: MashStepCreateInput!, update: MashStepUpdateInput!): MashStep!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyStyles(data: StyleUpdateManyMutationInput!, where: StyleWhereInput): BatchPayload!
+  updateManyBatches(data: BatchUpdateManyMutationInput!, where: BatchWhereInput): BatchPayload!
+  updateManyIngredientProfiles(data: IngredientProfileUpdateManyMutationInput!, where: IngredientProfileWhereInput): BatchPayload!
+  updateManyEquipmentProfiles(data: EquipmentProfileUpdateManyMutationInput!, where: EquipmentProfileWhereInput): BatchPayload!
+  updateManyFermentationProfiles(data: FermentationProfileUpdateManyMutationInput!, where: FermentationProfileWhereInput): BatchPayload!
+  updateManyMashProfiles(data: MashProfileUpdateManyMutationInput!, where: MashProfileWhereInput): BatchPayload!
+  updateManyYeasts(data: YeastUpdateManyMutationInput!, where: YeastWhereInput): BatchPayload!
+  updateManyIngredientAdditions(data: IngredientAdditionUpdateManyMutationInput!, where: IngredientAdditionWhereInput): BatchPayload!
+  updateManyHopProfiles(data: HopProfileUpdateManyMutationInput!, where: HopProfileWhereInput): BatchPayload!
+  updateManyHopAdditions(data: HopAdditionUpdateManyMutationInput!, where: HopAdditionWhereInput): BatchPayload!
+  updateManyRecipes(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): BatchPayload!
+  updateManyFermentationSteps(data: FermentationStepUpdateManyMutationInput!, where: FermentationStepWhereInput): BatchPayload!
+  updateManyMashSteps(data: MashStepUpdateManyMutationInput!, where: MashStepWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyStyles(where: StyleWhereInput): BatchPayload!
+  deleteManyBatches(where: BatchWhereInput): BatchPayload!
+  deleteManyIngredientProfiles(where: IngredientProfileWhereInput): BatchPayload!
+  deleteManyEquipmentProfiles(where: EquipmentProfileWhereInput): BatchPayload!
+  deleteManyFermentationProfiles(where: FermentationProfileWhereInput): BatchPayload!
+  deleteManyMashProfiles(where: MashProfileWhereInput): BatchPayload!
+  deleteManyYeasts(where: YeastWhereInput): BatchPayload!
+  deleteManyIngredientAdditions(where: IngredientAdditionWhereInput): BatchPayload!
+  deleteManyHopProfiles(where: HopProfileWhereInput): BatchPayload!
+  deleteManyHopAdditions(where: HopAdditionWhereInput): BatchPayload!
+  deleteManyRecipes(where: RecipeWhereInput): BatchPayload!
+  deleteManyFermentationSteps(where: FermentationStepWhereInput): BatchPayload!
+  deleteManyMashSteps(where: MashStepWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  styles(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Style]!
+  batches(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Batch]!
+  ingredientProfiles(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientProfile]!
+  equipmentProfiles(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EquipmentProfile]!
+  fermentationProfiles(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationProfile]!
+  mashProfiles(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashProfile]!
+  yeasts(where: YeastWhereInput, orderBy: YeastOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Yeast]!
+  ingredientAdditions(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientAddition]!
+  hopProfiles(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopProfile]!
+  hopAdditions(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopAddition]!
+  recipes(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Recipe]!
+  fermentationSteps(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationStep]!
+  mashSteps(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashStep]!
+  user(where: UserWhereUniqueInput!): User
+  style(where: StyleWhereUniqueInput!): Style
+  batch(where: BatchWhereUniqueInput!): Batch
+  ingredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  equipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
+  fermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
+  mashProfile(where: MashProfileWhereUniqueInput!): MashProfile
+  yeast(where: YeastWhereUniqueInput!): Yeast
+  ingredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  hopProfile(where: HopProfileWhereUniqueInput!): HopProfile
+  hopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
+  recipe(where: RecipeWhereUniqueInput!): Recipe
+  fermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
+  mashStep(where: MashStepWhereUniqueInput!): MashStep
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  stylesConnection(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleConnection!
+  batchesConnection(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BatchConnection!
+  ingredientProfilesConnection(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientProfileConnection!
+  equipmentProfilesConnection(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EquipmentProfileConnection!
+  fermentationProfilesConnection(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationProfileConnection!
+  mashProfilesConnection(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashProfileConnection!
+  yeastsConnection(where: YeastWhereInput, orderBy: YeastOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastConnection!
+  ingredientAdditionsConnection(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientAdditionConnection!
+  hopProfilesConnection(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopProfileConnection!
+  hopAdditionsConnection(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopAdditionConnection!
+  recipesConnection(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RecipeConnection!
+  fermentationStepsConnection(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationStepConnection!
+  mashStepsConnection(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashStepConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Recipe implements Node {
+  id: ID!
+  name: String!
+  style: String!
+  type: RecipeType!
+  estimatedOG: Float
+  estimatedFG: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  notes: String
+}
+
+"""A connection to a list of items."""
+type RecipeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [RecipeEdge]!
+  aggregate: AggregateRecipe!
+}
+
+input RecipeCreateInput {
+  id: ID
+  name: String!
+  style: String!
+  type: RecipeType!
+  estimatedOG: Float
+  estimatedFG: Float
+  notes: String
+}
+
+input RecipeCreateOneInput {
+  create: RecipeCreateInput
+  connect: RecipeWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type RecipeEdge {
+  """The item at the end of the edge."""
+  node: Recipe!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum RecipeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  style_ASC
+  style_DESC
+  type_ASC
+  type_DESC
+  estimatedOG_ASC
+  estimatedOG_DESC
+  estimatedFG_ASC
+  estimatedFG_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  notes_ASC
+  notes_DESC
+}
+
+type RecipePreviousValues {
+  id: ID!
+  name: String!
+  style: String!
+  type: RecipeType!
+  estimatedOG: Float
+  estimatedFG: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  notes: String
+}
+
+type RecipeSubscriptionPayload {
+  mutation: MutationType!
+  node: Recipe
+  updatedFields: [String!]
+  previousValues: RecipePreviousValues
+}
+
+input RecipeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RecipeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RecipeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RecipeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: RecipeWhereInput
+}
+
+enum RecipeType {
+  ALL_GRAIN
+  EXTRACT
+  PARTIAL_MASH
+  WINE
+  MEAD
+  KOMBUCHA
+}
+
+input RecipeUpdateDataInput {
+  name: String
+  style: String
+  type: RecipeType
+  estimatedOG: Float
+  estimatedFG: Float
+  notes: String
+}
+
+input RecipeUpdateInput {
+  name: String
+  style: String
+  type: RecipeType
+  estimatedOG: Float
+  estimatedFG: Float
+  notes: String
+}
+
+input RecipeUpdateManyMutationInput {
+  name: String
+  style: String
+  type: RecipeType
+  estimatedOG: Float
+  estimatedFG: Float
+  notes: String
+}
+
+input RecipeUpdateOneRequiredInput {
+  create: RecipeCreateInput
+  connect: RecipeWhereUniqueInput
+  update: RecipeUpdateDataInput
+  upsert: RecipeUpsertNestedInput
+}
+
+input RecipeUpsertNestedInput {
+  update: RecipeUpdateDataInput!
+  create: RecipeCreateInput!
+}
+
+input RecipeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [RecipeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [RecipeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [RecipeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  style: String
+
+  """All values that are not equal to given value."""
+  style_not: String
+
+  """All values that are contained in given list."""
+  style_in: [String!]
+
+  """All values that are not contained in given list."""
+  style_not_in: [String!]
+
+  """All values less than the given value."""
+  style_lt: String
+
+  """All values less than or equal the given value."""
+  style_lte: String
+
+  """All values greater than the given value."""
+  style_gt: String
+
+  """All values greater than or equal the given value."""
+  style_gte: String
+
+  """All values containing the given string."""
+  style_contains: String
+
+  """All values not containing the given string."""
+  style_not_contains: String
+
+  """All values starting with the given string."""
+  style_starts_with: String
+
+  """All values not starting with the given string."""
+  style_not_starts_with: String
+
+  """All values ending with the given string."""
+  style_ends_with: String
+
+  """All values not ending with the given string."""
+  style_not_ends_with: String
+  type: RecipeType
+
+  """All values that are not equal to given value."""
+  type_not: RecipeType
+
+  """All values that are contained in given list."""
+  type_in: [RecipeType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [RecipeType!]
+  estimatedOG: Float
+
+  """All values that are not equal to given value."""
+  estimatedOG_not: Float
+
+  """All values that are contained in given list."""
+  estimatedOG_in: [Float!]
+
+  """All values that are not contained in given list."""
+  estimatedOG_not_in: [Float!]
+
+  """All values less than the given value."""
+  estimatedOG_lt: Float
+
+  """All values less than or equal the given value."""
+  estimatedOG_lte: Float
+
+  """All values greater than the given value."""
+  estimatedOG_gt: Float
+
+  """All values greater than or equal the given value."""
+  estimatedOG_gte: Float
+  estimatedFG: Float
+
+  """All values that are not equal to given value."""
+  estimatedFG_not: Float
+
+  """All values that are contained in given list."""
+  estimatedFG_in: [Float!]
+
+  """All values that are not contained in given list."""
+  estimatedFG_not_in: [Float!]
+
+  """All values less than the given value."""
+  estimatedFG_lt: Float
+
+  """All values less than or equal the given value."""
+  estimatedFG_lte: Float
+
+  """All values greater than the given value."""
+  estimatedFG_gt: Float
+
+  """All values greater than or equal the given value."""
+  estimatedFG_gte: Float
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+}
+
+input RecipeWhereUniqueInput {
+  id: ID
+}
+
+type Style implements Node {
+  id: ID!
+  name: String!
+  category: String!
+  categoryNumber: Int!
+  styleLetter: String!
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+"""A connection to a list of items."""
+type StyleConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [StyleEdge]!
+  aggregate: AggregateStyle!
+}
+
+input StyleCreateInput {
+  id: ID
+  name: String!
+  category: String!
+  categoryNumber: Int!
+  styleLetter: String!
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+"""An edge in a connection."""
+type StyleEdge {
+  """The item at the end of the edge."""
+  node: Style!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum StyleOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  category_ASC
+  category_DESC
+  categoryNumber_ASC
+  categoryNumber_DESC
+  styleLetter_ASC
+  styleLetter_DESC
+  styleGuide_ASC
+  styleGuide_DESC
+  type_ASC
+  type_DESC
+  OGMin_ASC
+  OGMin_DESC
+  OGMax_ASC
+  OGMax_DESC
+  FGMin_ASC
+  FGMin_DESC
+  FGMax_ASC
+  FGMax_DESC
+  IBUMin_ASC
+  IBUMin_DESC
+  IBUMax_ASC
+  IBUMax_DESC
+  colorMin_ASC
+  colorMin_DESC
+  colorMax_ASC
+  colorMax_DESC
+  carbMin_ASC
+  carbMin_DESC
+  carbMax_ASC
+  carbMax_DESC
+  ABVMin_ASC
+  ABVMin_DESC
+  ABVMax_ASC
+  ABVMax_DESC
+  notes_ASC
+  notes_DESC
+  profile_ASC
+  profile_DESC
+  ingredients_ASC
+  ingredients_DESC
+  example_ASC
+  example_DESC
+}
+
+type StylePreviousValues {
+  id: ID!
+  name: String!
+  category: String!
+  categoryNumber: Int!
+  styleLetter: String!
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+type StyleSubscriptionPayload {
+  mutation: MutationType!
+  node: Style
+  updatedFields: [String!]
+  previousValues: StylePreviousValues
+}
+
+input StyleSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [StyleSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [StyleSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [StyleSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: StyleWhereInput
+}
+
+enum StyleType {
+  LAGER
+  ALE
+}
+
+input StyleUpdateInput {
+  name: String
+  category: String
+  categoryNumber: Int
+  styleLetter: String
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+input StyleUpdateManyMutationInput {
+  name: String
+  category: String
+  categoryNumber: Int
+  styleLetter: String
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+input StyleWhereInput {
+  """Logical AND on all given filters."""
+  AND: [StyleWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [StyleWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [StyleWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  category: String
+
+  """All values that are not equal to given value."""
+  category_not: String
+
+  """All values that are contained in given list."""
+  category_in: [String!]
+
+  """All values that are not contained in given list."""
+  category_not_in: [String!]
+
+  """All values less than the given value."""
+  category_lt: String
+
+  """All values less than or equal the given value."""
+  category_lte: String
+
+  """All values greater than the given value."""
+  category_gt: String
+
+  """All values greater than or equal the given value."""
+  category_gte: String
+
+  """All values containing the given string."""
+  category_contains: String
+
+  """All values not containing the given string."""
+  category_not_contains: String
+
+  """All values starting with the given string."""
+  category_starts_with: String
+
+  """All values not starting with the given string."""
+  category_not_starts_with: String
+
+  """All values ending with the given string."""
+  category_ends_with: String
+
+  """All values not ending with the given string."""
+  category_not_ends_with: String
+  categoryNumber: Int
+
+  """All values that are not equal to given value."""
+  categoryNumber_not: Int
+
+  """All values that are contained in given list."""
+  categoryNumber_in: [Int!]
+
+  """All values that are not contained in given list."""
+  categoryNumber_not_in: [Int!]
+
+  """All values less than the given value."""
+  categoryNumber_lt: Int
+
+  """All values less than or equal the given value."""
+  categoryNumber_lte: Int
+
+  """All values greater than the given value."""
+  categoryNumber_gt: Int
+
+  """All values greater than or equal the given value."""
+  categoryNumber_gte: Int
+  styleLetter: String
+
+  """All values that are not equal to given value."""
+  styleLetter_not: String
+
+  """All values that are contained in given list."""
+  styleLetter_in: [String!]
+
+  """All values that are not contained in given list."""
+  styleLetter_not_in: [String!]
+
+  """All values less than the given value."""
+  styleLetter_lt: String
+
+  """All values less than or equal the given value."""
+  styleLetter_lte: String
+
+  """All values greater than the given value."""
+  styleLetter_gt: String
+
+  """All values greater than or equal the given value."""
+  styleLetter_gte: String
+
+  """All values containing the given string."""
+  styleLetter_contains: String
+
+  """All values not containing the given string."""
+  styleLetter_not_contains: String
+
+  """All values starting with the given string."""
+  styleLetter_starts_with: String
+
+  """All values not starting with the given string."""
+  styleLetter_not_starts_with: String
+
+  """All values ending with the given string."""
+  styleLetter_ends_with: String
+
+  """All values not ending with the given string."""
+  styleLetter_not_ends_with: String
+  styleGuide: String
+
+  """All values that are not equal to given value."""
+  styleGuide_not: String
+
+  """All values that are contained in given list."""
+  styleGuide_in: [String!]
+
+  """All values that are not contained in given list."""
+  styleGuide_not_in: [String!]
+
+  """All values less than the given value."""
+  styleGuide_lt: String
+
+  """All values less than or equal the given value."""
+  styleGuide_lte: String
+
+  """All values greater than the given value."""
+  styleGuide_gt: String
+
+  """All values greater than or equal the given value."""
+  styleGuide_gte: String
+
+  """All values containing the given string."""
+  styleGuide_contains: String
+
+  """All values not containing the given string."""
+  styleGuide_not_contains: String
+
+  """All values starting with the given string."""
+  styleGuide_starts_with: String
+
+  """All values not starting with the given string."""
+  styleGuide_not_starts_with: String
+
+  """All values ending with the given string."""
+  styleGuide_ends_with: String
+
+  """All values not ending with the given string."""
+  styleGuide_not_ends_with: String
+  type: StyleType
+
+  """All values that are not equal to given value."""
+  type_not: StyleType
+
+  """All values that are contained in given list."""
+  type_in: [StyleType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [StyleType!]
+  OGMin: Float
+
+  """All values that are not equal to given value."""
+  OGMin_not: Float
+
+  """All values that are contained in given list."""
+  OGMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  OGMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  OGMin_lt: Float
+
+  """All values less than or equal the given value."""
+  OGMin_lte: Float
+
+  """All values greater than the given value."""
+  OGMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  OGMin_gte: Float
+  OGMax: Float
+
+  """All values that are not equal to given value."""
+  OGMax_not: Float
+
+  """All values that are contained in given list."""
+  OGMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  OGMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  OGMax_lt: Float
+
+  """All values less than or equal the given value."""
+  OGMax_lte: Float
+
+  """All values greater than the given value."""
+  OGMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  OGMax_gte: Float
+  FGMin: Float
+
+  """All values that are not equal to given value."""
+  FGMin_not: Float
+
+  """All values that are contained in given list."""
+  FGMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  FGMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  FGMin_lt: Float
+
+  """All values less than or equal the given value."""
+  FGMin_lte: Float
+
+  """All values greater than the given value."""
+  FGMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  FGMin_gte: Float
+  FGMax: Float
+
+  """All values that are not equal to given value."""
+  FGMax_not: Float
+
+  """All values that are contained in given list."""
+  FGMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  FGMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  FGMax_lt: Float
+
+  """All values less than or equal the given value."""
+  FGMax_lte: Float
+
+  """All values greater than the given value."""
+  FGMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  FGMax_gte: Float
+  IBUMin: Float
+
+  """All values that are not equal to given value."""
+  IBUMin_not: Float
+
+  """All values that are contained in given list."""
+  IBUMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  IBUMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  IBUMin_lt: Float
+
+  """All values less than or equal the given value."""
+  IBUMin_lte: Float
+
+  """All values greater than the given value."""
+  IBUMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  IBUMin_gte: Float
+  IBUMax: Float
+
+  """All values that are not equal to given value."""
+  IBUMax_not: Float
+
+  """All values that are contained in given list."""
+  IBUMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  IBUMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  IBUMax_lt: Float
+
+  """All values less than or equal the given value."""
+  IBUMax_lte: Float
+
+  """All values greater than the given value."""
+  IBUMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  IBUMax_gte: Float
+  colorMin: Float
+
+  """All values that are not equal to given value."""
+  colorMin_not: Float
+
+  """All values that are contained in given list."""
+  colorMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  colorMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  colorMin_lt: Float
+
+  """All values less than or equal the given value."""
+  colorMin_lte: Float
+
+  """All values greater than the given value."""
+  colorMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  colorMin_gte: Float
+  colorMax: Float
+
+  """All values that are not equal to given value."""
+  colorMax_not: Float
+
+  """All values that are contained in given list."""
+  colorMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  colorMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  colorMax_lt: Float
+
+  """All values less than or equal the given value."""
+  colorMax_lte: Float
+
+  """All values greater than the given value."""
+  colorMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  colorMax_gte: Float
+  carbMin: Float
+
+  """All values that are not equal to given value."""
+  carbMin_not: Float
+
+  """All values that are contained in given list."""
+  carbMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  carbMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  carbMin_lt: Float
+
+  """All values less than or equal the given value."""
+  carbMin_lte: Float
+
+  """All values greater than the given value."""
+  carbMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  carbMin_gte: Float
+  carbMax: Float
+
+  """All values that are not equal to given value."""
+  carbMax_not: Float
+
+  """All values that are contained in given list."""
+  carbMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  carbMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  carbMax_lt: Float
+
+  """All values less than or equal the given value."""
+  carbMax_lte: Float
+
+  """All values greater than the given value."""
+  carbMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  carbMax_gte: Float
+  ABVMin: Float
+
+  """All values that are not equal to given value."""
+  ABVMin_not: Float
+
+  """All values that are contained in given list."""
+  ABVMin_in: [Float!]
+
+  """All values that are not contained in given list."""
+  ABVMin_not_in: [Float!]
+
+  """All values less than the given value."""
+  ABVMin_lt: Float
+
+  """All values less than or equal the given value."""
+  ABVMin_lte: Float
+
+  """All values greater than the given value."""
+  ABVMin_gt: Float
+
+  """All values greater than or equal the given value."""
+  ABVMin_gte: Float
+  ABVMax: Float
+
+  """All values that are not equal to given value."""
+  ABVMax_not: Float
+
+  """All values that are contained in given list."""
+  ABVMax_in: [Float!]
+
+  """All values that are not contained in given list."""
+  ABVMax_not_in: [Float!]
+
+  """All values less than the given value."""
+  ABVMax_lt: Float
+
+  """All values less than or equal the given value."""
+  ABVMax_lte: Float
+
+  """All values greater than the given value."""
+  ABVMax_gt: Float
+
+  """All values greater than or equal the given value."""
+  ABVMax_gte: Float
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  profile: String
+
+  """All values that are not equal to given value."""
+  profile_not: String
+
+  """All values that are contained in given list."""
+  profile_in: [String!]
+
+  """All values that are not contained in given list."""
+  profile_not_in: [String!]
+
+  """All values less than the given value."""
+  profile_lt: String
+
+  """All values less than or equal the given value."""
+  profile_lte: String
+
+  """All values greater than the given value."""
+  profile_gt: String
+
+  """All values greater than or equal the given value."""
+  profile_gte: String
+
+  """All values containing the given string."""
+  profile_contains: String
+
+  """All values not containing the given string."""
+  profile_not_contains: String
+
+  """All values starting with the given string."""
+  profile_starts_with: String
+
+  """All values not starting with the given string."""
+  profile_not_starts_with: String
+
+  """All values ending with the given string."""
+  profile_ends_with: String
+
+  """All values not ending with the given string."""
+  profile_not_ends_with: String
+  ingredients: String
+
+  """All values that are not equal to given value."""
+  ingredients_not: String
+
+  """All values that are contained in given list."""
+  ingredients_in: [String!]
+
+  """All values that are not contained in given list."""
+  ingredients_not_in: [String!]
+
+  """All values less than the given value."""
+  ingredients_lt: String
+
+  """All values less than or equal the given value."""
+  ingredients_lte: String
+
+  """All values greater than the given value."""
+  ingredients_gt: String
+
+  """All values greater than or equal the given value."""
+  ingredients_gte: String
+
+  """All values containing the given string."""
+  ingredients_contains: String
+
+  """All values not containing the given string."""
+  ingredients_not_contains: String
+
+  """All values starting with the given string."""
+  ingredients_starts_with: String
+
+  """All values not starting with the given string."""
+  ingredients_not_starts_with: String
+
+  """All values ending with the given string."""
+  ingredients_ends_with: String
+
+  """All values not ending with the given string."""
+  ingredients_not_ends_with: String
+  example: String
+
+  """All values that are not equal to given value."""
+  example_not: String
+
+  """All values that are contained in given list."""
+  example_in: [String!]
+
+  """All values that are not contained in given list."""
+  example_not_in: [String!]
+
+  """All values less than the given value."""
+  example_lt: String
+
+  """All values less than or equal the given value."""
+  example_lte: String
+
+  """All values greater than the given value."""
+  example_gt: String
+
+  """All values greater than or equal the given value."""
+  example_gte: String
+
+  """All values containing the given string."""
+  example_contains: String
+
+  """All values not containing the given string."""
+  example_not_contains: String
+
+  """All values starting with the given string."""
+  example_starts_with: String
+
+  """All values not starting with the given string."""
+  example_not_starts_with: String
+
+  """All values ending with the given string."""
+  example_ends_with: String
+
+  """All values not ending with the given string."""
+  example_not_ends_with: String
+}
+
+input StyleWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  style(where: StyleSubscriptionWhereInput): StyleSubscriptionPayload
+  batch(where: BatchSubscriptionWhereInput): BatchSubscriptionPayload
+  ingredientProfile(where: IngredientProfileSubscriptionWhereInput): IngredientProfileSubscriptionPayload
+  equipmentProfile(where: EquipmentProfileSubscriptionWhereInput): EquipmentProfileSubscriptionPayload
+  fermentationProfile(where: FermentationProfileSubscriptionWhereInput): FermentationProfileSubscriptionPayload
+  mashProfile(where: MashProfileSubscriptionWhereInput): MashProfileSubscriptionPayload
+  yeast(where: YeastSubscriptionWhereInput): YeastSubscriptionPayload
+  ingredientAddition(where: IngredientAdditionSubscriptionWhereInput): IngredientAdditionSubscriptionPayload
+  hopProfile(where: HopProfileSubscriptionWhereInput): HopProfileSubscriptionPayload
+  hopAddition(where: HopAdditionSubscriptionWhereInput): HopAdditionSubscriptionPayload
+  recipe(where: RecipeSubscriptionWhereInput): RecipeSubscriptionPayload
+  fermentationStep(where: FermentationStepSubscriptionWhereInput): FermentationStepSubscriptionPayload
+  mashStep(where: MashStepSubscriptionWhereInput): MashStepSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  id: ID
+  name: String!
+  email: String!
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateInput {
+  name: String
+  email: String
+}
+
+input UserUpdateManyMutationInput {
+  name: String
+  email: String
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+}
+
+input UserWhereUniqueInput {
+  id: ID
+}
+
+type Yeast implements Node {
+  id: ID!
+  name: String!
+  type: YeastType!
+  form: YeastForm!
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+"""A connection to a list of items."""
+type YeastConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [YeastEdge]!
+  aggregate: AggregateYeast!
+}
+
+input YeastCreateInput {
+  id: ID
+  name: String!
+  type: YeastType!
+  form: YeastForm!
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+"""An edge in a connection."""
+type YeastEdge {
+  """The item at the end of the edge."""
+  node: Yeast!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum YeastForm {
+  LIQUID
+  DRY
+  SLURRY
+}
+
+enum YeastOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  form_ASC
+  form_DESC
+  amount_ASC
+  amount_DESC
+  amountIsWeight_ASC
+  amountIsWeight_DESC
+  laboratory_ASC
+  laboratory_DESC
+  productId_ASC
+  productId_DESC
+  minTemperature_ASC
+  minTemperature_DESC
+  maxTemperature_ASC
+  maxTemperature_DESC
+  flocculation_ASC
+  flocculation_DESC
+  attenuation_ASC
+  attenuation_DESC
+  notes_ASC
+  notes_DESC
+  bestFor_ASC
+  bestFor_DESC
+  maxReuse_ASC
+  maxReuse_DESC
+  addToSecondary_ASC
+  addToSecondary_DESC
+}
+
+type YeastPreviousValues {
+  id: ID!
+  name: String!
+  type: YeastType!
+  form: YeastForm!
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+type YeastSubscriptionPayload {
+  mutation: MutationType!
+  node: Yeast
+  updatedFields: [String!]
+  previousValues: YeastPreviousValues
+}
+
+input YeastSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YeastSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YeastSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YeastSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: YeastWhereInput
+}
+
+enum YeastType {
+  ALE
+  LAGER
+  HYBRID
+}
+
+input YeastUpdateInput {
+  name: String
+  type: YeastType
+  form: YeastForm
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+input YeastUpdateManyMutationInput {
+  name: String
+  type: YeastType
+  form: YeastForm
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+input YeastWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YeastWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YeastWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YeastWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: YeastType
+
+  """All values that are not equal to given value."""
+  type_not: YeastType
+
+  """All values that are contained in given list."""
+  type_in: [YeastType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [YeastType!]
+  form: YeastForm
+
+  """All values that are not equal to given value."""
+  form_not: YeastForm
+
+  """All values that are contained in given list."""
+  form_in: [YeastForm!]
+
+  """All values that are not contained in given list."""
+  form_not_in: [YeastForm!]
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
+  amountIsWeight: Boolean
+
+  """All values that are not equal to given value."""
+  amountIsWeight_not: Boolean
+  laboratory: String
+
+  """All values that are not equal to given value."""
+  laboratory_not: String
+
+  """All values that are contained in given list."""
+  laboratory_in: [String!]
+
+  """All values that are not contained in given list."""
+  laboratory_not_in: [String!]
+
+  """All values less than the given value."""
+  laboratory_lt: String
+
+  """All values less than or equal the given value."""
+  laboratory_lte: String
+
+  """All values greater than the given value."""
+  laboratory_gt: String
+
+  """All values greater than or equal the given value."""
+  laboratory_gte: String
+
+  """All values containing the given string."""
+  laboratory_contains: String
+
+  """All values not containing the given string."""
+  laboratory_not_contains: String
+
+  """All values starting with the given string."""
+  laboratory_starts_with: String
+
+  """All values not starting with the given string."""
+  laboratory_not_starts_with: String
+
+  """All values ending with the given string."""
+  laboratory_ends_with: String
+
+  """All values not ending with the given string."""
+  laboratory_not_ends_with: String
+  productId: String
+
+  """All values that are not equal to given value."""
+  productId_not: String
+
+  """All values that are contained in given list."""
+  productId_in: [String!]
+
+  """All values that are not contained in given list."""
+  productId_not_in: [String!]
+
+  """All values less than the given value."""
+  productId_lt: String
+
+  """All values less than or equal the given value."""
+  productId_lte: String
+
+  """All values greater than the given value."""
+  productId_gt: String
+
+  """All values greater than or equal the given value."""
+  productId_gte: String
+
+  """All values containing the given string."""
+  productId_contains: String
+
+  """All values not containing the given string."""
+  productId_not_contains: String
+
+  """All values starting with the given string."""
+  productId_starts_with: String
+
+  """All values not starting with the given string."""
+  productId_not_starts_with: String
+
+  """All values ending with the given string."""
+  productId_ends_with: String
+
+  """All values not ending with the given string."""
+  productId_not_ends_with: String
+  minTemperature: Float
+
+  """All values that are not equal to given value."""
+  minTemperature_not: Float
+
+  """All values that are contained in given list."""
+  minTemperature_in: [Float!]
+
+  """All values that are not contained in given list."""
+  minTemperature_not_in: [Float!]
+
+  """All values less than the given value."""
+  minTemperature_lt: Float
+
+  """All values less than or equal the given value."""
+  minTemperature_lte: Float
+
+  """All values greater than the given value."""
+  minTemperature_gt: Float
+
+  """All values greater than or equal the given value."""
+  minTemperature_gte: Float
+  maxTemperature: Float
+
+  """All values that are not equal to given value."""
+  maxTemperature_not: Float
+
+  """All values that are contained in given list."""
+  maxTemperature_in: [Float!]
+
+  """All values that are not contained in given list."""
+  maxTemperature_not_in: [Float!]
+
+  """All values less than the given value."""
+  maxTemperature_lt: Float
+
+  """All values less than or equal the given value."""
+  maxTemperature_lte: Float
+
+  """All values greater than the given value."""
+  maxTemperature_gt: Float
+
+  """All values greater than or equal the given value."""
+  maxTemperature_gte: Float
+  flocculation: FlocculationType
+
+  """All values that are not equal to given value."""
+  flocculation_not: FlocculationType
+
+  """All values that are contained in given list."""
+  flocculation_in: [FlocculationType!]
+
+  """All values that are not contained in given list."""
+  flocculation_not_in: [FlocculationType!]
+  attenuation: Float
+
+  """All values that are not equal to given value."""
+  attenuation_not: Float
+
+  """All values that are contained in given list."""
+  attenuation_in: [Float!]
+
+  """All values that are not contained in given list."""
+  attenuation_not_in: [Float!]
+
+  """All values less than the given value."""
+  attenuation_lt: Float
+
+  """All values less than or equal the given value."""
+  attenuation_lte: Float
+
+  """All values greater than the given value."""
+  attenuation_gt: Float
+
+  """All values greater than or equal the given value."""
+  attenuation_gte: Float
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  bestFor: String
+
+  """All values that are not equal to given value."""
+  bestFor_not: String
+
+  """All values that are contained in given list."""
+  bestFor_in: [String!]
+
+  """All values that are not contained in given list."""
+  bestFor_not_in: [String!]
+
+  """All values less than the given value."""
+  bestFor_lt: String
+
+  """All values less than or equal the given value."""
+  bestFor_lte: String
+
+  """All values greater than the given value."""
+  bestFor_gt: String
+
+  """All values greater than or equal the given value."""
+  bestFor_gte: String
+
+  """All values containing the given string."""
+  bestFor_contains: String
+
+  """All values not containing the given string."""
+  bestFor_not_contains: String
+
+  """All values starting with the given string."""
+  bestFor_starts_with: String
+
+  """All values not starting with the given string."""
+  bestFor_not_starts_with: String
+
+  """All values ending with the given string."""
+  bestFor_ends_with: String
+
+  """All values not ending with the given string."""
+  bestFor_not_ends_with: String
+  maxReuse: Int
+
+  """All values that are not equal to given value."""
+  maxReuse_not: Int
+
+  """All values that are contained in given list."""
+  maxReuse_in: [Int!]
+
+  """All values that are not contained in given list."""
+  maxReuse_not_in: [Int!]
+
+  """All values less than the given value."""
+  maxReuse_lt: Int
+
+  """All values less than or equal the given value."""
+  maxReuse_lte: Int
+
+  """All values greater than the given value."""
+  maxReuse_gt: Int
+
+  """All values greater than or equal the given value."""
+  maxReuse_gte: Int
+  addToSecondary: Boolean
+
+  """All values that are not equal to given value."""
+  addToSecondary_not: Boolean
+}
+
+input YeastWhereUniqueInput {
+  id: ID
+}
