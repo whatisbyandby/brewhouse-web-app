@@ -48,7 +48,11 @@ type Recipe {
   id: ID! @id
   name: String!
   style: String!
-  type: RecipeType!
+  type: RecipeType
+  batchSize: Float!
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   createdAt: DateTime! @createdAt
@@ -134,6 +138,14 @@ enum FlocculationType {
   LOW
 }
 
+type MiscProfile {
+  id: ID! @id
+  name: String!
+  useFor: String
+  amountIsWeight: Boolean
+
+}
+
 type YeastProfile {
   id: ID! @id
   name: String!
@@ -159,12 +171,26 @@ enum IngredientUse {
   WHIRLPOOL
   PRIMARY
   SECONDARY
+  KEGGING
+  BOTTLING
 }
 
 type IngredientAddition {
   id: ID! @id
   amount: Float
   recipe: Recipe!
+  use: IngredientUse! 
+}
+
+enum HopForm {
+  PELLET
+  LEAF
+  EXTRACT
+}
+
+enum HopType {
+  AROMA
+  BITTERING
 }
 
 type HopProfile {
@@ -172,17 +198,60 @@ type HopProfile {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm!
+  type: HopType!
+}
+
+enum FermentableType {
+  GRAIN
+}
+
+type FermentableProfile {
+  id: ID! @id
+  name: String!
+  type: FermentableType!
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
 }
 
 type HopAddition {
   id: ID! @id
-  IBUs: Float
+  ingredientAddition: IngredientAddition!
+  IBUs: Float!
+  alpha: Float!
+  time: Float!
+}
 
+type FermentableAddition {
+  id: ID! @id
+  profile: FermentableProfile!
+  ingredientAddition: IngredientAddition!
+}
+
+type MiscAddition {
+  id: ID! @id
+  ingredientAddition: IngredientAddition!
+  miscProfile: MiscProfile!
 }
 
 type YeastAddition {
   id: ID! @id
+  yeastProfile: YeastProfile!
+  ingredientAddition: IngredientAddition!
   timesCultured: Int
 }
 

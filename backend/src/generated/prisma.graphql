@@ -1,11 +1,19 @@
 # source: https://us1.prisma.sh/scott-1f4a83/brewery-web-app/dev
-# timestamp: Sun Dec 22 2019 22:58:11 GMT-0700 (Mountain Standard Time)
+# timestamp: Tue Dec 24 2019 15:41:22 GMT-0700 (Mountain Standard Time)
 
 type AggregateBatch {
   count: Int!
 }
 
 type AggregateEquipmentProfile {
+  count: Int!
+}
+
+type AggregateFermentableAddition {
+  count: Int!
+}
+
+type AggregateFermentableProfile {
   count: Int!
 }
 
@@ -41,6 +49,14 @@ type AggregateMashStep {
   count: Int!
 }
 
+type AggregateMiscAddition {
+  count: Int!
+}
+
+type AggregateMiscProfile {
+  count: Int!
+}
+
 type AggregateRecipe {
   count: Int!
 }
@@ -53,7 +69,11 @@ type AggregateUser {
   count: Int!
 }
 
-type AggregateYeast {
+type AggregateYeastAddition {
+  count: Int!
+}
+
+type AggregateYeastProfile {
   count: Int!
 }
 
@@ -548,6 +568,811 @@ input EquipmentProfileWhereInput {
 
 input EquipmentProfileWhereUniqueInput {
   id: ID
+}
+
+type FermentableAddition implements Node {
+  id: ID!
+  profile: FermentableProfile!
+  ingredientAddition: IngredientAddition!
+}
+
+"""A connection to a list of items."""
+type FermentableAdditionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FermentableAdditionEdge]!
+  aggregate: AggregateFermentableAddition!
+}
+
+input FermentableAdditionCreateInput {
+  id: ID
+  profile: FermentableProfileCreateOneInput!
+  ingredientAddition: IngredientAdditionCreateOneInput!
+}
+
+"""An edge in a connection."""
+type FermentableAdditionEdge {
+  """The item at the end of the edge."""
+  node: FermentableAddition!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FermentableAdditionOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type FermentableAdditionPreviousValues {
+  id: ID!
+}
+
+type FermentableAdditionSubscriptionPayload {
+  mutation: MutationType!
+  node: FermentableAddition
+  updatedFields: [String!]
+  previousValues: FermentableAdditionPreviousValues
+}
+
+input FermentableAdditionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentableAdditionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentableAdditionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentableAdditionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FermentableAdditionWhereInput
+}
+
+input FermentableAdditionUpdateInput {
+  profile: FermentableProfileUpdateOneRequiredInput
+  ingredientAddition: IngredientAdditionUpdateOneRequiredInput
+}
+
+input FermentableAdditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentableAdditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentableAdditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentableAdditionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  profile: FermentableProfileWhereInput
+  ingredientAddition: IngredientAdditionWhereInput
+}
+
+input FermentableAdditionWhereUniqueInput {
+  id: ID
+}
+
+type FermentableProfile implements Node {
+  id: ID!
+  name: String!
+  type: FermentableType!
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+"""A connection to a list of items."""
+type FermentableProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [FermentableProfileEdge]!
+  aggregate: AggregateFermentableProfile!
+}
+
+input FermentableProfileCreateInput {
+  id: ID
+  name: String!
+  type: FermentableType!
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+input FermentableProfileCreateOneInput {
+  create: FermentableProfileCreateInput
+  connect: FermentableProfileWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type FermentableProfileEdge {
+  """The item at the end of the edge."""
+  node: FermentableProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum FermentableProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  type_ASC
+  type_DESC
+  yield_ASC
+  yield_DESC
+  color_ASC
+  color_DESC
+  addAfterBoil_ASC
+  addAfterBoil_DESC
+  origin_ASC
+  origin_DESC
+  notes_ASC
+  notes_DESC
+  coarseFineDiff_ASC
+  coarseFineDiff_DESC
+  moisture_ASC
+  moisture_DESC
+  diastaticPower_ASC
+  diastaticPower_DESC
+  protein_ASC
+  protein_DESC
+  maxInBatch_ASC
+  maxInBatch_DESC
+  recommendMash_ASC
+  recommendMash_DESC
+  IBUGalPerLB_ASC
+  IBUGalPerLB_DESC
+  potential_ASC
+  potential_DESC
+  extractSubstitute_ASC
+  extractSubstitute_DESC
+}
+
+type FermentableProfilePreviousValues {
+  id: ID!
+  name: String!
+  type: FermentableType!
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+type FermentableProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: FermentableProfile
+  updatedFields: [String!]
+  previousValues: FermentableProfilePreviousValues
+}
+
+input FermentableProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentableProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentableProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentableProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FermentableProfileWhereInput
+}
+
+input FermentableProfileUpdateDataInput {
+  name: String
+  type: FermentableType
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+input FermentableProfileUpdateInput {
+  name: String
+  type: FermentableType
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+input FermentableProfileUpdateManyMutationInput {
+  name: String
+  type: FermentableType
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+input FermentableProfileUpdateOneRequiredInput {
+  create: FermentableProfileCreateInput
+  connect: FermentableProfileWhereUniqueInput
+  update: FermentableProfileUpdateDataInput
+  upsert: FermentableProfileUpsertNestedInput
+}
+
+input FermentableProfileUpsertNestedInput {
+  update: FermentableProfileUpdateDataInput!
+  create: FermentableProfileCreateInput!
+}
+
+input FermentableProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [FermentableProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [FermentableProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [FermentableProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  type: FermentableType
+
+  """All values that are not equal to given value."""
+  type_not: FermentableType
+
+  """All values that are contained in given list."""
+  type_in: [FermentableType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [FermentableType!]
+  yield: Float
+
+  """All values that are not equal to given value."""
+  yield_not: Float
+
+  """All values that are contained in given list."""
+  yield_in: [Float!]
+
+  """All values that are not contained in given list."""
+  yield_not_in: [Float!]
+
+  """All values less than the given value."""
+  yield_lt: Float
+
+  """All values less than or equal the given value."""
+  yield_lte: Float
+
+  """All values greater than the given value."""
+  yield_gt: Float
+
+  """All values greater than or equal the given value."""
+  yield_gte: Float
+  color: Float
+
+  """All values that are not equal to given value."""
+  color_not: Float
+
+  """All values that are contained in given list."""
+  color_in: [Float!]
+
+  """All values that are not contained in given list."""
+  color_not_in: [Float!]
+
+  """All values less than the given value."""
+  color_lt: Float
+
+  """All values less than or equal the given value."""
+  color_lte: Float
+
+  """All values greater than the given value."""
+  color_gt: Float
+
+  """All values greater than or equal the given value."""
+  color_gte: Float
+  addAfterBoil: Boolean
+
+  """All values that are not equal to given value."""
+  addAfterBoil_not: Boolean
+  origin: String
+
+  """All values that are not equal to given value."""
+  origin_not: String
+
+  """All values that are contained in given list."""
+  origin_in: [String!]
+
+  """All values that are not contained in given list."""
+  origin_not_in: [String!]
+
+  """All values less than the given value."""
+  origin_lt: String
+
+  """All values less than or equal the given value."""
+  origin_lte: String
+
+  """All values greater than the given value."""
+  origin_gt: String
+
+  """All values greater than or equal the given value."""
+  origin_gte: String
+
+  """All values containing the given string."""
+  origin_contains: String
+
+  """All values not containing the given string."""
+  origin_not_contains: String
+
+  """All values starting with the given string."""
+  origin_starts_with: String
+
+  """All values not starting with the given string."""
+  origin_not_starts_with: String
+
+  """All values ending with the given string."""
+  origin_ends_with: String
+
+  """All values not ending with the given string."""
+  origin_not_ends_with: String
+  notes: String
+
+  """All values that are not equal to given value."""
+  notes_not: String
+
+  """All values that are contained in given list."""
+  notes_in: [String!]
+
+  """All values that are not contained in given list."""
+  notes_not_in: [String!]
+
+  """All values less than the given value."""
+  notes_lt: String
+
+  """All values less than or equal the given value."""
+  notes_lte: String
+
+  """All values greater than the given value."""
+  notes_gt: String
+
+  """All values greater than or equal the given value."""
+  notes_gte: String
+
+  """All values containing the given string."""
+  notes_contains: String
+
+  """All values not containing the given string."""
+  notes_not_contains: String
+
+  """All values starting with the given string."""
+  notes_starts_with: String
+
+  """All values not starting with the given string."""
+  notes_not_starts_with: String
+
+  """All values ending with the given string."""
+  notes_ends_with: String
+
+  """All values not ending with the given string."""
+  notes_not_ends_with: String
+  coarseFineDiff: Float
+
+  """All values that are not equal to given value."""
+  coarseFineDiff_not: Float
+
+  """All values that are contained in given list."""
+  coarseFineDiff_in: [Float!]
+
+  """All values that are not contained in given list."""
+  coarseFineDiff_not_in: [Float!]
+
+  """All values less than the given value."""
+  coarseFineDiff_lt: Float
+
+  """All values less than or equal the given value."""
+  coarseFineDiff_lte: Float
+
+  """All values greater than the given value."""
+  coarseFineDiff_gt: Float
+
+  """All values greater than or equal the given value."""
+  coarseFineDiff_gte: Float
+  moisture: Float
+
+  """All values that are not equal to given value."""
+  moisture_not: Float
+
+  """All values that are contained in given list."""
+  moisture_in: [Float!]
+
+  """All values that are not contained in given list."""
+  moisture_not_in: [Float!]
+
+  """All values less than the given value."""
+  moisture_lt: Float
+
+  """All values less than or equal the given value."""
+  moisture_lte: Float
+
+  """All values greater than the given value."""
+  moisture_gt: Float
+
+  """All values greater than or equal the given value."""
+  moisture_gte: Float
+  diastaticPower: Float
+
+  """All values that are not equal to given value."""
+  diastaticPower_not: Float
+
+  """All values that are contained in given list."""
+  diastaticPower_in: [Float!]
+
+  """All values that are not contained in given list."""
+  diastaticPower_not_in: [Float!]
+
+  """All values less than the given value."""
+  diastaticPower_lt: Float
+
+  """All values less than or equal the given value."""
+  diastaticPower_lte: Float
+
+  """All values greater than the given value."""
+  diastaticPower_gt: Float
+
+  """All values greater than or equal the given value."""
+  diastaticPower_gte: Float
+  protein: Float
+
+  """All values that are not equal to given value."""
+  protein_not: Float
+
+  """All values that are contained in given list."""
+  protein_in: [Float!]
+
+  """All values that are not contained in given list."""
+  protein_not_in: [Float!]
+
+  """All values less than the given value."""
+  protein_lt: Float
+
+  """All values less than or equal the given value."""
+  protein_lte: Float
+
+  """All values greater than the given value."""
+  protein_gt: Float
+
+  """All values greater than or equal the given value."""
+  protein_gte: Float
+  maxInBatch: Float
+
+  """All values that are not equal to given value."""
+  maxInBatch_not: Float
+
+  """All values that are contained in given list."""
+  maxInBatch_in: [Float!]
+
+  """All values that are not contained in given list."""
+  maxInBatch_not_in: [Float!]
+
+  """All values less than the given value."""
+  maxInBatch_lt: Float
+
+  """All values less than or equal the given value."""
+  maxInBatch_lte: Float
+
+  """All values greater than the given value."""
+  maxInBatch_gt: Float
+
+  """All values greater than or equal the given value."""
+  maxInBatch_gte: Float
+  recommendMash: Boolean
+
+  """All values that are not equal to given value."""
+  recommendMash_not: Boolean
+  IBUGalPerLB: Float
+
+  """All values that are not equal to given value."""
+  IBUGalPerLB_not: Float
+
+  """All values that are contained in given list."""
+  IBUGalPerLB_in: [Float!]
+
+  """All values that are not contained in given list."""
+  IBUGalPerLB_not_in: [Float!]
+
+  """All values less than the given value."""
+  IBUGalPerLB_lt: Float
+
+  """All values less than or equal the given value."""
+  IBUGalPerLB_lte: Float
+
+  """All values greater than the given value."""
+  IBUGalPerLB_gt: Float
+
+  """All values greater than or equal the given value."""
+  IBUGalPerLB_gte: Float
+  potential: Float
+
+  """All values that are not equal to given value."""
+  potential_not: Float
+
+  """All values that are contained in given list."""
+  potential_in: [Float!]
+
+  """All values that are not contained in given list."""
+  potential_not_in: [Float!]
+
+  """All values less than the given value."""
+  potential_lt: Float
+
+  """All values less than or equal the given value."""
+  potential_lte: Float
+
+  """All values greater than the given value."""
+  potential_gt: Float
+
+  """All values greater than or equal the given value."""
+  potential_gte: Float
+  extractSubstitute: String
+
+  """All values that are not equal to given value."""
+  extractSubstitute_not: String
+
+  """All values that are contained in given list."""
+  extractSubstitute_in: [String!]
+
+  """All values that are not contained in given list."""
+  extractSubstitute_not_in: [String!]
+
+  """All values less than the given value."""
+  extractSubstitute_lt: String
+
+  """All values less than or equal the given value."""
+  extractSubstitute_lte: String
+
+  """All values greater than the given value."""
+  extractSubstitute_gt: String
+
+  """All values greater than or equal the given value."""
+  extractSubstitute_gte: String
+
+  """All values containing the given string."""
+  extractSubstitute_contains: String
+
+  """All values not containing the given string."""
+  extractSubstitute_not_contains: String
+
+  """All values starting with the given string."""
+  extractSubstitute_starts_with: String
+
+  """All values not starting with the given string."""
+  extractSubstitute_not_starts_with: String
+
+  """All values ending with the given string."""
+  extractSubstitute_ends_with: String
+
+  """All values not ending with the given string."""
+  extractSubstitute_not_ends_with: String
+}
+
+input FermentableProfileWhereUniqueInput {
+  id: ID
+}
+
+enum FermentableType {
+  GRAIN
 }
 
 type FermentationProfile implements Node {
@@ -1239,7 +2064,10 @@ enum FlocculationType {
 
 type HopAddition implements Node {
   id: ID!
-  IBUs: Float
+  ingredientAddition: IngredientAddition!
+  IBUs: Float!
+  alpha: Float!
+  time: Float!
 }
 
 """A connection to a list of items."""
@@ -1254,7 +2082,10 @@ type HopAdditionConnection {
 
 input HopAdditionCreateInput {
   id: ID
-  IBUs: Float
+  IBUs: Float!
+  alpha: Float!
+  time: Float!
+  ingredientAddition: IngredientAdditionCreateOneInput!
 }
 
 """An edge in a connection."""
@@ -1271,11 +2102,17 @@ enum HopAdditionOrderByInput {
   id_DESC
   IBUs_ASC
   IBUs_DESC
+  alpha_ASC
+  alpha_DESC
+  time_ASC
+  time_DESC
 }
 
 type HopAdditionPreviousValues {
   id: ID!
-  IBUs: Float
+  IBUs: Float!
+  alpha: Float!
+  time: Float!
 }
 
 type HopAdditionSubscriptionPayload {
@@ -1319,10 +2156,15 @@ input HopAdditionSubscriptionWhereInput {
 
 input HopAdditionUpdateInput {
   IBUs: Float
+  alpha: Float
+  time: Float
+  ingredientAddition: IngredientAdditionUpdateOneRequiredInput
 }
 
 input HopAdditionUpdateManyMutationInput {
   IBUs: Float
+  alpha: Float
+  time: Float
 }
 
 input HopAdditionWhereInput {
@@ -1396,10 +2238,61 @@ input HopAdditionWhereInput {
 
   """All values greater than or equal the given value."""
   IBUs_gte: Float
+  alpha: Float
+
+  """All values that are not equal to given value."""
+  alpha_not: Float
+
+  """All values that are contained in given list."""
+  alpha_in: [Float!]
+
+  """All values that are not contained in given list."""
+  alpha_not_in: [Float!]
+
+  """All values less than the given value."""
+  alpha_lt: Float
+
+  """All values less than or equal the given value."""
+  alpha_lte: Float
+
+  """All values greater than the given value."""
+  alpha_gt: Float
+
+  """All values greater than or equal the given value."""
+  alpha_gte: Float
+  time: Float
+
+  """All values that are not equal to given value."""
+  time_not: Float
+
+  """All values that are contained in given list."""
+  time_in: [Float!]
+
+  """All values that are not contained in given list."""
+  time_not_in: [Float!]
+
+  """All values less than the given value."""
+  time_lt: Float
+
+  """All values less than or equal the given value."""
+  time_lte: Float
+
+  """All values greater than the given value."""
+  time_gt: Float
+
+  """All values greater than or equal the given value."""
+  time_gte: Float
+  ingredientAddition: IngredientAdditionWhereInput
 }
 
 input HopAdditionWhereUniqueInput {
   id: ID
+}
+
+enum HopForm {
+  PELLET
+  LEAF
+  EXTRACT
 }
 
 type HopProfile implements Node {
@@ -1407,7 +2300,10 @@ type HopProfile implements Node {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm!
+  type: HopType!
 }
 
 """A connection to a list of items."""
@@ -1425,7 +2321,10 @@ input HopProfileCreateInput {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm!
+  type: HopType!
 }
 
 """An edge in a connection."""
@@ -1446,8 +2345,14 @@ enum HopProfileOrderByInput {
   origin_DESC
   alpha_ASC
   alpha_DESC
+  beta_ASC
+  beta_DESC
   use_ASC
   use_DESC
+  form_ASC
+  form_DESC
+  type_ASC
+  type_DESC
 }
 
 type HopProfilePreviousValues {
@@ -1455,7 +2360,10 @@ type HopProfilePreviousValues {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm!
+  type: HopType!
 }
 
 type HopProfileSubscriptionPayload {
@@ -1501,14 +2409,20 @@ input HopProfileUpdateInput {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm
+  type: HopType
 }
 
 input HopProfileUpdateManyMutationInput {
   name: String
   origin: String
   alpha: Float
+  beta: Float
   use: IngredientUse
+  form: HopForm
+  type: HopType
 }
 
 input HopProfileWhereInput {
@@ -1662,6 +2576,28 @@ input HopProfileWhereInput {
 
   """All values greater than or equal the given value."""
   alpha_gte: Float
+  beta: Float
+
+  """All values that are not equal to given value."""
+  beta_not: Float
+
+  """All values that are contained in given list."""
+  beta_in: [Float!]
+
+  """All values that are not contained in given list."""
+  beta_not_in: [Float!]
+
+  """All values less than the given value."""
+  beta_lt: Float
+
+  """All values less than or equal the given value."""
+  beta_lte: Float
+
+  """All values greater than the given value."""
+  beta_gt: Float
+
+  """All values greater than or equal the given value."""
+  beta_gte: Float
   use: IngredientUse
 
   """All values that are not equal to given value."""
@@ -1672,16 +2608,42 @@ input HopProfileWhereInput {
 
   """All values that are not contained in given list."""
   use_not_in: [IngredientUse!]
+  form: HopForm
+
+  """All values that are not equal to given value."""
+  form_not: HopForm
+
+  """All values that are contained in given list."""
+  form_in: [HopForm!]
+
+  """All values that are not contained in given list."""
+  form_not_in: [HopForm!]
+  type: HopType
+
+  """All values that are not equal to given value."""
+  type_not: HopType
+
+  """All values that are contained in given list."""
+  type_in: [HopType!]
+
+  """All values that are not contained in given list."""
+  type_not_in: [HopType!]
 }
 
 input HopProfileWhereUniqueInput {
   id: ID
 }
 
+enum HopType {
+  AROMA
+  BITTERING
+}
+
 type IngredientAddition implements Node {
   id: ID!
   amount: Float
   recipe: Recipe!
+  use: IngredientUse!
 }
 
 """A connection to a list of items."""
@@ -1697,7 +2659,13 @@ type IngredientAdditionConnection {
 input IngredientAdditionCreateInput {
   id: ID
   amount: Float
+  use: IngredientUse!
   recipe: RecipeCreateOneInput!
+}
+
+input IngredientAdditionCreateOneInput {
+  create: IngredientAdditionCreateInput
+  connect: IngredientAdditionWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -1714,11 +2682,14 @@ enum IngredientAdditionOrderByInput {
   id_DESC
   amount_ASC
   amount_DESC
+  use_ASC
+  use_DESC
 }
 
 type IngredientAdditionPreviousValues {
   id: ID!
   amount: Float
+  use: IngredientUse!
 }
 
 type IngredientAdditionSubscriptionPayload {
@@ -1760,13 +2731,33 @@ input IngredientAdditionSubscriptionWhereInput {
   node: IngredientAdditionWhereInput
 }
 
+input IngredientAdditionUpdateDataInput {
+  amount: Float
+  use: IngredientUse
+  recipe: RecipeUpdateOneRequiredInput
+}
+
 input IngredientAdditionUpdateInput {
   amount: Float
+  use: IngredientUse
   recipe: RecipeUpdateOneRequiredInput
 }
 
 input IngredientAdditionUpdateManyMutationInput {
   amount: Float
+  use: IngredientUse
+}
+
+input IngredientAdditionUpdateOneRequiredInput {
+  create: IngredientAdditionCreateInput
+  connect: IngredientAdditionWhereUniqueInput
+  update: IngredientAdditionUpdateDataInput
+  upsert: IngredientAdditionUpsertNestedInput
+}
+
+input IngredientAdditionUpsertNestedInput {
+  update: IngredientAdditionUpdateDataInput!
+  create: IngredientAdditionCreateInput!
 }
 
 input IngredientAdditionWhereInput {
@@ -1840,6 +2831,16 @@ input IngredientAdditionWhereInput {
 
   """All values greater than or equal the given value."""
   amount_gte: Float
+  use: IngredientUse
+
+  """All values that are not equal to given value."""
+  use_not: IngredientUse
+
+  """All values that are contained in given list."""
+  use_in: [IngredientUse!]
+
+  """All values that are not contained in given list."""
+  use_not_in: [IngredientUse!]
   recipe: RecipeWhereInput
 }
 
@@ -2036,6 +3037,8 @@ enum IngredientUse {
   WHIRLPOOL
   PRIMARY
   SECONDARY
+  KEGGING
+  BOTTLING
 }
 
 """
@@ -2952,6 +3955,411 @@ input MashStepWhereUniqueInput {
   id: ID
 }
 
+type MiscAddition implements Node {
+  id: ID!
+  ingredientAddition: IngredientAddition!
+  miscProfile: MiscProfile!
+}
+
+"""A connection to a list of items."""
+type MiscAdditionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MiscAdditionEdge]!
+  aggregate: AggregateMiscAddition!
+}
+
+input MiscAdditionCreateInput {
+  id: ID
+  ingredientAddition: IngredientAdditionCreateOneInput!
+  miscProfile: MiscProfileCreateOneInput!
+}
+
+"""An edge in a connection."""
+type MiscAdditionEdge {
+  """The item at the end of the edge."""
+  node: MiscAddition!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MiscAdditionOrderByInput {
+  id_ASC
+  id_DESC
+}
+
+type MiscAdditionPreviousValues {
+  id: ID!
+}
+
+type MiscAdditionSubscriptionPayload {
+  mutation: MutationType!
+  node: MiscAddition
+  updatedFields: [String!]
+  previousValues: MiscAdditionPreviousValues
+}
+
+input MiscAdditionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MiscAdditionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MiscAdditionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MiscAdditionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MiscAdditionWhereInput
+}
+
+input MiscAdditionUpdateInput {
+  ingredientAddition: IngredientAdditionUpdateOneRequiredInput
+  miscProfile: MiscProfileUpdateOneRequiredInput
+}
+
+input MiscAdditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MiscAdditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MiscAdditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MiscAdditionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  ingredientAddition: IngredientAdditionWhereInput
+  miscProfile: MiscProfileWhereInput
+}
+
+input MiscAdditionWhereUniqueInput {
+  id: ID
+}
+
+type MiscProfile implements Node {
+  id: ID!
+  name: String!
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+"""A connection to a list of items."""
+type MiscProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MiscProfileEdge]!
+  aggregate: AggregateMiscProfile!
+}
+
+input MiscProfileCreateInput {
+  id: ID
+  name: String!
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+input MiscProfileCreateOneInput {
+  create: MiscProfileCreateInput
+  connect: MiscProfileWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type MiscProfileEdge {
+  """The item at the end of the edge."""
+  node: MiscProfile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MiscProfileOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  useFor_ASC
+  useFor_DESC
+  amountIsWeight_ASC
+  amountIsWeight_DESC
+}
+
+type MiscProfilePreviousValues {
+  id: ID!
+  name: String!
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+type MiscProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: MiscProfile
+  updatedFields: [String!]
+  previousValues: MiscProfilePreviousValues
+}
+
+input MiscProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MiscProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MiscProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MiscProfileSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MiscProfileWhereInput
+}
+
+input MiscProfileUpdateDataInput {
+  name: String
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+input MiscProfileUpdateInput {
+  name: String
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+input MiscProfileUpdateManyMutationInput {
+  name: String
+  useFor: String
+  amountIsWeight: Boolean
+}
+
+input MiscProfileUpdateOneRequiredInput {
+  create: MiscProfileCreateInput
+  connect: MiscProfileWhereUniqueInput
+  update: MiscProfileUpdateDataInput
+  upsert: MiscProfileUpsertNestedInput
+}
+
+input MiscProfileUpsertNestedInput {
+  update: MiscProfileUpdateDataInput!
+  create: MiscProfileCreateInput!
+}
+
+input MiscProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MiscProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MiscProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MiscProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  useFor: String
+
+  """All values that are not equal to given value."""
+  useFor_not: String
+
+  """All values that are contained in given list."""
+  useFor_in: [String!]
+
+  """All values that are not contained in given list."""
+  useFor_not_in: [String!]
+
+  """All values less than the given value."""
+  useFor_lt: String
+
+  """All values less than or equal the given value."""
+  useFor_lte: String
+
+  """All values greater than the given value."""
+  useFor_gt: String
+
+  """All values greater than or equal the given value."""
+  useFor_gte: String
+
+  """All values containing the given string."""
+  useFor_contains: String
+
+  """All values not containing the given string."""
+  useFor_not_contains: String
+
+  """All values starting with the given string."""
+  useFor_starts_with: String
+
+  """All values not starting with the given string."""
+  useFor_not_starts_with: String
+
+  """All values ending with the given string."""
+  useFor_ends_with: String
+
+  """All values not ending with the given string."""
+  useFor_not_ends_with: String
+  amountIsWeight: Boolean
+
+  """All values that are not equal to given value."""
+  amountIsWeight_not: Boolean
+}
+
+input MiscProfileWhereUniqueInput {
+  id: ID
+}
+
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createStyle(data: StyleCreateInput!): Style!
@@ -2960,13 +4368,18 @@ type Mutation {
   createEquipmentProfile(data: EquipmentProfileCreateInput!): EquipmentProfile!
   createFermentationProfile(data: FermentationProfileCreateInput!): FermentationProfile!
   createMashProfile(data: MashProfileCreateInput!): MashProfile!
-  createYeast(data: YeastCreateInput!): Yeast!
-  createIngredientAddition(data: IngredientAdditionCreateInput!): IngredientAddition!
   createHopProfile(data: HopProfileCreateInput!): HopProfile!
   createHopAddition(data: HopAdditionCreateInput!): HopAddition!
-  createRecipe(data: RecipeCreateInput!): Recipe!
+  createFermentableAddition(data: FermentableAdditionCreateInput!): FermentableAddition!
+  createMiscAddition(data: MiscAdditionCreateInput!): MiscAddition!
+  createYeastAddition(data: YeastAdditionCreateInput!): YeastAddition!
+  createFermentableProfile(data: FermentableProfileCreateInput!): FermentableProfile!
+  createIngredientAddition(data: IngredientAdditionCreateInput!): IngredientAddition!
+  createMiscProfile(data: MiscProfileCreateInput!): MiscProfile!
+  createYeastProfile(data: YeastProfileCreateInput!): YeastProfile!
   createFermentationStep(data: FermentationStepCreateInput!): FermentationStep!
   createMashStep(data: MashStepCreateInput!): MashStep!
+  createRecipe(data: RecipeCreateInput!): Recipe!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateStyle(data: StyleUpdateInput!, where: StyleWhereUniqueInput!): Style
   updateBatch(data: BatchUpdateInput!, where: BatchWhereUniqueInput!): Batch
@@ -2974,13 +4387,18 @@ type Mutation {
   updateEquipmentProfile(data: EquipmentProfileUpdateInput!, where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   updateFermentationProfile(data: FermentationProfileUpdateInput!, where: FermentationProfileWhereUniqueInput!): FermentationProfile
   updateMashProfile(data: MashProfileUpdateInput!, where: MashProfileWhereUniqueInput!): MashProfile
-  updateYeast(data: YeastUpdateInput!, where: YeastWhereUniqueInput!): Yeast
-  updateIngredientAddition(data: IngredientAdditionUpdateInput!, where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   updateHopProfile(data: HopProfileUpdateInput!, where: HopProfileWhereUniqueInput!): HopProfile
   updateHopAddition(data: HopAdditionUpdateInput!, where: HopAdditionWhereUniqueInput!): HopAddition
-  updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
+  updateFermentableAddition(data: FermentableAdditionUpdateInput!, where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  updateMiscAddition(data: MiscAdditionUpdateInput!, where: MiscAdditionWhereUniqueInput!): MiscAddition
+  updateYeastAddition(data: YeastAdditionUpdateInput!, where: YeastAdditionWhereUniqueInput!): YeastAddition
+  updateFermentableProfile(data: FermentableProfileUpdateInput!, where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  updateIngredientAddition(data: IngredientAdditionUpdateInput!, where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  updateMiscProfile(data: MiscProfileUpdateInput!, where: MiscProfileWhereUniqueInput!): MiscProfile
+  updateYeastProfile(data: YeastProfileUpdateInput!, where: YeastProfileWhereUniqueInput!): YeastProfile
   updateFermentationStep(data: FermentationStepUpdateInput!, where: FermentationStepWhereUniqueInput!): FermentationStep
   updateMashStep(data: MashStepUpdateInput!, where: MashStepWhereUniqueInput!): MashStep
+  updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
   deleteUser(where: UserWhereUniqueInput!): User
   deleteStyle(where: StyleWhereUniqueInput!): Style
   deleteBatch(where: BatchWhereUniqueInput!): Batch
@@ -2988,13 +4406,18 @@ type Mutation {
   deleteEquipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   deleteFermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
   deleteMashProfile(where: MashProfileWhereUniqueInput!): MashProfile
-  deleteYeast(where: YeastWhereUniqueInput!): Yeast
-  deleteIngredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   deleteHopProfile(where: HopProfileWhereUniqueInput!): HopProfile
   deleteHopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
-  deleteRecipe(where: RecipeWhereUniqueInput!): Recipe
+  deleteFermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  deleteMiscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
+  deleteYeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  deleteFermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  deleteIngredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  deleteMiscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
+  deleteYeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   deleteFermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   deleteMashStep(where: MashStepWhereUniqueInput!): MashStep
+  deleteRecipe(where: RecipeWhereUniqueInput!): Recipe
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertStyle(where: StyleWhereUniqueInput!, create: StyleCreateInput!, update: StyleUpdateInput!): Style!
   upsertBatch(where: BatchWhereUniqueInput!, create: BatchCreateInput!, update: BatchUpdateInput!): Batch!
@@ -3002,13 +4425,18 @@ type Mutation {
   upsertEquipmentProfile(where: EquipmentProfileWhereUniqueInput!, create: EquipmentProfileCreateInput!, update: EquipmentProfileUpdateInput!): EquipmentProfile!
   upsertFermentationProfile(where: FermentationProfileWhereUniqueInput!, create: FermentationProfileCreateInput!, update: FermentationProfileUpdateInput!): FermentationProfile!
   upsertMashProfile(where: MashProfileWhereUniqueInput!, create: MashProfileCreateInput!, update: MashProfileUpdateInput!): MashProfile!
-  upsertYeast(where: YeastWhereUniqueInput!, create: YeastCreateInput!, update: YeastUpdateInput!): Yeast!
-  upsertIngredientAddition(where: IngredientAdditionWhereUniqueInput!, create: IngredientAdditionCreateInput!, update: IngredientAdditionUpdateInput!): IngredientAddition!
   upsertHopProfile(where: HopProfileWhereUniqueInput!, create: HopProfileCreateInput!, update: HopProfileUpdateInput!): HopProfile!
   upsertHopAddition(where: HopAdditionWhereUniqueInput!, create: HopAdditionCreateInput!, update: HopAdditionUpdateInput!): HopAddition!
-  upsertRecipe(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe!
+  upsertFermentableAddition(where: FermentableAdditionWhereUniqueInput!, create: FermentableAdditionCreateInput!, update: FermentableAdditionUpdateInput!): FermentableAddition!
+  upsertMiscAddition(where: MiscAdditionWhereUniqueInput!, create: MiscAdditionCreateInput!, update: MiscAdditionUpdateInput!): MiscAddition!
+  upsertYeastAddition(where: YeastAdditionWhereUniqueInput!, create: YeastAdditionCreateInput!, update: YeastAdditionUpdateInput!): YeastAddition!
+  upsertFermentableProfile(where: FermentableProfileWhereUniqueInput!, create: FermentableProfileCreateInput!, update: FermentableProfileUpdateInput!): FermentableProfile!
+  upsertIngredientAddition(where: IngredientAdditionWhereUniqueInput!, create: IngredientAdditionCreateInput!, update: IngredientAdditionUpdateInput!): IngredientAddition!
+  upsertMiscProfile(where: MiscProfileWhereUniqueInput!, create: MiscProfileCreateInput!, update: MiscProfileUpdateInput!): MiscProfile!
+  upsertYeastProfile(where: YeastProfileWhereUniqueInput!, create: YeastProfileCreateInput!, update: YeastProfileUpdateInput!): YeastProfile!
   upsertFermentationStep(where: FermentationStepWhereUniqueInput!, create: FermentationStepCreateInput!, update: FermentationStepUpdateInput!): FermentationStep!
   upsertMashStep(where: MashStepWhereUniqueInput!, create: MashStepCreateInput!, update: MashStepUpdateInput!): MashStep!
+  upsertRecipe(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyStyles(data: StyleUpdateManyMutationInput!, where: StyleWhereInput): BatchPayload!
   updateManyBatches(data: BatchUpdateManyMutationInput!, where: BatchWhereInput): BatchPayload!
@@ -3016,13 +4444,16 @@ type Mutation {
   updateManyEquipmentProfiles(data: EquipmentProfileUpdateManyMutationInput!, where: EquipmentProfileWhereInput): BatchPayload!
   updateManyFermentationProfiles(data: FermentationProfileUpdateManyMutationInput!, where: FermentationProfileWhereInput): BatchPayload!
   updateManyMashProfiles(data: MashProfileUpdateManyMutationInput!, where: MashProfileWhereInput): BatchPayload!
-  updateManyYeasts(data: YeastUpdateManyMutationInput!, where: YeastWhereInput): BatchPayload!
-  updateManyIngredientAdditions(data: IngredientAdditionUpdateManyMutationInput!, where: IngredientAdditionWhereInput): BatchPayload!
   updateManyHopProfiles(data: HopProfileUpdateManyMutationInput!, where: HopProfileWhereInput): BatchPayload!
   updateManyHopAdditions(data: HopAdditionUpdateManyMutationInput!, where: HopAdditionWhereInput): BatchPayload!
-  updateManyRecipes(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): BatchPayload!
+  updateManyYeastAdditions(data: YeastAdditionUpdateManyMutationInput!, where: YeastAdditionWhereInput): BatchPayload!
+  updateManyFermentableProfiles(data: FermentableProfileUpdateManyMutationInput!, where: FermentableProfileWhereInput): BatchPayload!
+  updateManyIngredientAdditions(data: IngredientAdditionUpdateManyMutationInput!, where: IngredientAdditionWhereInput): BatchPayload!
+  updateManyMiscProfiles(data: MiscProfileUpdateManyMutationInput!, where: MiscProfileWhereInput): BatchPayload!
+  updateManyYeastProfiles(data: YeastProfileUpdateManyMutationInput!, where: YeastProfileWhereInput): BatchPayload!
   updateManyFermentationSteps(data: FermentationStepUpdateManyMutationInput!, where: FermentationStepWhereInput): BatchPayload!
   updateManyMashSteps(data: MashStepUpdateManyMutationInput!, where: MashStepWhereInput): BatchPayload!
+  updateManyRecipes(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyStyles(where: StyleWhereInput): BatchPayload!
   deleteManyBatches(where: BatchWhereInput): BatchPayload!
@@ -3030,13 +4461,18 @@ type Mutation {
   deleteManyEquipmentProfiles(where: EquipmentProfileWhereInput): BatchPayload!
   deleteManyFermentationProfiles(where: FermentationProfileWhereInput): BatchPayload!
   deleteManyMashProfiles(where: MashProfileWhereInput): BatchPayload!
-  deleteManyYeasts(where: YeastWhereInput): BatchPayload!
-  deleteManyIngredientAdditions(where: IngredientAdditionWhereInput): BatchPayload!
   deleteManyHopProfiles(where: HopProfileWhereInput): BatchPayload!
   deleteManyHopAdditions(where: HopAdditionWhereInput): BatchPayload!
-  deleteManyRecipes(where: RecipeWhereInput): BatchPayload!
+  deleteManyFermentableAdditions(where: FermentableAdditionWhereInput): BatchPayload!
+  deleteManyMiscAdditions(where: MiscAdditionWhereInput): BatchPayload!
+  deleteManyYeastAdditions(where: YeastAdditionWhereInput): BatchPayload!
+  deleteManyFermentableProfiles(where: FermentableProfileWhereInput): BatchPayload!
+  deleteManyIngredientAdditions(where: IngredientAdditionWhereInput): BatchPayload!
+  deleteManyMiscProfiles(where: MiscProfileWhereInput): BatchPayload!
+  deleteManyYeastProfiles(where: YeastProfileWhereInput): BatchPayload!
   deleteManyFermentationSteps(where: FermentationStepWhereInput): BatchPayload!
   deleteManyMashSteps(where: MashStepWhereInput): BatchPayload!
+  deleteManyRecipes(where: RecipeWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -3074,13 +4510,18 @@ type Query {
   equipmentProfiles(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EquipmentProfile]!
   fermentationProfiles(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationProfile]!
   mashProfiles(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashProfile]!
-  yeasts(where: YeastWhereInput, orderBy: YeastOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Yeast]!
-  ingredientAdditions(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientAddition]!
   hopProfiles(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopProfile]!
   hopAdditions(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopAddition]!
-  recipes(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Recipe]!
+  fermentableAdditions(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableAddition]!
+  miscAdditions(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscAddition]!
+  yeastAdditions(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastAddition]!
+  fermentableProfiles(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableProfile]!
+  ingredientAdditions(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientAddition]!
+  miscProfiles(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscProfile]!
+  yeastProfiles(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastProfile]!
   fermentationSteps(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationStep]!
   mashSteps(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashStep]!
+  recipes(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Recipe]!
   user(where: UserWhereUniqueInput!): User
   style(where: StyleWhereUniqueInput!): Style
   batch(where: BatchWhereUniqueInput!): Batch
@@ -3088,13 +4529,18 @@ type Query {
   equipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   fermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
   mashProfile(where: MashProfileWhereUniqueInput!): MashProfile
-  yeast(where: YeastWhereUniqueInput!): Yeast
-  ingredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   hopProfile(where: HopProfileWhereUniqueInput!): HopProfile
   hopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
-  recipe(where: RecipeWhereUniqueInput!): Recipe
+  fermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  miscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
+  yeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  fermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  ingredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  miscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
+  yeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   fermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   mashStep(where: MashStepWhereUniqueInput!): MashStep
+  recipe(where: RecipeWhereUniqueInput!): Recipe
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   stylesConnection(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleConnection!
   batchesConnection(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BatchConnection!
@@ -3102,13 +4548,18 @@ type Query {
   equipmentProfilesConnection(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EquipmentProfileConnection!
   fermentationProfilesConnection(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationProfileConnection!
   mashProfilesConnection(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashProfileConnection!
-  yeastsConnection(where: YeastWhereInput, orderBy: YeastOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastConnection!
-  ingredientAdditionsConnection(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientAdditionConnection!
   hopProfilesConnection(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopProfileConnection!
   hopAdditionsConnection(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopAdditionConnection!
-  recipesConnection(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RecipeConnection!
+  fermentableAdditionsConnection(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableAdditionConnection!
+  miscAdditionsConnection(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscAdditionConnection!
+  yeastAdditionsConnection(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastAdditionConnection!
+  fermentableProfilesConnection(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableProfileConnection!
+  ingredientAdditionsConnection(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientAdditionConnection!
+  miscProfilesConnection(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscProfileConnection!
+  yeastProfilesConnection(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastProfileConnection!
   fermentationStepsConnection(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationStepConnection!
   mashStepsConnection(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashStepConnection!
+  recipesConnection(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RecipeConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -3121,7 +4572,11 @@ type Recipe implements Node {
   id: ID!
   name: String!
   style: String!
-  type: RecipeType!
+  type: RecipeType
+  batchSize: Float!
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   createdAt: DateTime!
@@ -3143,7 +4598,11 @@ input RecipeCreateInput {
   id: ID
   name: String!
   style: String!
-  type: RecipeType!
+  type: RecipeType
+  batchSize: Float!
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   notes: String
@@ -3172,6 +4631,14 @@ enum RecipeOrderByInput {
   style_DESC
   type_ASC
   type_DESC
+  batchSize_ASC
+  batchSize_DESC
+  boilSize_ASC
+  boilSize_DESC
+  boilTime_ASC
+  boilTime_DESC
+  efficiency_ASC
+  efficiency_DESC
   estimatedOG_ASC
   estimatedOG_DESC
   estimatedFG_ASC
@@ -3188,7 +4655,11 @@ type RecipePreviousValues {
   id: ID!
   name: String!
   style: String!
-  type: RecipeType!
+  type: RecipeType
+  batchSize: Float!
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   createdAt: DateTime!
@@ -3248,6 +4719,10 @@ input RecipeUpdateDataInput {
   name: String
   style: String
   type: RecipeType
+  batchSize: Float
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   notes: String
@@ -3257,6 +4732,10 @@ input RecipeUpdateInput {
   name: String
   style: String
   type: RecipeType
+  batchSize: Float
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   notes: String
@@ -3266,6 +4745,10 @@ input RecipeUpdateManyMutationInput {
   name: String
   style: String
   type: RecipeType
+  batchSize: Float
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
   estimatedOG: Float
   estimatedFG: Float
   notes: String
@@ -3422,6 +4905,94 @@ input RecipeWhereInput {
 
   """All values that are not contained in given list."""
   type_not_in: [RecipeType!]
+  batchSize: Float
+
+  """All values that are not equal to given value."""
+  batchSize_not: Float
+
+  """All values that are contained in given list."""
+  batchSize_in: [Float!]
+
+  """All values that are not contained in given list."""
+  batchSize_not_in: [Float!]
+
+  """All values less than the given value."""
+  batchSize_lt: Float
+
+  """All values less than or equal the given value."""
+  batchSize_lte: Float
+
+  """All values greater than the given value."""
+  batchSize_gt: Float
+
+  """All values greater than or equal the given value."""
+  batchSize_gte: Float
+  boilSize: Float
+
+  """All values that are not equal to given value."""
+  boilSize_not: Float
+
+  """All values that are contained in given list."""
+  boilSize_in: [Float!]
+
+  """All values that are not contained in given list."""
+  boilSize_not_in: [Float!]
+
+  """All values less than the given value."""
+  boilSize_lt: Float
+
+  """All values less than or equal the given value."""
+  boilSize_lte: Float
+
+  """All values greater than the given value."""
+  boilSize_gt: Float
+
+  """All values greater than or equal the given value."""
+  boilSize_gte: Float
+  boilTime: Int
+
+  """All values that are not equal to given value."""
+  boilTime_not: Int
+
+  """All values that are contained in given list."""
+  boilTime_in: [Int!]
+
+  """All values that are not contained in given list."""
+  boilTime_not_in: [Int!]
+
+  """All values less than the given value."""
+  boilTime_lt: Int
+
+  """All values less than or equal the given value."""
+  boilTime_lte: Int
+
+  """All values greater than the given value."""
+  boilTime_gt: Int
+
+  """All values greater than or equal the given value."""
+  boilTime_gte: Int
+  efficiency: Int
+
+  """All values that are not equal to given value."""
+  efficiency_not: Int
+
+  """All values that are contained in given list."""
+  efficiency_in: [Int!]
+
+  """All values that are not contained in given list."""
+  efficiency_not_in: [Int!]
+
+  """All values less than the given value."""
+  efficiency_lt: Int
+
+  """All values less than or equal the given value."""
+  efficiency_lte: Int
+
+  """All values greater than the given value."""
+  efficiency_gt: Int
+
+  """All values greater than or equal the given value."""
+  efficiency_gte: Int
   estimatedOG: Float
 
   """All values that are not equal to given value."""
@@ -4475,13 +6046,18 @@ type Subscription {
   equipmentProfile(where: EquipmentProfileSubscriptionWhereInput): EquipmentProfileSubscriptionPayload
   fermentationProfile(where: FermentationProfileSubscriptionWhereInput): FermentationProfileSubscriptionPayload
   mashProfile(where: MashProfileSubscriptionWhereInput): MashProfileSubscriptionPayload
-  yeast(where: YeastSubscriptionWhereInput): YeastSubscriptionPayload
-  ingredientAddition(where: IngredientAdditionSubscriptionWhereInput): IngredientAdditionSubscriptionPayload
   hopProfile(where: HopProfileSubscriptionWhereInput): HopProfileSubscriptionPayload
   hopAddition(where: HopAdditionSubscriptionWhereInput): HopAdditionSubscriptionPayload
-  recipe(where: RecipeSubscriptionWhereInput): RecipeSubscriptionPayload
+  fermentableAddition(where: FermentableAdditionSubscriptionWhereInput): FermentableAdditionSubscriptionPayload
+  miscAddition(where: MiscAdditionSubscriptionWhereInput): MiscAdditionSubscriptionPayload
+  yeastAddition(where: YeastAdditionSubscriptionWhereInput): YeastAdditionSubscriptionPayload
+  fermentableProfile(where: FermentableProfileSubscriptionWhereInput): FermentableProfileSubscriptionPayload
+  ingredientAddition(where: IngredientAdditionSubscriptionWhereInput): IngredientAdditionSubscriptionPayload
+  miscProfile(where: MiscProfileSubscriptionWhereInput): MiscProfileSubscriptionPayload
+  yeastProfile(where: YeastProfileSubscriptionWhereInput): YeastProfileSubscriptionPayload
   fermentationStep(where: FermentationStepSubscriptionWhereInput): FermentationStepSubscriptionPayload
   mashStep(where: MashStepSubscriptionWhereInput): MashStepSubscriptionPayload
+  recipe(where: RecipeSubscriptionWhereInput): RecipeSubscriptionPayload
 }
 
 type User implements Node {
@@ -4714,7 +6290,186 @@ input UserWhereUniqueInput {
   id: ID
 }
 
-type Yeast implements Node {
+type YeastAddition implements Node {
+  id: ID!
+  yeastProfile: YeastProfile!
+  ingredientAddition: IngredientAddition!
+  timesCultured: Int
+}
+
+"""A connection to a list of items."""
+type YeastAdditionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [YeastAdditionEdge]!
+  aggregate: AggregateYeastAddition!
+}
+
+input YeastAdditionCreateInput {
+  id: ID
+  timesCultured: Int
+  yeastProfile: YeastProfileCreateOneInput!
+  ingredientAddition: IngredientAdditionCreateOneInput!
+}
+
+"""An edge in a connection."""
+type YeastAdditionEdge {
+  """The item at the end of the edge."""
+  node: YeastAddition!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum YeastAdditionOrderByInput {
+  id_ASC
+  id_DESC
+  timesCultured_ASC
+  timesCultured_DESC
+}
+
+type YeastAdditionPreviousValues {
+  id: ID!
+  timesCultured: Int
+}
+
+type YeastAdditionSubscriptionPayload {
+  mutation: MutationType!
+  node: YeastAddition
+  updatedFields: [String!]
+  previousValues: YeastAdditionPreviousValues
+}
+
+input YeastAdditionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YeastAdditionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YeastAdditionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YeastAdditionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: YeastAdditionWhereInput
+}
+
+input YeastAdditionUpdateInput {
+  timesCultured: Int
+  yeastProfile: YeastProfileUpdateOneRequiredInput
+  ingredientAddition: IngredientAdditionUpdateOneRequiredInput
+}
+
+input YeastAdditionUpdateManyMutationInput {
+  timesCultured: Int
+}
+
+input YeastAdditionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [YeastAdditionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [YeastAdditionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [YeastAdditionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  timesCultured: Int
+
+  """All values that are not equal to given value."""
+  timesCultured_not: Int
+
+  """All values that are contained in given list."""
+  timesCultured_in: [Int!]
+
+  """All values that are not contained in given list."""
+  timesCultured_not_in: [Int!]
+
+  """All values less than the given value."""
+  timesCultured_lt: Int
+
+  """All values less than or equal the given value."""
+  timesCultured_lte: Int
+
+  """All values greater than the given value."""
+  timesCultured_gt: Int
+
+  """All values greater than or equal the given value."""
+  timesCultured_gte: Int
+  yeastProfile: YeastProfileWhereInput
+  ingredientAddition: IngredientAdditionWhereInput
+}
+
+input YeastAdditionWhereUniqueInput {
+  id: ID
+}
+
+enum YeastForm {
+  LIQUID
+  DRY
+  SLURRY
+}
+
+type YeastProfile implements Node {
   id: ID!
   name: String!
   type: YeastType!
@@ -4734,16 +6489,16 @@ type Yeast implements Node {
 }
 
 """A connection to a list of items."""
-type YeastConnection {
+type YeastProfileConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [YeastEdge]!
-  aggregate: AggregateYeast!
+  edges: [YeastProfileEdge]!
+  aggregate: AggregateYeastProfile!
 }
 
-input YeastCreateInput {
+input YeastProfileCreateInput {
   id: ID
   name: String!
   type: YeastType!
@@ -4762,22 +6517,21 @@ input YeastCreateInput {
   addToSecondary: Boolean
 }
 
+input YeastProfileCreateOneInput {
+  create: YeastProfileCreateInput
+  connect: YeastProfileWhereUniqueInput
+}
+
 """An edge in a connection."""
-type YeastEdge {
+type YeastProfileEdge {
   """The item at the end of the edge."""
-  node: Yeast!
+  node: YeastProfile!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum YeastForm {
-  LIQUID
-  DRY
-  SLURRY
-}
-
-enum YeastOrderByInput {
+enum YeastProfileOrderByInput {
   id_ASC
   id_DESC
   name_ASC
@@ -4812,7 +6566,7 @@ enum YeastOrderByInput {
   addToSecondary_DESC
 }
 
-type YeastPreviousValues {
+type YeastProfilePreviousValues {
   id: ID!
   name: String!
   type: YeastType!
@@ -4831,22 +6585,22 @@ type YeastPreviousValues {
   addToSecondary: Boolean
 }
 
-type YeastSubscriptionPayload {
+type YeastProfileSubscriptionPayload {
   mutation: MutationType!
-  node: Yeast
+  node: YeastProfile
   updatedFields: [String!]
-  previousValues: YeastPreviousValues
+  previousValues: YeastProfilePreviousValues
 }
 
-input YeastSubscriptionWhereInput {
+input YeastProfileSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [YeastSubscriptionWhereInput!]
+  AND: [YeastProfileSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [YeastSubscriptionWhereInput!]
+  OR: [YeastProfileSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [YeastSubscriptionWhereInput!]
+  NOT: [YeastProfileSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -4867,16 +6621,10 @@ input YeastSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: YeastWhereInput
+  node: YeastProfileWhereInput
 }
 
-enum YeastType {
-  ALE
-  LAGER
-  HYBRID
-}
-
-input YeastUpdateInput {
+input YeastProfileUpdateDataInput {
   name: String
   type: YeastType
   form: YeastForm
@@ -4894,7 +6642,7 @@ input YeastUpdateInput {
   addToSecondary: Boolean
 }
 
-input YeastUpdateManyMutationInput {
+input YeastProfileUpdateInput {
   name: String
   type: YeastType
   form: YeastForm
@@ -4912,15 +6660,45 @@ input YeastUpdateManyMutationInput {
   addToSecondary: Boolean
 }
 
-input YeastWhereInput {
+input YeastProfileUpdateManyMutationInput {
+  name: String
+  type: YeastType
+  form: YeastForm
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+input YeastProfileUpdateOneRequiredInput {
+  create: YeastProfileCreateInput
+  connect: YeastProfileWhereUniqueInput
+  update: YeastProfileUpdateDataInput
+  upsert: YeastProfileUpsertNestedInput
+}
+
+input YeastProfileUpsertNestedInput {
+  update: YeastProfileUpdateDataInput!
+  create: YeastProfileCreateInput!
+}
+
+input YeastProfileWhereInput {
   """Logical AND on all given filters."""
-  AND: [YeastWhereInput!]
+  AND: [YeastProfileWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [YeastWhereInput!]
+  OR: [YeastProfileWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [YeastWhereInput!]
+  NOT: [YeastProfileWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -5311,6 +7089,12 @@ input YeastWhereInput {
   addToSecondary_not: Boolean
 }
 
-input YeastWhereUniqueInput {
+input YeastProfileWhereUniqueInput {
   id: ID
+}
+
+enum YeastType {
+  ALE
+  LAGER
+  HYBRID
 }
