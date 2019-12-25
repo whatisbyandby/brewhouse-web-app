@@ -1,7 +1,12 @@
 # import * from './generated/prisma.graphql'
 
 type Mutation {
-  createRecipe(name: String, style: String, batchSize: Float): Recipe!
+  createRecipe(
+    name: String
+    type: RecipeType
+    style: String
+    batchSize: Float
+  ): Recipe!
 }
 
 type Query {

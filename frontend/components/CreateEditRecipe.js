@@ -8,10 +8,16 @@ import Error from "../components/ErrorMessage";
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
     $name: String!
+    $type: RecipeType!
     $style: String!
     $batchSize: Float!
   ) {
-    createRecipe(name: $name, style: $style, batchSize: $batchSize) {
+    createRecipe(
+      name: $name
+      type: $type
+      style: $style
+      batchSize: $batchSize
+    ) {
       id
     }
   }
@@ -25,7 +31,6 @@ class CreateEditRecipe extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.setState(this.props);
   }
 
@@ -40,10 +45,12 @@ class CreateEditRecipe extends Component {
       <Mutation mutation={CREATE_RECIPE_MUTATION} variables={this.state}>
         {(createRecipe, { error, loading }) => (
           <Form
-            onSubmit={event => {
+            onSubmit={async event => {
               event.preventDefault();
-              createRecipe();
-              Router.push({ pathname: "/recipes" });
+              const res = await createRecipe();
+              if (!error) {
+                Router.push({ pathname: "/recipes" });
+              }
             }}
           >
             <Error error={error} />
@@ -59,6 +66,22 @@ class CreateEditRecipe extends Component {
                   required
                   onChange={this.handleOnChange}
                 />
+              </label>
+              <label htmlFor="name">
+                Type
+                <select
+                  id="type"
+                  name="type"
+                  value={this.state.type}
+                  onChange={this.handleOnChange}
+                  required
+                >
+                  <option value=""></option>
+                  <option value={"ALL_GRAIN"}>ALL GRAIN</option>
+                  <option value={"EXTRACT"}>EXTRACT</option>
+                  <option value={"PARTIAL_MASH"}>PARTIAL MASH</option>
+                  <option value={"MEAD"}>MEAD</option>
+                </select>
               </label>
               <label htmlFor="style">
                 Style

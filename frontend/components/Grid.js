@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { AgGridReact } from "ag-grid-react";
 import StyledGrid from "../components/styles/StyledGrid";
 import router from "next/router";
+import formatVolume from "../utils/formatVolume";
+import formatEnum from "../utils/formatEnum";
 
 class Grid extends Component {
   state = {
@@ -11,7 +13,8 @@ class Grid extends Component {
 
   componentDidMount() {
     const newColDefs = this.parseColumnDefs(this.props.data);
-    this.setState({ columnDefs: newColDefs, rowData: this.props.data });
+    const mappedRowData = this.mapRowData(this.props.data);
+    this.setState({ columnDefs: newColDefs, rowData: mappedRowData });
   }
 
   onGridReady = params => {
@@ -23,10 +26,19 @@ class Grid extends Component {
     router.push({ pathname: "/recipe", query: { id: row.data.id } });
   };
 
+  mapRowData = rowData => {
+    const mappedRowData = rowData.map(row => ({
+      id: row.id,
+      name: row.name,
+      type: formatEnum(row.type),
+      style: row.style,
+      batchSize: formatVolume(row.batchSize)
+    }));
+    return mappedRowData;
+  };
+
   parseColumnDefs = data => {
-    console.log(data);
     const firstItem = data[0];
-    console.log(firstItem);
     const keys = Object.keys(firstItem);
     const colDefs = keys
       .filter(key => !key.startsWith("_") && key !== "id")

@@ -11,7 +11,6 @@ const ALL_RECIPES_QUERY = gql`
       name
       type
       style
-      boilSize
       batchSize
     }
   }

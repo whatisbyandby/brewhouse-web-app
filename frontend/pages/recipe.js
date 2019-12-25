@@ -7,6 +7,7 @@ const ONE_RECIPE_QUERY = gql`
     recipe(where: { id: $id }) {
       id
       name
+      type
       style
       batchSize
     }

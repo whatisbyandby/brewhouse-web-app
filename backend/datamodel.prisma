@@ -48,8 +48,8 @@ type Recipe {
   id: ID! @id
   name: String!
   style: String!
-  type: RecipeType
-  batchSize: Float!
+  type: RecipeType!
+  batchSize: Float
   boilSize: Float
   boilTime: Int
   efficiency: Int
