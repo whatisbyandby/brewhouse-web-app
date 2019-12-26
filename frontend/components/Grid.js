@@ -2,13 +2,16 @@ import React, { Component } from "react";
 import { AgGridReact } from "ag-grid-react";
 import StyledGrid from "../components/styles/StyledGrid";
 import router from "next/router";
+import DeleteRecipe from "./DeleteRecipe";
 import formatVolume from "../utils/formatVolume";
 import formatEnum from "../utils/formatEnum";
+import Router from "next/router";
 
 class Grid extends Component {
   state = {
     columnDefs: [],
-    rowData: []
+    rowData: [],
+    selectedRows: []
   };
 
   componentDidMount() {
@@ -22,8 +25,26 @@ class Grid extends Component {
     this.columnApi = params.columnApi;
   };
 
+  newRecipe = () => {
+    Router.push({ pathname: "/recipe/create" });
+  };
+
+  editRecipe = () => {
+    const selectedRow = this.state.selectedRows[0];
+    if (selectedRow) {
+      Router.push({
+        pathname: "/recipe/update",
+        query: { id: selectedRow.id }
+      });
+    }
+  };
+
+  handleRowSelected = event => {
+    this.setState({ selectedRows: this.api.getSelectedRows() });
+  };
+
   handleRowDoubleClicked = row => {
-    router.push({ pathname: "/recipe", query: { id: row.data.id } });
+    router.push({ pathname: "/recipe/update", query: { id: row.data.id } });
   };
 
   mapRowData = rowData => {
@@ -39,14 +60,16 @@ class Grid extends Component {
 
   parseColumnDefs = data => {
     const firstItem = data[0];
-    const keys = Object.keys(firstItem);
-    const colDefs = keys
-      .filter(key => !key.startsWith("_") && key !== "id")
-      .map(key => ({
-        headerName: key.toUpperCase(),
-        field: key
-      }));
-    return colDefs;
+    if (firstItem) {
+      const keys = Object.keys(firstItem);
+      const colDefs = keys
+        .filter(key => !key.startsWith("_") && key !== "id")
+        .map(key => ({
+          headerName: key.toUpperCase(),
+          field: key
+        }));
+      return colDefs;
+    }
   };
 
   render() {
@@ -56,11 +79,15 @@ class Grid extends Component {
           className="ag-theme-balham"
           style={{ height: "600px", width: "100%" }}
         >
+          <button onClick={this.newRecipe}>New</button>
+          <button onClick={this.editRecipe}>Edit</button>
+          <DeleteRecipe selectedRows={this.state.selectedRows} />
           <AgGridReact
             rowSelection="single"
             columnDefs={this.state.columnDefs}
             rowData={this.state.rowData}
             onGridReady={this.onGridReady}
+            onRowSelected={this.handleRowSelected}
             onRowDoubleClicked={this.handleRowDoubleClicked}
           />
         </div>

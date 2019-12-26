@@ -2,11 +2,21 @@
 
 type Mutation {
   createRecipe(
+    name: String!
+    type: RecipeType!
+    style: String!
+    batchSize: Float
+  ): Recipe!
+
+  updateRecipe(
+    id: ID!
     name: String
     type: RecipeType
     style: String
     batchSize: Float
-  ): Recipe!
+  ): Recipe
+
+  deleteManyRecipes(ids: [ID!]): BatchPayload!
 }
 
 type Query {

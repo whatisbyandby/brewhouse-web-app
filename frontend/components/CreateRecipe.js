@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Form from "../components/styles/Form";
+import Form from "./styles/Form";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
-import Error from "../components/ErrorMessage";
+import Error from "./ErrorMessage";
+import { ALL_RECIPES_QUERY } from "../components/RecipeGrid";
 
 const CREATE_RECIPE_MUTATION = gql`
   mutation CREATE_RECIPE_MUTATION(
@@ -23,16 +24,13 @@ const CREATE_RECIPE_MUTATION = gql`
   }
 `;
 
-class CreateEditRecipe extends Component {
+class CreateRecipe extends Component {
   state = {
     name: "",
     style: "",
+    type: "",
     batchSize: 27
   };
-
-  componentDidMount() {
-    this.setState(this.props);
-  }
 
   handleOnChange = event => {
     const { name, type, value } = event.target;
@@ -40,16 +38,28 @@ class CreateEditRecipe extends Component {
     this.setState({ [name]: val });
   };
 
+  update = (cache, { data: { createRecipe } }) => {
+    const { recipes } = cache.readQuery({ query: ALL_RECIPES_QUERY });
+    cache.writeQuery({
+      query: ALL_RECIPES_QUERY,
+      data: { recipes: recipes.concat([createRecipe]) }
+    });
+  };
+
   render() {
     return (
-      <Mutation mutation={CREATE_RECIPE_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={CREATE_RECIPE_MUTATION}
+        variables={this.state}
+        update={this.update}
+      >
         {(createRecipe, { error, loading }) => (
           <Form
             onSubmit={async event => {
               event.preventDefault();
               const res = await createRecipe();
               if (!error) {
-                Router.push({ pathname: "/recipes" });
+                Router.push({ pathname: "/recipe" });
               }
             }}
           >
@@ -116,4 +126,4 @@ class CreateEditRecipe extends Component {
   }
 }
 
-export default CreateEditRecipe;
+export default CreateRecipe;

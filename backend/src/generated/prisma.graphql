@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/scott-1f4a83/brewery-web-app/dev
-# timestamp: Tue Dec 24 2019 15:41:22 GMT-0700 (Mountain Standard Time)
+# timestamp: Wed Dec 25 2019 21:16:49 GMT-0700 (Mountain Standard Time)
 
 type AggregateBatch {
   count: Int!
@@ -4572,8 +4572,8 @@ type Recipe implements Node {
   id: ID!
   name: String!
   style: String!
-  type: RecipeType
-  batchSize: Float!
+  type: RecipeType!
+  batchSize: Float
   boilSize: Float
   boilTime: Int
   efficiency: Int
@@ -4598,8 +4598,8 @@ input RecipeCreateInput {
   id: ID
   name: String!
   style: String!
-  type: RecipeType
-  batchSize: Float!
+  type: RecipeType!
+  batchSize: Float
   boilSize: Float
   boilTime: Int
   efficiency: Int
@@ -4655,8 +4655,8 @@ type RecipePreviousValues {
   id: ID!
   name: String!
   style: String!
-  type: RecipeType
-  batchSize: Float!
+  type: RecipeType!
+  batchSize: Float
   boilSize: Float
   boilTime: Int
   efficiency: Int

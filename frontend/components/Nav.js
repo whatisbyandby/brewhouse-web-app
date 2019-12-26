@@ -4,7 +4,7 @@ import Navstyles from "./styles/NavStyles";
 const Nav = () => {
   return (
     <Navstyles>
-      <Link href="/recipes">
+      <Link href="/recipe">
         <a>Recipes</a>
       </Link>
       <Link href="/batch-data">
