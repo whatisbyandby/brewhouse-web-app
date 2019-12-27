@@ -1,5 +1,9 @@
 # import * from './generated/prisma.graphql'
 
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
   createRecipe(
     name: String!
@@ -16,10 +20,30 @@ type Mutation {
     batchSize: Float
   ): Recipe
 
+  deleteRecipe(id: ID!): Recipe
+
   deleteManyRecipes(ids: [ID!]): BatchPayload!
+
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
 }
 
 type Query {
   recipes: [Recipe]!
   recipe(where: RecipeWhereUniqueInput!): Recipe
+  me: User
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  permissions: [Permission!]!
 }

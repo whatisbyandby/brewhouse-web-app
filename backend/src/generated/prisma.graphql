@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/scott-1f4a83/brewery-web-app/dev
-# timestamp: Wed Dec 25 2019 21:16:49 GMT-0700 (Mountain Standard Time)
+# timestamp: Thu Dec 26 2019 23:33:58 GMT-0700 (Mountain Standard Time)
 
 type AggregateBatch {
   count: Int!
@@ -62,6 +62,10 @@ type AggregateRecipe {
 }
 
 type AggregateStyle {
+  count: Int!
+}
+
+type AggregateUnitSettings {
   count: Int!
 }
 
@@ -4361,7 +4365,6 @@ input MiscProfileWhereUniqueInput {
 }
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
   createStyle(data: StyleCreateInput!): Style!
   createBatch(data: BatchCreateInput!): Batch!
   createIngredientProfile(data: IngredientProfileCreateInput!): IngredientProfile!
@@ -4373,14 +4376,15 @@ type Mutation {
   createFermentableAddition(data: FermentableAdditionCreateInput!): FermentableAddition!
   createMiscAddition(data: MiscAdditionCreateInput!): MiscAddition!
   createYeastAddition(data: YeastAdditionCreateInput!): YeastAddition!
+  createUnitSettings(data: UnitSettingsCreateInput!): UnitSettings!
   createFermentableProfile(data: FermentableProfileCreateInput!): FermentableProfile!
+  createUser(data: UserCreateInput!): User!
   createIngredientAddition(data: IngredientAdditionCreateInput!): IngredientAddition!
   createMiscProfile(data: MiscProfileCreateInput!): MiscProfile!
   createYeastProfile(data: YeastProfileCreateInput!): YeastProfile!
   createFermentationStep(data: FermentationStepCreateInput!): FermentationStep!
   createMashStep(data: MashStepCreateInput!): MashStep!
   createRecipe(data: RecipeCreateInput!): Recipe!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateStyle(data: StyleUpdateInput!, where: StyleWhereUniqueInput!): Style
   updateBatch(data: BatchUpdateInput!, where: BatchWhereUniqueInput!): Batch
   updateIngredientProfile(data: IngredientProfileUpdateInput!, where: IngredientProfileWhereUniqueInput!): IngredientProfile
@@ -4392,14 +4396,15 @@ type Mutation {
   updateFermentableAddition(data: FermentableAdditionUpdateInput!, where: FermentableAdditionWhereUniqueInput!): FermentableAddition
   updateMiscAddition(data: MiscAdditionUpdateInput!, where: MiscAdditionWhereUniqueInput!): MiscAddition
   updateYeastAddition(data: YeastAdditionUpdateInput!, where: YeastAdditionWhereUniqueInput!): YeastAddition
+  updateUnitSettings(data: UnitSettingsUpdateInput!, where: UnitSettingsWhereUniqueInput!): UnitSettings
   updateFermentableProfile(data: FermentableProfileUpdateInput!, where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateIngredientAddition(data: IngredientAdditionUpdateInput!, where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   updateMiscProfile(data: MiscProfileUpdateInput!, where: MiscProfileWhereUniqueInput!): MiscProfile
   updateYeastProfile(data: YeastProfileUpdateInput!, where: YeastProfileWhereUniqueInput!): YeastProfile
   updateFermentationStep(data: FermentationStepUpdateInput!, where: FermentationStepWhereUniqueInput!): FermentationStep
   updateMashStep(data: MashStepUpdateInput!, where: MashStepWhereUniqueInput!): MashStep
   updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
-  deleteUser(where: UserWhereUniqueInput!): User
   deleteStyle(where: StyleWhereUniqueInput!): Style
   deleteBatch(where: BatchWhereUniqueInput!): Batch
   deleteIngredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
@@ -4411,14 +4416,15 @@ type Mutation {
   deleteFermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
   deleteMiscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
   deleteYeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  deleteUnitSettings(where: UnitSettingsWhereUniqueInput!): UnitSettings
   deleteFermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteIngredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   deleteMiscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
   deleteYeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   deleteFermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   deleteMashStep(where: MashStepWhereUniqueInput!): MashStep
   deleteRecipe(where: RecipeWhereUniqueInput!): Recipe
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertStyle(where: StyleWhereUniqueInput!, create: StyleCreateInput!, update: StyleUpdateInput!): Style!
   upsertBatch(where: BatchWhereUniqueInput!, create: BatchCreateInput!, update: BatchUpdateInput!): Batch!
   upsertIngredientProfile(where: IngredientProfileWhereUniqueInput!, create: IngredientProfileCreateInput!, update: IngredientProfileUpdateInput!): IngredientProfile!
@@ -4430,14 +4436,15 @@ type Mutation {
   upsertFermentableAddition(where: FermentableAdditionWhereUniqueInput!, create: FermentableAdditionCreateInput!, update: FermentableAdditionUpdateInput!): FermentableAddition!
   upsertMiscAddition(where: MiscAdditionWhereUniqueInput!, create: MiscAdditionCreateInput!, update: MiscAdditionUpdateInput!): MiscAddition!
   upsertYeastAddition(where: YeastAdditionWhereUniqueInput!, create: YeastAdditionCreateInput!, update: YeastAdditionUpdateInput!): YeastAddition!
+  upsertUnitSettings(where: UnitSettingsWhereUniqueInput!, create: UnitSettingsCreateInput!, update: UnitSettingsUpdateInput!): UnitSettings!
   upsertFermentableProfile(where: FermentableProfileWhereUniqueInput!, create: FermentableProfileCreateInput!, update: FermentableProfileUpdateInput!): FermentableProfile!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertIngredientAddition(where: IngredientAdditionWhereUniqueInput!, create: IngredientAdditionCreateInput!, update: IngredientAdditionUpdateInput!): IngredientAddition!
   upsertMiscProfile(where: MiscProfileWhereUniqueInput!, create: MiscProfileCreateInput!, update: MiscProfileUpdateInput!): MiscProfile!
   upsertYeastProfile(where: YeastProfileWhereUniqueInput!, create: YeastProfileCreateInput!, update: YeastProfileUpdateInput!): YeastProfile!
   upsertFermentationStep(where: FermentationStepWhereUniqueInput!, create: FermentationStepCreateInput!, update: FermentationStepUpdateInput!): FermentationStep!
   upsertMashStep(where: MashStepWhereUniqueInput!, create: MashStepCreateInput!, update: MashStepUpdateInput!): MashStep!
   upsertRecipe(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyStyles(data: StyleUpdateManyMutationInput!, where: StyleWhereInput): BatchPayload!
   updateManyBatches(data: BatchUpdateManyMutationInput!, where: BatchWhereInput): BatchPayload!
   updateManyIngredientProfiles(data: IngredientProfileUpdateManyMutationInput!, where: IngredientProfileWhereInput): BatchPayload!
@@ -4447,14 +4454,15 @@ type Mutation {
   updateManyHopProfiles(data: HopProfileUpdateManyMutationInput!, where: HopProfileWhereInput): BatchPayload!
   updateManyHopAdditions(data: HopAdditionUpdateManyMutationInput!, where: HopAdditionWhereInput): BatchPayload!
   updateManyYeastAdditions(data: YeastAdditionUpdateManyMutationInput!, where: YeastAdditionWhereInput): BatchPayload!
+  updateManyUnitSettingses(data: UnitSettingsUpdateManyMutationInput!, where: UnitSettingsWhereInput): BatchPayload!
   updateManyFermentableProfiles(data: FermentableProfileUpdateManyMutationInput!, where: FermentableProfileWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyIngredientAdditions(data: IngredientAdditionUpdateManyMutationInput!, where: IngredientAdditionWhereInput): BatchPayload!
   updateManyMiscProfiles(data: MiscProfileUpdateManyMutationInput!, where: MiscProfileWhereInput): BatchPayload!
   updateManyYeastProfiles(data: YeastProfileUpdateManyMutationInput!, where: YeastProfileWhereInput): BatchPayload!
   updateManyFermentationSteps(data: FermentationStepUpdateManyMutationInput!, where: FermentationStepWhereInput): BatchPayload!
   updateManyMashSteps(data: MashStepUpdateManyMutationInput!, where: MashStepWhereInput): BatchPayload!
   updateManyRecipes(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyStyles(where: StyleWhereInput): BatchPayload!
   deleteManyBatches(where: BatchWhereInput): BatchPayload!
   deleteManyIngredientProfiles(where: IngredientProfileWhereInput): BatchPayload!
@@ -4466,7 +4474,9 @@ type Mutation {
   deleteManyFermentableAdditions(where: FermentableAdditionWhereInput): BatchPayload!
   deleteManyMiscAdditions(where: MiscAdditionWhereInput): BatchPayload!
   deleteManyYeastAdditions(where: YeastAdditionWhereInput): BatchPayload!
+  deleteManyUnitSettingses(where: UnitSettingsWhereInput): BatchPayload!
   deleteManyFermentableProfiles(where: FermentableProfileWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyIngredientAdditions(where: IngredientAdditionWhereInput): BatchPayload!
   deleteManyMiscProfiles(where: MiscProfileWhereInput): BatchPayload!
   deleteManyYeastProfiles(where: YeastProfileWhereInput): BatchPayload!
@@ -4502,8 +4512,16 @@ type PageInfo {
   endCursor: String
 }
 
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
+
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   styles(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Style]!
   batches(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Batch]!
   ingredientProfiles(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientProfile]!
@@ -4515,14 +4533,15 @@ type Query {
   fermentableAdditions(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableAddition]!
   miscAdditions(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscAddition]!
   yeastAdditions(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastAddition]!
+  unitSettingses(where: UnitSettingsWhereInput, orderBy: UnitSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UnitSettings]!
   fermentableProfiles(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableProfile]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   ingredientAdditions(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientAddition]!
   miscProfiles(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscProfile]!
   yeastProfiles(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastProfile]!
   fermentationSteps(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationStep]!
   mashSteps(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashStep]!
   recipes(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Recipe]!
-  user(where: UserWhereUniqueInput!): User
   style(where: StyleWhereUniqueInput!): Style
   batch(where: BatchWhereUniqueInput!): Batch
   ingredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
@@ -4534,14 +4553,15 @@ type Query {
   fermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
   miscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
   yeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  unitSettings(where: UnitSettingsWhereUniqueInput!): UnitSettings
   fermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
+  user(where: UserWhereUniqueInput!): User
   ingredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
   miscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
   yeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   fermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   mashStep(where: MashStepWhereUniqueInput!): MashStep
   recipe(where: RecipeWhereUniqueInput!): Recipe
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   stylesConnection(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleConnection!
   batchesConnection(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BatchConnection!
   ingredientProfilesConnection(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientProfileConnection!
@@ -4553,7 +4573,9 @@ type Query {
   fermentableAdditionsConnection(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableAdditionConnection!
   miscAdditionsConnection(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscAdditionConnection!
   yeastAdditionsConnection(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastAdditionConnection!
+  unitSettingsesConnection(where: UnitSettingsWhereInput, orderBy: UnitSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnitSettingsConnection!
   fermentableProfilesConnection(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableProfileConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   ingredientAdditionsConnection(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientAdditionConnection!
   miscProfilesConnection(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscProfileConnection!
   yeastProfilesConnection(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastProfileConnection!
@@ -4571,7 +4593,7 @@ type Query {
 type Recipe implements Node {
   id: ID!
   name: String!
-  style: String!
+  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4582,6 +4604,7 @@ type Recipe implements Node {
   createdAt: DateTime!
   updatedAt: DateTime!
   notes: String
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -4597,7 +4620,7 @@ type RecipeConnection {
 input RecipeCreateInput {
   id: ID
   name: String!
-  style: String!
+  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4606,6 +4629,7 @@ input RecipeCreateInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  user: UserCreateOneInput!
 }
 
 input RecipeCreateOneInput {
@@ -4654,7 +4678,7 @@ enum RecipeOrderByInput {
 type RecipePreviousValues {
   id: ID!
   name: String!
-  style: String!
+  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4726,6 +4750,7 @@ input RecipeUpdateDataInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  user: UserUpdateOneRequiredInput
 }
 
 input RecipeUpdateInput {
@@ -4739,6 +4764,7 @@ input RecipeUpdateInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  user: UserUpdateOneRequiredInput
 }
 
 input RecipeUpdateManyMutationInput {
@@ -5121,6 +5147,7 @@ input RecipeWhereInput {
 
   """All values not ending with the given string."""
   notes_not_ends_with: String
+  user: UserWhereInput
 }
 
 input RecipeWhereUniqueInput {
@@ -6039,7 +6066,6 @@ input StyleWhereUniqueInput {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   style(where: StyleSubscriptionWhereInput): StyleSubscriptionPayload
   batch(where: BatchSubscriptionWhereInput): BatchSubscriptionPayload
   ingredientProfile(where: IngredientProfileSubscriptionWhereInput): IngredientProfileSubscriptionPayload
@@ -6051,7 +6077,9 @@ type Subscription {
   fermentableAddition(where: FermentableAdditionSubscriptionWhereInput): FermentableAdditionSubscriptionPayload
   miscAddition(where: MiscAdditionSubscriptionWhereInput): MiscAdditionSubscriptionPayload
   yeastAddition(where: YeastAdditionSubscriptionWhereInput): YeastAdditionSubscriptionPayload
+  unitSettings(where: UnitSettingsSubscriptionWhereInput): UnitSettingsSubscriptionPayload
   fermentableProfile(where: FermentableProfileSubscriptionWhereInput): FermentableProfileSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   ingredientAddition(where: IngredientAdditionSubscriptionWhereInput): IngredientAdditionSubscriptionPayload
   miscProfile(where: MiscProfileSubscriptionWhereInput): MiscProfileSubscriptionPayload
   yeastProfile(where: YeastProfileSubscriptionWhereInput): YeastProfileSubscriptionPayload
@@ -6060,10 +6088,167 @@ type Subscription {
   recipe(where: RecipeSubscriptionWhereInput): RecipeSubscriptionPayload
 }
 
+type UnitSettings implements Node {
+  id: ID!
+  batchSizeUnits: VolumeUnits!
+}
+
+"""A connection to a list of items."""
+type UnitSettingsConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UnitSettingsEdge]!
+  aggregate: AggregateUnitSettings!
+}
+
+input UnitSettingsCreateInput {
+  id: ID
+  batchSizeUnits: VolumeUnits!
+}
+
+"""An edge in a connection."""
+type UnitSettingsEdge {
+  """The item at the end of the edge."""
+  node: UnitSettings!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UnitSettingsOrderByInput {
+  id_ASC
+  id_DESC
+  batchSizeUnits_ASC
+  batchSizeUnits_DESC
+}
+
+type UnitSettingsPreviousValues {
+  id: ID!
+  batchSizeUnits: VolumeUnits!
+}
+
+type UnitSettingsSubscriptionPayload {
+  mutation: MutationType!
+  node: UnitSettings
+  updatedFields: [String!]
+  previousValues: UnitSettingsPreviousValues
+}
+
+input UnitSettingsSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UnitSettingsSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UnitSettingsSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UnitSettingsSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UnitSettingsWhereInput
+}
+
+input UnitSettingsUpdateInput {
+  batchSizeUnits: VolumeUnits
+}
+
+input UnitSettingsUpdateManyMutationInput {
+  batchSizeUnits: VolumeUnits
+}
+
+input UnitSettingsWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UnitSettingsWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UnitSettingsWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UnitSettingsWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  batchSizeUnits: VolumeUnits
+
+  """All values that are not equal to given value."""
+  batchSizeUnits_not: VolumeUnits
+
+  """All values that are contained in given list."""
+  batchSizeUnits_in: [VolumeUnits!]
+
+  """All values that are not contained in given list."""
+  batchSizeUnits_not_in: [VolumeUnits!]
+}
+
+input UnitSettingsWhereUniqueInput {
+  id: ID
+}
+
 type User implements Node {
   id: ID!
   name: String!
   email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission!]!
 }
 
 """A connection to a list of items."""
@@ -6080,6 +6265,19 @@ input UserCreateInput {
   id: ID
   name: String!
   email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission!]
 }
 
 """An edge in a connection."""
@@ -6098,12 +6296,22 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  password_ASC
+  password_DESC
+  resetToken_ASC
+  resetToken_DESC
+  resetTokenExpiry_ASC
+  resetTokenExpiry_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission!]!
 }
 
 type UserSubscriptionPayload {
@@ -6145,14 +6353,47 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
 input UserUpdateInput {
   name: String
   email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpdatepermissionsInput {
+  set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
@@ -6284,10 +6525,120 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  resetToken: String
+
+  """All values that are not equal to given value."""
+  resetToken_not: String
+
+  """All values that are contained in given list."""
+  resetToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  resetToken_not_in: [String!]
+
+  """All values less than the given value."""
+  resetToken_lt: String
+
+  """All values less than or equal the given value."""
+  resetToken_lte: String
+
+  """All values greater than the given value."""
+  resetToken_gt: String
+
+  """All values greater than or equal the given value."""
+  resetToken_gte: String
+
+  """All values containing the given string."""
+  resetToken_contains: String
+
+  """All values not containing the given string."""
+  resetToken_not_contains: String
+
+  """All values starting with the given string."""
+  resetToken_starts_with: String
+
+  """All values not starting with the given string."""
+  resetToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  resetToken_ends_with: String
+
+  """All values not ending with the given string."""
+  resetToken_not_ends_with: String
+  resetTokenExpiry: Float
+
+  """All values that are not equal to given value."""
+  resetTokenExpiry_not: Float
+
+  """All values that are contained in given list."""
+  resetTokenExpiry_in: [Float!]
+
+  """All values that are not contained in given list."""
+  resetTokenExpiry_not_in: [Float!]
+
+  """All values less than the given value."""
+  resetTokenExpiry_lt: Float
+
+  """All values less than or equal the given value."""
+  resetTokenExpiry_lte: Float
+
+  """All values greater than the given value."""
+  resetTokenExpiry_gt: Float
+
+  """All values greater than or equal the given value."""
+  resetTokenExpiry_gte: Float
 }
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
+}
+
+enum VolumeUnits {
+  LITERS
+  MILILITERS
+  QUARTS
+  GALLONS
 }
 
 type YeastAddition implements Node {

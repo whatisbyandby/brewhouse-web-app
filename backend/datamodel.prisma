@@ -1,9 +1,22 @@
+enum Permission {
+  ADMIN
+  USER
+  ITEMCREATE
+  ITEMUPDATE
+  ITEMDELETE
+  PERMISSIONUPDATE
+}
+
+
 type User {
   id: ID! @id
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission] @scalarList(strategy: RELATION)
 }
-
 enum RecipeType {
   ALL_GRAIN
   EXTRACT
@@ -47,7 +60,7 @@ type Style {
 type Recipe {
   id: ID! @id
   name: String!
-  style: String!
+  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -58,7 +71,7 @@ type Recipe {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   notes: String
-  # user: User!
+  user: User!
 }
 
 type Batch {
@@ -253,6 +266,25 @@ type YeastAddition {
   yeastProfile: YeastProfile!
   ingredientAddition: IngredientAddition!
   timesCultured: Int
+}
+
+enum VolumeUnits {
+  LITERS
+  MILILITERS
+  QUARTS
+  GALLONS
+}
+
+enum WeightUnits {
+  GRAMS
+  KILOGRAMS
+  POUNDS
+  OUNCES
+}
+
+type UnitSettings {
+  id: ID! @id
+  batchSizeUnits: VolumeUnits!,
 }
 
 
