@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Form from "../components/styles/Form";
+import Head from "next/head";
+import RecipeForm from "../components/styles/RecipeForm";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import Router from "next/router";
@@ -65,11 +66,14 @@ class UpdateRecipe extends Component {
           return (
             <Mutation mutation={UPDATE_RECIPE_MUTATION}>
               {(UpdateRecipeMutation, { error, loading }) => (
-                <Form
+                <RecipeForm
                   onSubmit={event =>
                     this.updateRecipe(event, UpdateRecipeMutation)
                   }
                 >
+                  <Head>
+                    <title>{`Update | ${data.recipe.name}`}</title>
+                  </Head>
                   <Error error={error} />
                   <fieldset disabled={loading} aria-busy={loading}>
                     <label htmlFor="name">
@@ -126,7 +130,7 @@ class UpdateRecipe extends Component {
                     </label>
                     <button type="submit">Save Recipe</button>
                   </fieldset>
-                </Form>
+                </RecipeForm>
               )}
             </Mutation>
           );

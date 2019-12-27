@@ -11,14 +11,24 @@ class Grid extends Component {
   state = {
     columnDefs: [],
     rowData: [],
-    selectedRows: []
+    selectedRows: null
   };
 
   componentDidMount() {
+    this.updateData();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.data !== this.props.data) {
+      this.updateData();
+    }
+  }
+
+  updateData = () => {
     const newColDefs = this.parseColumnDefs(this.props.data);
     const mappedRowData = this.mapRowData(this.props.data);
     this.setState({ columnDefs: newColDefs, rowData: mappedRowData });
-  }
+  };
 
   onGridReady = params => {
     this.api = params.api;
@@ -30,7 +40,7 @@ class Grid extends Component {
   };
 
   editRecipe = () => {
-    const selectedRow = this.state.selectedRows[0];
+    const selectedRow = this.state.selectedRow;
     if (selectedRow) {
       Router.push({
         pathname: "/recipe/update",
@@ -40,7 +50,7 @@ class Grid extends Component {
   };
 
   handleRowSelected = event => {
-    this.setState({ selectedRows: this.api.getSelectedRows() });
+    this.setState({ selectedRow: this.api.getSelectedRows()[0] });
   };
 
   handleRowDoubleClicked = row => {
@@ -81,7 +91,7 @@ class Grid extends Component {
         >
           <button onClick={this.newRecipe}>New</button>
           <button onClick={this.editRecipe}>Edit</button>
-          <DeleteRecipe selectedRows={this.state.selectedRows} />
+          <DeleteRecipe selectedRow={this.state.selectedRow} />
           <AgGridReact
             rowSelection="single"
             columnDefs={this.state.columnDefs}

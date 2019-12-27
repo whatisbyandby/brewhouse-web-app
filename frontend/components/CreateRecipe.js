@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Form from "./styles/Form";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
 import Error from "./ErrorMessage";
+import RecipeForm from "./styles/RecipeForm";
 import { ALL_RECIPES_QUERY } from "../components/RecipeGrid";
 
 const CREATE_RECIPE_MUTATION = gql`
@@ -20,6 +20,10 @@ const CREATE_RECIPE_MUTATION = gql`
       batchSize: $batchSize
     ) {
       id
+      name
+      type
+      style
+      batchSize
     }
   }
 `;
@@ -54,7 +58,7 @@ class CreateRecipe extends Component {
         update={this.update}
       >
         {(createRecipe, { error, loading }) => (
-          <Form
+          <RecipeForm
             onSubmit={async event => {
               event.preventDefault();
               const res = await createRecipe();
@@ -112,14 +116,14 @@ class CreateRecipe extends Component {
                   id="batchSize"
                   name="batchSize"
                   value={this.state.batchSize}
-                  placeholder="Recipe Name"
+                  placeholder="Batch Size"
                   required
                   onChange={this.handleOnChange}
                 />
               </label>
               <button type="submit">Save Recipe</button>
             </fieldset>
-          </Form>
+          </RecipeForm>
         )}
       </Mutation>
     );
