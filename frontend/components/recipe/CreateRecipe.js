@@ -4,7 +4,7 @@ import { Query, Mutation } from "react-apollo";
 import Router from "next/router";
 import Error from "../ErrorMessage";
 import RecipeForm from "../component-styles/RecipeForm";
-import StyleSelect from "../Style/StyleSelect";
+import StyleSelect from "../style/StyleSelect";
 import { ALL_RECIPES_QUERY } from "./RecipeGrid";
 
 const CREATE_RECIPE_MUTATION = gql`

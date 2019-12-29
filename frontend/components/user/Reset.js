@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import Form from "../component-styles/Form";
 import Error from "../ErrorMessage";
 import { CURRENT_USER_QUERY } from "../components/User";
-import Router from "next/router";
+import Router from "router";
 
 const RESET_MUTATION = gql`
   mutation RESET_MUTATION(

@@ -1,6 +1,6 @@
-import Signin from "../components/Signin";
-import Signup from "../components/Signup";
-import RequestReset from "../components/RequestReset";
+import Signin from "../components/user/Signin";
+import Signup from "../components/user/Signup";
+import RequestReset from "../components/user/RequestReset";
 
 const SignupPage = props => {
   return (

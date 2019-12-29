@@ -1,4 +1,4 @@
-import RecipeGrid from "../../components/RecipeGrid";
+import RecipeGrid from "../../components/recipe/RecipeGrid";
 
 const Recipes = props => {
   return (

@@ -3,7 +3,7 @@ import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import Form from "../component-styles/Form";
 import Error from "../ErrorMessage";
-import { CURRENT_USER_QUERY } from "../components/User";
+import { CURRENT_USER_QUERY } from "../user/User";
 import Router from "next/router";
 
 const REQUEST_RESET_MUTATION = gql`

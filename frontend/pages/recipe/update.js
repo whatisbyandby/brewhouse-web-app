@@ -1,5 +1,5 @@
-import UpdateRecipe from "../../components/UpdateRecipe";
-import PleaseSignIn from "../../components/PleaseSignIn";
+import UpdateRecipe from "../../components/recipe/UpdateRecipe";
+import PleaseSignIn from "../../components/user/PleaseSignIn";
 
 const Update = props => {
   return (

@@ -1,5 +1,5 @@
-import CreateStyle from "../../components/CreateStyle";
-import PleaseSignIn from "../../components/PleaseSignIn";
+import CreateStyle from "../../components/style/CreateStyle";
+import PleaseSignIn from "../../components/user/PleaseSignIn";
 
 const CreateStylePage = props => {
   return (

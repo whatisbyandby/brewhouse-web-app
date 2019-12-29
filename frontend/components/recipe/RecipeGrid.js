@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import Link from "next/link";
-import Grid from "../Grid";
+import AgGridReact from "ag-grid-react";
 
 const ALL_RECIPES_QUERY = gql`
   query ALL_RECIPES_QUERY {
@@ -29,7 +28,7 @@ class RecipeGrid extends Component {
           {({ data, error, loading }) => {
             if (error) return <h1>Error: {error.message}</h1>;
             if (loading) return <h1>Loading....</h1>;
-            return <Grid data={data.recipes} />;
+            return <h2>Grid</h2>;
           }}
         </Query>
       </div>

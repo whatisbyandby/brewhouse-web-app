@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navstyles from "../component-styles/NavStyles";
-import User from "../components/User";
-import Signout from "../components/Signout";
+import User from "../user/User";
+import Signout from "../user/Signout";
 
 const Nav = () => {
   return (

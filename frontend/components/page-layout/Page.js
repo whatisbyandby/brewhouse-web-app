@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../components/Header";
+import Header from "./Header";
 import Meta from "./Meta";
 import styled, { ThemeProvider, injectGlobal } from "styled-components";
 
