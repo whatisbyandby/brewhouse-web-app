@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Navstyles from "./styles/NavStyles";
+import Navstyles from "../component-styles/NavStyles";
 import User from "../components/User";
 import Signout from "../components/Signout";
 

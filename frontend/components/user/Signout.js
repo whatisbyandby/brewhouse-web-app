@@ -1,7 +1,7 @@
 import React from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { CURRENT_USER_QUERY } from "../components/User";
+import { CURRENT_USER_QUERY } from "./User";
 import Router from "next/router";
 
 const SIGNOUT_MUTATION = gql`

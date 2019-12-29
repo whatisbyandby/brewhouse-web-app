@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import { ALL_RECIPES_QUERY } from "../components/RecipeGrid";
+import { ALL_RECIPES_QUERY } from "./RecipeGrid";
 
 const DELETE_RECIPE_MUTATION = gql`
   mutation DELETE_RECIPE_MUTATION($id: ID!) {

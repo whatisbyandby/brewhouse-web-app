@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { AgGridReact } from "ag-grid-react";
-import StyledGrid from "../components/styles/StyledGrid";
+import StyledGrid from "./component-styles/StyledGrid";
 import router from "next/router";
-import DeleteRecipe from "./DeleteRecipe";
+import DeleteRecipe from "./recipe/DeleteRecipe";
 import formatVolume from "../utils/formatVolume";
 import formatEnum from "../utils/formatEnum";
 import Router from "next/router";

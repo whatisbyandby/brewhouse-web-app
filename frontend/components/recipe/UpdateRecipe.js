@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Head from "next/head";
-import RecipeForm from "../components/styles/RecipeForm";
+import RecipeForm from "../component-styles/RecipeForm";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 import Router from "next/router";
-import Error from "../components/ErrorMessage";
+import Error from "../ErrorMessage";
 
 const SINGLE_RECIPE_QUERY = gql`
   query SINGLE_RECIPE_QUERY($id: ID!) {

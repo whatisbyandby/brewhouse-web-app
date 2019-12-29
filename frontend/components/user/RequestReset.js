@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Form from "../components/styles/Form";
-import Error from "../components/ErrorMessage";
+import Form from "../component-styles/Form";
+import Error from "../ErrorMessage";
 import { CURRENT_USER_QUERY } from "../components/User";
 import Router from "next/router";
 

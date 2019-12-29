@@ -1,5 +1,5 @@
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
+import { Query } from "./node_modules/react-apollo";
+import gql from "./node_modules/graphql-tag";
 
 const ALL_STYLES_QUERY = gql`
   query ALL_STYLE_QUERY {

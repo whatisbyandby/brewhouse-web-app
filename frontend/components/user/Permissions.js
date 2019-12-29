@@ -1,7 +1,7 @@
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
-import Error from "./ErrorMessage";
-import Table from "./styles/Table";
+import Error from "../ErrorMessage";
+import Table from "../component-styles/Table";
 
 const possiblePermissions = [
   "ADMIN",
