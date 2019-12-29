@@ -2,8 +2,9 @@ const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
 const { promisify } = require("util");
 const { generateJWTandSetCookie } = require("../utils");
-
+const { hasPermission } = require("../utils");
 const { transport, makeANiceEmail } = require("../mail");
+const { seedStyleData } = require("../../test-data/seedStyleData");
 
 const Mutations = {
   async createRecipe(parent, args, context, info) {
@@ -12,7 +13,13 @@ const Mutations = {
       throw new Error("You Must be Logged in to do that");
     }
     const recipe = await context.db.mutation.createRecipe(
-      { data: { user: { connect: { id: context.request.userId } }, ...args } },
+      {
+        data: {
+          ...args,
+          user: { connect: { id: context.request.userId } },
+          style: { connect: { id: args.style } }
+        }
+      },
       info
     );
     return recipe;
@@ -28,16 +35,16 @@ const Mutations = {
   async deleteRecipe(parent, args, ctx, info) {
     const where = { id: args.id };
     // 1. find the item
-    const item = await ctx.db.query.recipe({ where }, `{ id name }`);
-    // 2. Check if they own that item, or have the permissions
-    // const ownsItem = item.user.id === ctx.request.userId;
-    // const hasPermissions = ctx.request.user.permissions.some(permission =>
-    //   ["ADMIN", "ITEMDELETE"].includes(permission)
-    // );
+    const item = await ctx.db.query.recipe({ where }, `{ id name user {id} }`);
+    //2. Check if they own that item, or have the permissions
+    const ownsItem = item.user.id === ctx.request.userId;
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ["ADMIN", "ITEMDELETE"].includes(permission)
+    );
 
-    // if (!ownsItem && !hasPermissions) {
-    //   throw new Error("You don't have permission to do that!");
-    // }
+    if (!ownsItem && !hasPermissions) {
+      throw new Error("You don't have permission to do that!");
+    }
 
     // 3. Delete it!
     return ctx.db.mutation.deleteRecipe({ where }, info);
@@ -46,6 +53,13 @@ const Mutations = {
     return await context.db.mutation.deleteManyRecipes({
       where: { id_in: args.ids }
     });
+  },
+  async createStyle(parent, args, context, info) {
+    const style = await context.db.mutation.createStyle(
+      { data: { ...args } },
+      info
+    );
+    return style;
   },
   async signup(parent, args, context, info) {
     args.email = args.email.toLowerCase();
@@ -127,8 +141,66 @@ const Mutations = {
     // 7. Set the JWT Cookie
     generateJWTandSetCookie(context, updatedUser.id);
     // 8. return the user
-
     return user;
+  },
+  async updatePermissions(parent, args, context, info) {
+    // 1. Check if they are logged in
+    if (!context.request.userId) {
+      throw new Error("You must be logged in");
+    }
+    // 2. Check if they have the correct permissions
+    hasPermission(context.request.user, ["PERMISSIONUPDATE"]);
+    // 3. Check if it's a valid user id by getting the User
+    const user = await context.db.query.user(
+      { where: { id: args.userId } },
+      info
+    );
+    if (!user) {
+      throw new Error("This User doesn't exist");
+    }
+    // 5. Update the user
+    const updatedUser = await context.db.mutation.updateUser(
+      {
+        where: { id: user.id },
+        data: { permissions: { set: args.permissions } }
+      },
+      info
+    );
+    // 6. Return the user
+    return updatedUser;
+  },
+  async seedStyleData(parent, args, context, info) {
+    const seedData = await seedStyleData();
+    const mappedData = seedData.map(style => ({
+      data: {
+        name: style.name,
+        category: style.category,
+        categoryNumber: parseInt(style.categoryNumber),
+        styleLetter: style.styleLetter,
+        styleGuide: style.styleGuide,
+        type: style.type !== "" ? style.type.toUpperCase() : null,
+        OGMin: parseFloat(style.ogMin),
+        OGMax: parseFloat(style.ogMax),
+        FGMin: parseFloat(style.fgMin),
+        FGMax: parseFloat(style.fgMax),
+        IBUMin: parseFloat(style.ibuMin),
+        IBUMax: parseFloat(style.ibuMax),
+        colorMin: parseFloat(style.colorMin),
+        colorMax: parseFloat(style.colorMax),
+        carbMin: parseFloat(style.carbMin),
+        carbMax: parseFloat(style.carbMax),
+        ABVMin: parseFloat(style.abvMin),
+        ABVMax: parseFloat(style.abvMax),
+        notes: style.notes,
+        profile: style.profile,
+        ingredients: style.ingredients,
+        example: style.example
+      }
+    }));
+    const styleList = await Promise.all(
+      mappedData.map(style => context.db.mutation.createStyle(style))
+    );
+    return { message: "Worked!" };
   }
 };
 

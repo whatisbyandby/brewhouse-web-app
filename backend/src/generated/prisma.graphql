@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/scott-1f4a83/brewery-web-app/dev
-# timestamp: Thu Dec 26 2019 23:33:58 GMT-0700 (Mountain Standard Time)
+# timestamp: Sat Dec 28 2019 14:55:01 GMT-0700 (Mountain Standard Time)
 
 type AggregateBatch {
   count: Int!
@@ -578,6 +578,7 @@ type FermentableAddition implements Node {
   id: ID!
   profile: FermentableProfile!
   ingredientAddition: IngredientAddition!
+  amount: Float!
 }
 
 """A connection to a list of items."""
@@ -592,6 +593,7 @@ type FermentableAdditionConnection {
 
 input FermentableAdditionCreateInput {
   id: ID
+  amount: Float!
   profile: FermentableProfileCreateOneInput!
   ingredientAddition: IngredientAdditionCreateOneInput!
 }
@@ -608,10 +610,13 @@ type FermentableAdditionEdge {
 enum FermentableAdditionOrderByInput {
   id_ASC
   id_DESC
+  amount_ASC
+  amount_DESC
 }
 
 type FermentableAdditionPreviousValues {
   id: ID!
+  amount: Float!
 }
 
 type FermentableAdditionSubscriptionPayload {
@@ -654,8 +659,13 @@ input FermentableAdditionSubscriptionWhereInput {
 }
 
 input FermentableAdditionUpdateInput {
+  amount: Float
   profile: FermentableProfileUpdateOneRequiredInput
   ingredientAddition: IngredientAdditionUpdateOneRequiredInput
+}
+
+input FermentableAdditionUpdateManyMutationInput {
+  amount: Float
 }
 
 input FermentableAdditionWhereInput {
@@ -707,6 +717,28 @@ input FermentableAdditionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
   profile: FermentableProfileWhereInput
   ingredientAddition: IngredientAdditionWhereInput
 }
@@ -1377,6 +1409,7 @@ input FermentableProfileWhereUniqueInput {
 
 enum FermentableType {
   GRAIN
+  SUGAR
 }
 
 type FermentationProfile implements Node {
@@ -2068,7 +2101,9 @@ enum FlocculationType {
 
 type HopAddition implements Node {
   id: ID!
+  hopProfile: HopProfile!
   ingredientAddition: IngredientAddition!
+  amount: Float!
   IBUs: Float!
   alpha: Float!
   time: Float!
@@ -2086,9 +2121,11 @@ type HopAdditionConnection {
 
 input HopAdditionCreateInput {
   id: ID
+  amount: Float!
   IBUs: Float!
   alpha: Float!
   time: Float!
+  hopProfile: HopProfileCreateOneInput!
   ingredientAddition: IngredientAdditionCreateOneInput!
 }
 
@@ -2104,6 +2141,8 @@ type HopAdditionEdge {
 enum HopAdditionOrderByInput {
   id_ASC
   id_DESC
+  amount_ASC
+  amount_DESC
   IBUs_ASC
   IBUs_DESC
   alpha_ASC
@@ -2114,6 +2153,7 @@ enum HopAdditionOrderByInput {
 
 type HopAdditionPreviousValues {
   id: ID!
+  amount: Float!
   IBUs: Float!
   alpha: Float!
   time: Float!
@@ -2159,13 +2199,16 @@ input HopAdditionSubscriptionWhereInput {
 }
 
 input HopAdditionUpdateInput {
+  amount: Float
   IBUs: Float
   alpha: Float
   time: Float
+  hopProfile: HopProfileUpdateOneRequiredInput
   ingredientAddition: IngredientAdditionUpdateOneRequiredInput
 }
 
 input HopAdditionUpdateManyMutationInput {
+  amount: Float
   IBUs: Float
   alpha: Float
   time: Float
@@ -2220,6 +2263,28 @@ input HopAdditionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
   IBUs: Float
 
   """All values that are not equal to given value."""
@@ -2286,6 +2351,7 @@ input HopAdditionWhereInput {
 
   """All values greater than or equal the given value."""
   time_gte: Float
+  hopProfile: HopProfileWhereInput
   ingredientAddition: IngredientAdditionWhereInput
 }
 
@@ -2329,6 +2395,11 @@ input HopProfileCreateInput {
   use: IngredientUse
   form: HopForm!
   type: HopType!
+}
+
+input HopProfileCreateOneInput {
+  create: HopProfileCreateInput
+  connect: HopProfileWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -2409,6 +2480,16 @@ input HopProfileSubscriptionWhereInput {
   node: HopProfileWhereInput
 }
 
+input HopProfileUpdateDataInput {
+  name: String
+  origin: String
+  alpha: Float
+  beta: Float
+  use: IngredientUse
+  form: HopForm
+  type: HopType
+}
+
 input HopProfileUpdateInput {
   name: String
   origin: String
@@ -2427,6 +2508,18 @@ input HopProfileUpdateManyMutationInput {
   use: IngredientUse
   form: HopForm
   type: HopType
+}
+
+input HopProfileUpdateOneRequiredInput {
+  create: HopProfileCreateInput
+  connect: HopProfileWhereUniqueInput
+  update: HopProfileUpdateDataInput
+  upsert: HopProfileUpsertNestedInput
+}
+
+input HopProfileUpsertNestedInput {
+  update: HopProfileUpdateDataInput!
+  create: HopProfileCreateInput!
 }
 
 input HopProfileWhereInput {
@@ -2854,7 +2947,6 @@ input IngredientAdditionWhereUniqueInput {
 
 type IngredientProfile implements Node {
   id: ID!
-  name: String!
 }
 
 """A connection to a list of items."""
@@ -2869,7 +2961,6 @@ type IngredientProfileConnection {
 
 input IngredientProfileCreateInput {
   id: ID
-  name: String!
 }
 
 """An edge in a connection."""
@@ -2884,13 +2975,10 @@ type IngredientProfileEdge {
 enum IngredientProfileOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
 }
 
 type IngredientProfilePreviousValues {
   id: ID!
-  name: String!
 }
 
 type IngredientProfileSubscriptionPayload {
@@ -2930,14 +3018,6 @@ input IngredientProfileSubscriptionWhereInput {
   """
   updatedFields_contains_some: [String!]
   node: IngredientProfileWhereInput
-}
-
-input IngredientProfileUpdateInput {
-  name: String
-}
-
-input IngredientProfileUpdateManyMutationInput {
-  name: String
 }
 
 input IngredientProfileWhereInput {
@@ -2989,46 +3069,6 @@ input IngredientProfileWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  name: String
-
-  """All values that are not equal to given value."""
-  name_not: String
-
-  """All values that are contained in given list."""
-  name_in: [String!]
-
-  """All values that are not contained in given list."""
-  name_not_in: [String!]
-
-  """All values less than the given value."""
-  name_lt: String
-
-  """All values less than or equal the given value."""
-  name_lte: String
-
-  """All values greater than the given value."""
-  name_gt: String
-
-  """All values greater than or equal the given value."""
-  name_gte: String
-
-  """All values containing the given string."""
-  name_contains: String
-
-  """All values not containing the given string."""
-  name_not_contains: String
-
-  """All values starting with the given string."""
-  name_starts_with: String
-
-  """All values not starting with the given string."""
-  name_not_starts_with: String
-
-  """All values ending with the given string."""
-  name_ends_with: String
-
-  """All values not ending with the given string."""
-  name_not_ends_with: String
 }
 
 input IngredientProfileWhereUniqueInput {
@@ -3963,6 +4003,7 @@ type MiscAddition implements Node {
   id: ID!
   ingredientAddition: IngredientAddition!
   miscProfile: MiscProfile!
+  amount: Float!
 }
 
 """A connection to a list of items."""
@@ -3977,6 +4018,7 @@ type MiscAdditionConnection {
 
 input MiscAdditionCreateInput {
   id: ID
+  amount: Float!
   ingredientAddition: IngredientAdditionCreateOneInput!
   miscProfile: MiscProfileCreateOneInput!
 }
@@ -3993,10 +4035,13 @@ type MiscAdditionEdge {
 enum MiscAdditionOrderByInput {
   id_ASC
   id_DESC
+  amount_ASC
+  amount_DESC
 }
 
 type MiscAdditionPreviousValues {
   id: ID!
+  amount: Float!
 }
 
 type MiscAdditionSubscriptionPayload {
@@ -4039,8 +4084,13 @@ input MiscAdditionSubscriptionWhereInput {
 }
 
 input MiscAdditionUpdateInput {
+  amount: Float
   ingredientAddition: IngredientAdditionUpdateOneRequiredInput
   miscProfile: MiscProfileUpdateOneRequiredInput
+}
+
+input MiscAdditionUpdateManyMutationInput {
+  amount: Float
 }
 
 input MiscAdditionWhereInput {
@@ -4092,6 +4142,28 @@ input MiscAdditionWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
   ingredientAddition: IngredientAdditionWhereInput
   miscProfile: MiscProfileWhereInput
 }
@@ -4365,123 +4437,122 @@ input MiscProfileWhereUniqueInput {
 }
 
 type Mutation {
-  createStyle(data: StyleCreateInput!): Style!
-  createBatch(data: BatchCreateInput!): Batch!
   createIngredientProfile(data: IngredientProfileCreateInput!): IngredientProfile!
+  createFermentableAddition(data: FermentableAdditionCreateInput!): FermentableAddition!
+  createHopAddition(data: HopAdditionCreateInput!): HopAddition!
+  createYeastAddition(data: YeastAdditionCreateInput!): YeastAddition!
+  createMiscAddition(data: MiscAdditionCreateInput!): MiscAddition!
   createEquipmentProfile(data: EquipmentProfileCreateInput!): EquipmentProfile!
   createFermentationProfile(data: FermentationProfileCreateInput!): FermentationProfile!
   createMashProfile(data: MashProfileCreateInput!): MashProfile!
-  createHopProfile(data: HopProfileCreateInput!): HopProfile!
-  createHopAddition(data: HopAdditionCreateInput!): HopAddition!
-  createFermentableAddition(data: FermentableAdditionCreateInput!): FermentableAddition!
-  createMiscAddition(data: MiscAdditionCreateInput!): MiscAddition!
-  createYeastAddition(data: YeastAdditionCreateInput!): YeastAddition!
+  createBatch(data: BatchCreateInput!): Batch!
   createUnitSettings(data: UnitSettingsCreateInput!): UnitSettings!
   createFermentableProfile(data: FermentableProfileCreateInput!): FermentableProfile!
   createUser(data: UserCreateInput!): User!
   createIngredientAddition(data: IngredientAdditionCreateInput!): IngredientAddition!
+  createHopProfile(data: HopProfileCreateInput!): HopProfile!
   createMiscProfile(data: MiscProfileCreateInput!): MiscProfile!
   createYeastProfile(data: YeastProfileCreateInput!): YeastProfile!
   createFermentationStep(data: FermentationStepCreateInput!): FermentationStep!
   createMashStep(data: MashStepCreateInput!): MashStep!
+  createStyle(data: StyleCreateInput!): Style!
   createRecipe(data: RecipeCreateInput!): Recipe!
-  updateStyle(data: StyleUpdateInput!, where: StyleWhereUniqueInput!): Style
-  updateBatch(data: BatchUpdateInput!, where: BatchWhereUniqueInput!): Batch
-  updateIngredientProfile(data: IngredientProfileUpdateInput!, where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  updateFermentableAddition(data: FermentableAdditionUpdateInput!, where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  updateHopAddition(data: HopAdditionUpdateInput!, where: HopAdditionWhereUniqueInput!): HopAddition
+  updateYeastAddition(data: YeastAdditionUpdateInput!, where: YeastAdditionWhereUniqueInput!): YeastAddition
+  updateMiscAddition(data: MiscAdditionUpdateInput!, where: MiscAdditionWhereUniqueInput!): MiscAddition
   updateEquipmentProfile(data: EquipmentProfileUpdateInput!, where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   updateFermentationProfile(data: FermentationProfileUpdateInput!, where: FermentationProfileWhereUniqueInput!): FermentationProfile
   updateMashProfile(data: MashProfileUpdateInput!, where: MashProfileWhereUniqueInput!): MashProfile
-  updateHopProfile(data: HopProfileUpdateInput!, where: HopProfileWhereUniqueInput!): HopProfile
-  updateHopAddition(data: HopAdditionUpdateInput!, where: HopAdditionWhereUniqueInput!): HopAddition
-  updateFermentableAddition(data: FermentableAdditionUpdateInput!, where: FermentableAdditionWhereUniqueInput!): FermentableAddition
-  updateMiscAddition(data: MiscAdditionUpdateInput!, where: MiscAdditionWhereUniqueInput!): MiscAddition
-  updateYeastAddition(data: YeastAdditionUpdateInput!, where: YeastAdditionWhereUniqueInput!): YeastAddition
+  updateBatch(data: BatchUpdateInput!, where: BatchWhereUniqueInput!): Batch
   updateUnitSettings(data: UnitSettingsUpdateInput!, where: UnitSettingsWhereUniqueInput!): UnitSettings
   updateFermentableProfile(data: FermentableProfileUpdateInput!, where: FermentableProfileWhereUniqueInput!): FermentableProfile
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateIngredientAddition(data: IngredientAdditionUpdateInput!, where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  updateHopProfile(data: HopProfileUpdateInput!, where: HopProfileWhereUniqueInput!): HopProfile
   updateMiscProfile(data: MiscProfileUpdateInput!, where: MiscProfileWhereUniqueInput!): MiscProfile
   updateYeastProfile(data: YeastProfileUpdateInput!, where: YeastProfileWhereUniqueInput!): YeastProfile
   updateFermentationStep(data: FermentationStepUpdateInput!, where: FermentationStepWhereUniqueInput!): FermentationStep
   updateMashStep(data: MashStepUpdateInput!, where: MashStepWhereUniqueInput!): MashStep
+  updateStyle(data: StyleUpdateInput!, where: StyleWhereUniqueInput!): Style
   updateRecipe(data: RecipeUpdateInput!, where: RecipeWhereUniqueInput!): Recipe
-  deleteStyle(where: StyleWhereUniqueInput!): Style
-  deleteBatch(where: BatchWhereUniqueInput!): Batch
   deleteIngredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  deleteFermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  deleteHopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
+  deleteYeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  deleteMiscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
   deleteEquipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   deleteFermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
   deleteMashProfile(where: MashProfileWhereUniqueInput!): MashProfile
-  deleteHopProfile(where: HopProfileWhereUniqueInput!): HopProfile
-  deleteHopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
-  deleteFermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
-  deleteMiscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
-  deleteYeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  deleteBatch(where: BatchWhereUniqueInput!): Batch
   deleteUnitSettings(where: UnitSettingsWhereUniqueInput!): UnitSettings
   deleteFermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
   deleteUser(where: UserWhereUniqueInput!): User
   deleteIngredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  deleteHopProfile(where: HopProfileWhereUniqueInput!): HopProfile
   deleteMiscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
   deleteYeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   deleteFermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   deleteMashStep(where: MashStepWhereUniqueInput!): MashStep
+  deleteStyle(where: StyleWhereUniqueInput!): Style
   deleteRecipe(where: RecipeWhereUniqueInput!): Recipe
-  upsertStyle(where: StyleWhereUniqueInput!, create: StyleCreateInput!, update: StyleUpdateInput!): Style!
-  upsertBatch(where: BatchWhereUniqueInput!, create: BatchCreateInput!, update: BatchUpdateInput!): Batch!
-  upsertIngredientProfile(where: IngredientProfileWhereUniqueInput!, create: IngredientProfileCreateInput!, update: IngredientProfileUpdateInput!): IngredientProfile!
+  upsertFermentableAddition(where: FermentableAdditionWhereUniqueInput!, create: FermentableAdditionCreateInput!, update: FermentableAdditionUpdateInput!): FermentableAddition!
+  upsertHopAddition(where: HopAdditionWhereUniqueInput!, create: HopAdditionCreateInput!, update: HopAdditionUpdateInput!): HopAddition!
+  upsertYeastAddition(where: YeastAdditionWhereUniqueInput!, create: YeastAdditionCreateInput!, update: YeastAdditionUpdateInput!): YeastAddition!
+  upsertMiscAddition(where: MiscAdditionWhereUniqueInput!, create: MiscAdditionCreateInput!, update: MiscAdditionUpdateInput!): MiscAddition!
   upsertEquipmentProfile(where: EquipmentProfileWhereUniqueInput!, create: EquipmentProfileCreateInput!, update: EquipmentProfileUpdateInput!): EquipmentProfile!
   upsertFermentationProfile(where: FermentationProfileWhereUniqueInput!, create: FermentationProfileCreateInput!, update: FermentationProfileUpdateInput!): FermentationProfile!
   upsertMashProfile(where: MashProfileWhereUniqueInput!, create: MashProfileCreateInput!, update: MashProfileUpdateInput!): MashProfile!
-  upsertHopProfile(where: HopProfileWhereUniqueInput!, create: HopProfileCreateInput!, update: HopProfileUpdateInput!): HopProfile!
-  upsertHopAddition(where: HopAdditionWhereUniqueInput!, create: HopAdditionCreateInput!, update: HopAdditionUpdateInput!): HopAddition!
-  upsertFermentableAddition(where: FermentableAdditionWhereUniqueInput!, create: FermentableAdditionCreateInput!, update: FermentableAdditionUpdateInput!): FermentableAddition!
-  upsertMiscAddition(where: MiscAdditionWhereUniqueInput!, create: MiscAdditionCreateInput!, update: MiscAdditionUpdateInput!): MiscAddition!
-  upsertYeastAddition(where: YeastAdditionWhereUniqueInput!, create: YeastAdditionCreateInput!, update: YeastAdditionUpdateInput!): YeastAddition!
+  upsertBatch(where: BatchWhereUniqueInput!, create: BatchCreateInput!, update: BatchUpdateInput!): Batch!
   upsertUnitSettings(where: UnitSettingsWhereUniqueInput!, create: UnitSettingsCreateInput!, update: UnitSettingsUpdateInput!): UnitSettings!
   upsertFermentableProfile(where: FermentableProfileWhereUniqueInput!, create: FermentableProfileCreateInput!, update: FermentableProfileUpdateInput!): FermentableProfile!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertIngredientAddition(where: IngredientAdditionWhereUniqueInput!, create: IngredientAdditionCreateInput!, update: IngredientAdditionUpdateInput!): IngredientAddition!
+  upsertHopProfile(where: HopProfileWhereUniqueInput!, create: HopProfileCreateInput!, update: HopProfileUpdateInput!): HopProfile!
   upsertMiscProfile(where: MiscProfileWhereUniqueInput!, create: MiscProfileCreateInput!, update: MiscProfileUpdateInput!): MiscProfile!
   upsertYeastProfile(where: YeastProfileWhereUniqueInput!, create: YeastProfileCreateInput!, update: YeastProfileUpdateInput!): YeastProfile!
   upsertFermentationStep(where: FermentationStepWhereUniqueInput!, create: FermentationStepCreateInput!, update: FermentationStepUpdateInput!): FermentationStep!
   upsertMashStep(where: MashStepWhereUniqueInput!, create: MashStepCreateInput!, update: MashStepUpdateInput!): MashStep!
+  upsertStyle(where: StyleWhereUniqueInput!, create: StyleCreateInput!, update: StyleUpdateInput!): Style!
   upsertRecipe(where: RecipeWhereUniqueInput!, create: RecipeCreateInput!, update: RecipeUpdateInput!): Recipe!
-  updateManyStyles(data: StyleUpdateManyMutationInput!, where: StyleWhereInput): BatchPayload!
-  updateManyBatches(data: BatchUpdateManyMutationInput!, where: BatchWhereInput): BatchPayload!
-  updateManyIngredientProfiles(data: IngredientProfileUpdateManyMutationInput!, where: IngredientProfileWhereInput): BatchPayload!
+  updateManyFermentableAdditions(data: FermentableAdditionUpdateManyMutationInput!, where: FermentableAdditionWhereInput): BatchPayload!
+  updateManyHopAdditions(data: HopAdditionUpdateManyMutationInput!, where: HopAdditionWhereInput): BatchPayload!
+  updateManyYeastAdditions(data: YeastAdditionUpdateManyMutationInput!, where: YeastAdditionWhereInput): BatchPayload!
+  updateManyMiscAdditions(data: MiscAdditionUpdateManyMutationInput!, where: MiscAdditionWhereInput): BatchPayload!
   updateManyEquipmentProfiles(data: EquipmentProfileUpdateManyMutationInput!, where: EquipmentProfileWhereInput): BatchPayload!
   updateManyFermentationProfiles(data: FermentationProfileUpdateManyMutationInput!, where: FermentationProfileWhereInput): BatchPayload!
   updateManyMashProfiles(data: MashProfileUpdateManyMutationInput!, where: MashProfileWhereInput): BatchPayload!
-  updateManyHopProfiles(data: HopProfileUpdateManyMutationInput!, where: HopProfileWhereInput): BatchPayload!
-  updateManyHopAdditions(data: HopAdditionUpdateManyMutationInput!, where: HopAdditionWhereInput): BatchPayload!
-  updateManyYeastAdditions(data: YeastAdditionUpdateManyMutationInput!, where: YeastAdditionWhereInput): BatchPayload!
+  updateManyBatches(data: BatchUpdateManyMutationInput!, where: BatchWhereInput): BatchPayload!
   updateManyUnitSettingses(data: UnitSettingsUpdateManyMutationInput!, where: UnitSettingsWhereInput): BatchPayload!
   updateManyFermentableProfiles(data: FermentableProfileUpdateManyMutationInput!, where: FermentableProfileWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyIngredientAdditions(data: IngredientAdditionUpdateManyMutationInput!, where: IngredientAdditionWhereInput): BatchPayload!
+  updateManyHopProfiles(data: HopProfileUpdateManyMutationInput!, where: HopProfileWhereInput): BatchPayload!
   updateManyMiscProfiles(data: MiscProfileUpdateManyMutationInput!, where: MiscProfileWhereInput): BatchPayload!
   updateManyYeastProfiles(data: YeastProfileUpdateManyMutationInput!, where: YeastProfileWhereInput): BatchPayload!
   updateManyFermentationSteps(data: FermentationStepUpdateManyMutationInput!, where: FermentationStepWhereInput): BatchPayload!
   updateManyMashSteps(data: MashStepUpdateManyMutationInput!, where: MashStepWhereInput): BatchPayload!
+  updateManyStyles(data: StyleUpdateManyMutationInput!, where: StyleWhereInput): BatchPayload!
   updateManyRecipes(data: RecipeUpdateManyMutationInput!, where: RecipeWhereInput): BatchPayload!
-  deleteManyStyles(where: StyleWhereInput): BatchPayload!
-  deleteManyBatches(where: BatchWhereInput): BatchPayload!
   deleteManyIngredientProfiles(where: IngredientProfileWhereInput): BatchPayload!
+  deleteManyFermentableAdditions(where: FermentableAdditionWhereInput): BatchPayload!
+  deleteManyHopAdditions(where: HopAdditionWhereInput): BatchPayload!
+  deleteManyYeastAdditions(where: YeastAdditionWhereInput): BatchPayload!
+  deleteManyMiscAdditions(where: MiscAdditionWhereInput): BatchPayload!
   deleteManyEquipmentProfiles(where: EquipmentProfileWhereInput): BatchPayload!
   deleteManyFermentationProfiles(where: FermentationProfileWhereInput): BatchPayload!
   deleteManyMashProfiles(where: MashProfileWhereInput): BatchPayload!
-  deleteManyHopProfiles(where: HopProfileWhereInput): BatchPayload!
-  deleteManyHopAdditions(where: HopAdditionWhereInput): BatchPayload!
-  deleteManyFermentableAdditions(where: FermentableAdditionWhereInput): BatchPayload!
-  deleteManyMiscAdditions(where: MiscAdditionWhereInput): BatchPayload!
-  deleteManyYeastAdditions(where: YeastAdditionWhereInput): BatchPayload!
+  deleteManyBatches(where: BatchWhereInput): BatchPayload!
   deleteManyUnitSettingses(where: UnitSettingsWhereInput): BatchPayload!
   deleteManyFermentableProfiles(where: FermentableProfileWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyIngredientAdditions(where: IngredientAdditionWhereInput): BatchPayload!
+  deleteManyHopProfiles(where: HopProfileWhereInput): BatchPayload!
   deleteManyMiscProfiles(where: MiscProfileWhereInput): BatchPayload!
   deleteManyYeastProfiles(where: YeastProfileWhereInput): BatchPayload!
   deleteManyFermentationSteps(where: FermentationStepWhereInput): BatchPayload!
   deleteManyMashSteps(where: MashStepWhereInput): BatchPayload!
+  deleteManyStyles(where: StyleWhereInput): BatchPayload!
   deleteManyRecipes(where: RecipeWhereInput): BatchPayload!
 }
 
@@ -4522,65 +4593,65 @@ enum Permission {
 }
 
 type Query {
-  styles(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Style]!
-  batches(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Batch]!
   ingredientProfiles(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientProfile]!
+  fermentableAdditions(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableAddition]!
+  hopAdditions(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopAddition]!
+  yeastAdditions(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastAddition]!
+  miscAdditions(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscAddition]!
   equipmentProfiles(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EquipmentProfile]!
   fermentationProfiles(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationProfile]!
   mashProfiles(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashProfile]!
-  hopProfiles(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopProfile]!
-  hopAdditions(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopAddition]!
-  fermentableAdditions(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableAddition]!
-  miscAdditions(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscAddition]!
-  yeastAdditions(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastAddition]!
+  batches(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Batch]!
   unitSettingses(where: UnitSettingsWhereInput, orderBy: UnitSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [UnitSettings]!
   fermentableProfiles(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentableProfile]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   ingredientAdditions(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientAddition]!
+  hopProfiles(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [HopProfile]!
   miscProfiles(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MiscProfile]!
   yeastProfiles(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [YeastProfile]!
   fermentationSteps(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FermentationStep]!
   mashSteps(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MashStep]!
+  styles(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Style]!
   recipes(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Recipe]!
-  style(where: StyleWhereUniqueInput!): Style
-  batch(where: BatchWhereUniqueInput!): Batch
   ingredientProfile(where: IngredientProfileWhereUniqueInput!): IngredientProfile
+  fermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
+  hopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
+  yeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  miscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
   equipmentProfile(where: EquipmentProfileWhereUniqueInput!): EquipmentProfile
   fermentationProfile(where: FermentationProfileWhereUniqueInput!): FermentationProfile
   mashProfile(where: MashProfileWhereUniqueInput!): MashProfile
-  hopProfile(where: HopProfileWhereUniqueInput!): HopProfile
-  hopAddition(where: HopAdditionWhereUniqueInput!): HopAddition
-  fermentableAddition(where: FermentableAdditionWhereUniqueInput!): FermentableAddition
-  miscAddition(where: MiscAdditionWhereUniqueInput!): MiscAddition
-  yeastAddition(where: YeastAdditionWhereUniqueInput!): YeastAddition
+  batch(where: BatchWhereUniqueInput!): Batch
   unitSettings(where: UnitSettingsWhereUniqueInput!): UnitSettings
   fermentableProfile(where: FermentableProfileWhereUniqueInput!): FermentableProfile
   user(where: UserWhereUniqueInput!): User
   ingredientAddition(where: IngredientAdditionWhereUniqueInput!): IngredientAddition
+  hopProfile(where: HopProfileWhereUniqueInput!): HopProfile
   miscProfile(where: MiscProfileWhereUniqueInput!): MiscProfile
   yeastProfile(where: YeastProfileWhereUniqueInput!): YeastProfile
   fermentationStep(where: FermentationStepWhereUniqueInput!): FermentationStep
   mashStep(where: MashStepWhereUniqueInput!): MashStep
+  style(where: StyleWhereUniqueInput!): Style
   recipe(where: RecipeWhereUniqueInput!): Recipe
-  stylesConnection(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleConnection!
-  batchesConnection(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BatchConnection!
   ingredientProfilesConnection(where: IngredientProfileWhereInput, orderBy: IngredientProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientProfileConnection!
+  fermentableAdditionsConnection(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableAdditionConnection!
+  hopAdditionsConnection(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopAdditionConnection!
+  yeastAdditionsConnection(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastAdditionConnection!
+  miscAdditionsConnection(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscAdditionConnection!
   equipmentProfilesConnection(where: EquipmentProfileWhereInput, orderBy: EquipmentProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EquipmentProfileConnection!
   fermentationProfilesConnection(where: FermentationProfileWhereInput, orderBy: FermentationProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationProfileConnection!
   mashProfilesConnection(where: MashProfileWhereInput, orderBy: MashProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashProfileConnection!
-  hopProfilesConnection(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopProfileConnection!
-  hopAdditionsConnection(where: HopAdditionWhereInput, orderBy: HopAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopAdditionConnection!
-  fermentableAdditionsConnection(where: FermentableAdditionWhereInput, orderBy: FermentableAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableAdditionConnection!
-  miscAdditionsConnection(where: MiscAdditionWhereInput, orderBy: MiscAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscAdditionConnection!
-  yeastAdditionsConnection(where: YeastAdditionWhereInput, orderBy: YeastAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastAdditionConnection!
+  batchesConnection(where: BatchWhereInput, orderBy: BatchOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): BatchConnection!
   unitSettingsesConnection(where: UnitSettingsWhereInput, orderBy: UnitSettingsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UnitSettingsConnection!
   fermentableProfilesConnection(where: FermentableProfileWhereInput, orderBy: FermentableProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentableProfileConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   ingredientAdditionsConnection(where: IngredientAdditionWhereInput, orderBy: IngredientAdditionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientAdditionConnection!
+  hopProfilesConnection(where: HopProfileWhereInput, orderBy: HopProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HopProfileConnection!
   miscProfilesConnection(where: MiscProfileWhereInput, orderBy: MiscProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MiscProfileConnection!
   yeastProfilesConnection(where: YeastProfileWhereInput, orderBy: YeastProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): YeastProfileConnection!
   fermentationStepsConnection(where: FermentationStepWhereInput, orderBy: FermentationStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FermentationStepConnection!
   mashStepsConnection(where: MashStepWhereInput, orderBy: MashStepOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MashStepConnection!
+  stylesConnection(where: StyleWhereInput, orderBy: StyleOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StyleConnection!
   recipesConnection(where: RecipeWhereInput, orderBy: RecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RecipeConnection!
 
   """Fetches an object given its ID"""
@@ -4593,7 +4664,7 @@ type Query {
 type Recipe implements Node {
   id: ID!
   name: String!
-  style: String
+  style: Style
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4620,7 +4691,6 @@ type RecipeConnection {
 input RecipeCreateInput {
   id: ID
   name: String!
-  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4629,6 +4699,7 @@ input RecipeCreateInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  style: StyleCreateOneInput
   user: UserCreateOneInput!
 }
 
@@ -4651,8 +4722,6 @@ enum RecipeOrderByInput {
   id_DESC
   name_ASC
   name_DESC
-  style_ASC
-  style_DESC
   type_ASC
   type_DESC
   batchSize_ASC
@@ -4678,7 +4747,6 @@ enum RecipeOrderByInput {
 type RecipePreviousValues {
   id: ID!
   name: String!
-  style: String
   type: RecipeType!
   batchSize: Float
   boilSize: Float
@@ -4741,7 +4809,6 @@ enum RecipeType {
 
 input RecipeUpdateDataInput {
   name: String
-  style: String
   type: RecipeType
   batchSize: Float
   boilSize: Float
@@ -4750,12 +4817,12 @@ input RecipeUpdateDataInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  style: StyleUpdateOneInput
   user: UserUpdateOneRequiredInput
 }
 
 input RecipeUpdateInput {
   name: String
-  style: String
   type: RecipeType
   batchSize: Float
   boilSize: Float
@@ -4764,12 +4831,12 @@ input RecipeUpdateInput {
   estimatedOG: Float
   estimatedFG: Float
   notes: String
+  style: StyleUpdateOneInput
   user: UserUpdateOneRequiredInput
 }
 
 input RecipeUpdateManyMutationInput {
   name: String
-  style: String
   type: RecipeType
   batchSize: Float
   boilSize: Float
@@ -4881,46 +4948,6 @@ input RecipeWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
-  style: String
-
-  """All values that are not equal to given value."""
-  style_not: String
-
-  """All values that are contained in given list."""
-  style_in: [String!]
-
-  """All values that are not contained in given list."""
-  style_not_in: [String!]
-
-  """All values less than the given value."""
-  style_lt: String
-
-  """All values less than or equal the given value."""
-  style_lte: String
-
-  """All values greater than the given value."""
-  style_gt: String
-
-  """All values greater than or equal the given value."""
-  style_gte: String
-
-  """All values containing the given string."""
-  style_contains: String
-
-  """All values not containing the given string."""
-  style_not_contains: String
-
-  """All values starting with the given string."""
-  style_starts_with: String
-
-  """All values not starting with the given string."""
-  style_not_starts_with: String
-
-  """All values ending with the given string."""
-  style_ends_with: String
-
-  """All values not ending with the given string."""
-  style_not_ends_with: String
   type: RecipeType
 
   """All values that are not equal to given value."""
@@ -5147,6 +5174,7 @@ input RecipeWhereInput {
 
   """All values not ending with the given string."""
   notes_not_ends_with: String
+  style: StyleWhereInput
   user: UserWhereInput
 }
 
@@ -5157,9 +5185,9 @@ input RecipeWhereUniqueInput {
 type Style implements Node {
   id: ID!
   name: String!
-  category: String!
-  categoryNumber: Int!
-  styleLetter: String!
+  category: String
+  categoryNumber: Int
+  styleLetter: String
   styleGuide: String
   type: StyleType
   OGMin: Float
@@ -5193,9 +5221,9 @@ type StyleConnection {
 input StyleCreateInput {
   id: ID
   name: String!
-  category: String!
-  categoryNumber: Int!
-  styleLetter: String!
+  category: String
+  categoryNumber: Int
+  styleLetter: String
   styleGuide: String
   type: StyleType
   OGMin: Float
@@ -5214,6 +5242,11 @@ input StyleCreateInput {
   profile: String
   ingredients: String
   example: String
+}
+
+input StyleCreateOneInput {
+  create: StyleCreateInput
+  connect: StyleWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -5277,9 +5310,9 @@ enum StyleOrderByInput {
 type StylePreviousValues {
   id: ID!
   name: String!
-  category: String!
-  categoryNumber: Int!
-  styleLetter: String!
+  category: String
+  categoryNumber: Int
+  styleLetter: String
   styleGuide: String
   type: StyleType
   OGMin: Float
@@ -5342,6 +5375,36 @@ input StyleSubscriptionWhereInput {
 enum StyleType {
   LAGER
   ALE
+  MIXED
+  MEAD
+  CIDER
+  WHEAT
+  WINE
+}
+
+input StyleUpdateDataInput {
+  name: String
+  category: String
+  categoryNumber: Int
+  styleLetter: String
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
 }
 
 input StyleUpdateInput {
@@ -5392,6 +5455,20 @@ input StyleUpdateManyMutationInput {
   profile: String
   ingredients: String
   example: String
+}
+
+input StyleUpdateOneInput {
+  create: StyleCreateInput
+  connect: StyleWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: StyleUpdateDataInput
+  upsert: StyleUpsertNestedInput
+}
+
+input StyleUpsertNestedInput {
+  update: StyleUpdateDataInput!
+  create: StyleCreateInput!
 }
 
 input StyleWhereInput {
@@ -6066,25 +6143,25 @@ input StyleWhereUniqueInput {
 }
 
 type Subscription {
-  style(where: StyleSubscriptionWhereInput): StyleSubscriptionPayload
-  batch(where: BatchSubscriptionWhereInput): BatchSubscriptionPayload
   ingredientProfile(where: IngredientProfileSubscriptionWhereInput): IngredientProfileSubscriptionPayload
+  fermentableAddition(where: FermentableAdditionSubscriptionWhereInput): FermentableAdditionSubscriptionPayload
+  hopAddition(where: HopAdditionSubscriptionWhereInput): HopAdditionSubscriptionPayload
+  yeastAddition(where: YeastAdditionSubscriptionWhereInput): YeastAdditionSubscriptionPayload
+  miscAddition(where: MiscAdditionSubscriptionWhereInput): MiscAdditionSubscriptionPayload
   equipmentProfile(where: EquipmentProfileSubscriptionWhereInput): EquipmentProfileSubscriptionPayload
   fermentationProfile(where: FermentationProfileSubscriptionWhereInput): FermentationProfileSubscriptionPayload
   mashProfile(where: MashProfileSubscriptionWhereInput): MashProfileSubscriptionPayload
-  hopProfile(where: HopProfileSubscriptionWhereInput): HopProfileSubscriptionPayload
-  hopAddition(where: HopAdditionSubscriptionWhereInput): HopAdditionSubscriptionPayload
-  fermentableAddition(where: FermentableAdditionSubscriptionWhereInput): FermentableAdditionSubscriptionPayload
-  miscAddition(where: MiscAdditionSubscriptionWhereInput): MiscAdditionSubscriptionPayload
-  yeastAddition(where: YeastAdditionSubscriptionWhereInput): YeastAdditionSubscriptionPayload
+  batch(where: BatchSubscriptionWhereInput): BatchSubscriptionPayload
   unitSettings(where: UnitSettingsSubscriptionWhereInput): UnitSettingsSubscriptionPayload
   fermentableProfile(where: FermentableProfileSubscriptionWhereInput): FermentableProfileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   ingredientAddition(where: IngredientAdditionSubscriptionWhereInput): IngredientAdditionSubscriptionPayload
+  hopProfile(where: HopProfileSubscriptionWhereInput): HopProfileSubscriptionPayload
   miscProfile(where: MiscProfileSubscriptionWhereInput): MiscProfileSubscriptionPayload
   yeastProfile(where: YeastProfileSubscriptionWhereInput): YeastProfileSubscriptionPayload
   fermentationStep(where: FermentationStepSubscriptionWhereInput): FermentationStepSubscriptionPayload
   mashStep(where: MashStepSubscriptionWhereInput): MashStepSubscriptionPayload
+  style(where: StyleSubscriptionWhereInput): StyleSubscriptionPayload
   recipe(where: RecipeSubscriptionWhereInput): RecipeSubscriptionPayload
 }
 
@@ -6646,6 +6723,7 @@ type YeastAddition implements Node {
   yeastProfile: YeastProfile!
   ingredientAddition: IngredientAddition!
   timesCultured: Int
+  amount: Float!
 }
 
 """A connection to a list of items."""
@@ -6661,6 +6739,7 @@ type YeastAdditionConnection {
 input YeastAdditionCreateInput {
   id: ID
   timesCultured: Int
+  amount: Float!
   yeastProfile: YeastProfileCreateOneInput!
   ingredientAddition: IngredientAdditionCreateOneInput!
 }
@@ -6679,11 +6758,14 @@ enum YeastAdditionOrderByInput {
   id_DESC
   timesCultured_ASC
   timesCultured_DESC
+  amount_ASC
+  amount_DESC
 }
 
 type YeastAdditionPreviousValues {
   id: ID!
   timesCultured: Int
+  amount: Float!
 }
 
 type YeastAdditionSubscriptionPayload {
@@ -6727,12 +6809,14 @@ input YeastAdditionSubscriptionWhereInput {
 
 input YeastAdditionUpdateInput {
   timesCultured: Int
+  amount: Float
   yeastProfile: YeastProfileUpdateOneRequiredInput
   ingredientAddition: IngredientAdditionUpdateOneRequiredInput
 }
 
 input YeastAdditionUpdateManyMutationInput {
   timesCultured: Int
+  amount: Float
 }
 
 input YeastAdditionWhereInput {
@@ -6806,6 +6890,28 @@ input YeastAdditionWhereInput {
 
   """All values greater than or equal the given value."""
   timesCultured_gte: Int
+  amount: Float
+
+  """All values that are not equal to given value."""
+  amount_not: Float
+
+  """All values that are contained in given list."""
+  amount_in: [Float!]
+
+  """All values that are not contained in given list."""
+  amount_not_in: [Float!]
+
+  """All values less than the given value."""
+  amount_lt: Float
+
+  """All values less than or equal the given value."""
+  amount_lte: Float
+
+  """All values greater than the given value."""
+  amount_gt: Float
+
+  """All values greater than or equal the given value."""
+  amount_gte: Float
   yeastProfile: YeastProfileWhereInput
   ingredientAddition: IngredientAdditionWhereInput
 }

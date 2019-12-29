@@ -1,0 +1,49 @@
+# ====================EQUIPMENT PROFILES
+
+type EquipmentProfile {
+  id: ID! @id
+  name: String!
+  batchSize: Float!
+}
+
+# ====================FERMENTATION PROFILE
+
+type FermentationStep {
+  id: ID! @id
+  name: String!
+  duration: Int!
+  startTemp: Float!
+  endTemp: Float!
+}
+
+type FermentationProfile {
+  id: ID! @id
+  name: String!
+  forYeastType: YeastType!
+  steps: [FermentationStep]!
+}
+
+# ====================MASH PROFILE
+
+enum MashStepType {
+  INFUSION
+}
+
+type MashStep {
+  id: ID! @id
+  name: String!
+  type: MashStepType!
+  stepTime: Int!
+  stepTemp: Float!
+  rampTime: Float!
+  endTemp: Float!
+  waterGrainRatio: Float
+  decoctionAmount: Float
+  infuseTemp: Float
+}
+
+type MashProfile {
+  id: ID! @id
+  name: String!
+  steps: [MashStep]!
+}

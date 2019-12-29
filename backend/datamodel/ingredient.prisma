@@ -1,0 +1,169 @@
+# ===========================================INGREDIENT PROFILES===========================
+
+# ----------- Generalized Profile
+
+type IngredientProfile {
+  id: ID! @id
+}
+
+# --------- Fermentable Profile
+
+enum FermentableType {
+  GRAIN
+  SUGAR
+}
+
+type FermentableProfile {
+  id: ID! @id
+  name: String!
+  type: FermentableType!
+  yield: Float
+  color: Float
+  addAfterBoil: Boolean
+  origin: String
+  notes: String
+  coarseFineDiff: Float
+  moisture: Float
+  diastaticPower: Float
+  protein: Float
+  maxInBatch: Float
+  recommendMash: Boolean
+  IBUGalPerLB: Float
+  potential: Float
+  extractSubstitute: String
+}
+
+# ------- Hop Profile
+
+enum HopType {
+  AROMA
+  BITTERING
+}
+
+enum HopForm {
+  PELLET
+  LEAF
+  EXTRACT
+}
+
+type HopProfile {
+  id: ID! @id
+  name: String
+  origin: String
+  alpha: Float
+  beta: Float
+  use: IngredientUse
+  form: HopForm!
+  type: HopType!
+}
+
+# --------Yeast Profile
+
+enum YeastForm {
+  LIQUID
+  DRY
+  SLURRY
+}
+
+enum YeastType {
+  ALE
+  LAGER
+  HYBRID 
+}
+
+enum FlocculationType {
+  VERY_HIGH
+  HIGH
+  MEDIUM 
+  LOW
+}
+
+type YeastProfile {
+  id: ID! @id
+  name: String!
+  type: YeastType!
+  form: YeastForm!
+  amount: Float
+  amountIsWeight: Boolean
+  laboratory: String
+  productId: String
+  minTemperature: Float
+  maxTemperature: Float
+  flocculation: FlocculationType
+  attenuation: Float
+  notes: String
+  bestFor: String
+  maxReuse: Int
+  addToSecondary: Boolean
+}
+
+# ---------MISC INGREDIENT PROFILE
+
+type MiscProfile {
+  id: ID! @id
+  name: String!
+  useFor: String
+  amountIsWeight: Boolean
+
+}
+
+# ==============================INGREDIENT ADDITIONS==========================================
+
+# -------- GENERALIZED INGREDIENT ADDITION
+
+enum IngredientUse {
+  MASH
+  BOIL
+  WHIRLPOOL
+  PRIMARY
+  SECONDARY
+  KEGGING
+  BOTTLING
+}
+
+type IngredientAddition {
+  id: ID! @id
+  amount: Float
+  recipe: Recipe!
+  use: IngredientUse! 
+}
+
+# -----------Fermentable Addition
+
+type FermentableAddition {
+  id: ID! @id
+  profile: FermentableProfile!
+  ingredientAddition: IngredientAddition!
+  amount: Float!
+}
+
+# ---------- Hop Addition
+
+type HopAddition {
+  id: ID! @id
+  hopProfile: HopProfile!
+  ingredientAddition: IngredientAddition!
+  amount: Float!
+  IBUs: Float!
+  alpha: Float!
+  time: Float!
+}
+
+# --------- Yeast Addition
+
+type YeastAddition {
+  id: ID! @id
+  yeastProfile: YeastProfile!
+  ingredientAddition: IngredientAddition!
+  timesCultured: Int
+  amount: Float!
+}
+
+# ----- Misc Addition
+
+type MiscAddition {
+  id: ID! @id
+  ingredientAddition: IngredientAddition!
+  miscProfile: MiscProfile!
+  amount: Float!
+}

@@ -1,0 +1,18 @@
+enum VolumeUnits {
+  LITERS
+  MILILITERS
+  QUARTS
+  GALLONS
+}
+
+enum WeightUnits {
+  GRAMS
+  KILOGRAMS
+  POUNDS
+  OUNCES
+}
+
+type UnitSettings {
+  id: ID! @id
+  batchSizeUnits: VolumeUnits!,
+}

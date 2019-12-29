@@ -6,16 +6,29 @@ const db = require("./db");
 
 const server = createServer();
 
-//TODO Use express middleware to handle cookies
 server.express.use(cookieParser());
-//TODO use express middleware to get current user
 
+//Middleware to add the user ID to every request
 server.express.use((req, res, next) => {
   const { token } = req.cookies;
   if (token) {
     const { userId } = jwt.verify(token, process.env.APP_SECRET);
     req.userId = userId;
   }
+  next();
+});
+
+//Middleware to populate the user for every request
+server.express.use(async (req, res, next) => {
+  //Check if the user is logged in
+  if (!req.userId) {
+    return next();
+  }
+  const user = await db.query.user(
+    { where: { id: req.userId } },
+    `{ id name email permissions }`
+  );
+  req.user = user;
   next();
 });
 

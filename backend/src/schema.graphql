@@ -24,6 +24,8 @@ type Mutation {
 
   deleteManyRecipes(ids: [ID!]): BatchPayload!
 
+  createStyle(data: StyleCreateInput!): Style!
+
   signup(email: String!, password: String!, name: String!): User!
   signin(email: String!, password: String!): User!
   signout: SuccessMessage
@@ -33,12 +35,16 @@ type Mutation {
     password: String!
     confirmPassword: String!
   ): User!
+  updatePermissions(permissions: [Permission], userId: ID!): User
+  seedStyleData: SuccessMessage
 }
 
 type Query {
   recipes: [Recipe]!
   recipe(where: RecipeWhereUniqueInput!): Recipe
   me: User
+  users: [User]!
+  styles: [Style]!
 }
 
 type User {

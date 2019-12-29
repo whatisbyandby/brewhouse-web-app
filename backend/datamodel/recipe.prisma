@@ -1,0 +1,70 @@
+enum RecipeType {
+  ALL_GRAIN
+  EXTRACT
+  PARTIAL_MASH
+  WINE
+  MEAD
+  KOMBUCHA
+}
+
+enum StyleType {
+  LAGER
+  ALE
+  MIXED
+  MEAD
+  CIDER
+  WHEAT
+  WINE
+}
+
+type Style {
+  id: ID! @id
+  name: String!
+  category: String
+  categoryNumber: Int
+  styleLetter: String
+  styleGuide: String
+  type: StyleType
+  OGMin: Float
+  OGMax: Float
+  FGMin: Float
+  FGMax: Float
+  IBUMin: Float
+  IBUMax: Float
+  colorMin: Float
+  colorMax: Float
+  carbMin: Float
+  carbMax: Float
+  ABVMin: Float
+  ABVMax: Float
+  notes: String
+  profile: String
+  ingredients: String
+  example: String
+}
+
+type Recipe {
+  id: ID! @id
+  name: String!
+  style: Style
+  type: RecipeType!
+  batchSize: Float
+  boilSize: Float
+  boilTime: Int
+  efficiency: Int
+  estimatedOG: Float
+  estimatedFG: Float
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  notes: String
+  user: User!
+}
+
+type Batch {
+  id: ID! @id
+  brewDate: DateTime!
+  recipe: Recipe!
+  tastingNotes: String
+  measuredOG: Float
+  measuredFG: Float
+}

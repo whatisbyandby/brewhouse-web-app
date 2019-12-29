@@ -1,5 +1,10 @@
 endpoint: ${env:PRISMA_ENDPOINT}
-datamodel: datamodel.prisma
+datamodel:
+  - datamodel/ingredient.prisma
+  - datamodel/profile.prisma
+  - datamodel/recipe.prisma
+  - datamodel/settings.prisma
+  - datamodel/user.prisma
 #secret: ${env:PRISMA_SECRET}
 hooks:
   post-deploy:
