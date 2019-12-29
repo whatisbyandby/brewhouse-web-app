@@ -43,7 +43,6 @@ class Signin extends Component {
                   event.preventDefault();
                   await signinMutation({ variables: this.state });
                   this.setState({ email: "", password: "" });
-                  Router.push({ pathname: "/" });
                 }}
               >
                 <fieldset disabled={loading} aria-busy={loading}>

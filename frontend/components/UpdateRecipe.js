@@ -12,7 +12,10 @@ const SINGLE_RECIPE_QUERY = gql`
       id
       name
       type
-      style
+      style {
+        id
+        name
+      }
       batchSize
     }
   }
@@ -63,6 +66,10 @@ class UpdateRecipe extends Component {
     return (
       <Query query={SINGLE_RECIPE_QUERY} variables={{ id: this.props.id }}>
         {({ data, loading }) => {
+          if (loading) {
+            return <h2>Loading.......</h2>;
+          }
+          console.log(data);
           return (
             <Mutation mutation={UPDATE_RECIPE_MUTATION}>
               {(UpdateRecipeMutation, { error, loading }) => (
@@ -110,7 +117,7 @@ class UpdateRecipe extends Component {
                         type="text"
                         id="style"
                         name="style"
-                        defaultValue={data.recipe.style}
+                        defaultValue={data.recipe.style.name}
                         placeholder="Recipe Style"
                         required
                         onChange={this.handleOnChange}

@@ -10,8 +10,13 @@ const ALL_RECIPES_QUERY = gql`
       id
       name
       type
-      style
+      style {
+        name
+      }
       batchSize
+      boilTime
+      estimatedOG
+      estimatedFG
     }
   }
 `;
@@ -24,7 +29,7 @@ class RecipeGrid extends Component {
           {({ data, error, loading }) => {
             if (error) return <h1>Error: {error.message}</h1>;
             if (loading) return <h1>Loading....</h1>;
-            return <Grid data={data.recipes} wrapper={this.getSelectedRows} />;
+            return <Grid data={data.recipes} />;
           }}
         </Query>
       </div>

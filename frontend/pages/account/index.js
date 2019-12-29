@@ -1,7 +1,11 @@
+import PleaseSignIn from "../../components/PleaseSignIn";
+
 const Account = props => {
   return (
     <div>
-      <h2>Account</h2>
+      <PleaseSignIn>
+        <h2>Account</h2>
+      </PleaseSignIn>
     </div>
   );
 };

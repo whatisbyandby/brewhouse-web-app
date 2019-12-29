@@ -62,7 +62,7 @@ class Grid extends Component {
       id: row.id,
       name: row.name,
       type: formatEnum(row.type),
-      style: row.style,
+      style: row.style.name,
       batchSize: formatVolume(row.batchSize)
     }));
     return mappedRowData;
@@ -76,7 +76,9 @@ class Grid extends Component {
         .filter(key => !key.startsWith("_") && key !== "id")
         .map(key => ({
           headerName: key.toUpperCase(),
-          field: key
+          field: key,
+          sortable: true,
+          filter: true
         }));
       return colDefs;
     }

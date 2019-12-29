@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import Router from "next/router";
 import Error from "./ErrorMessage";
 import RecipeForm from "./styles/RecipeForm";
+import StyleSelect from "./StyleSelect";
 import { ALL_RECIPES_QUERY } from "../components/RecipeGrid";
 
 const CREATE_RECIPE_MUTATION = gql`
@@ -22,8 +23,12 @@ const CREATE_RECIPE_MUTATION = gql`
       id
       name
       type
-      style
+      style {
+        name
+      }
       batchSize
+      estimatedOG
+      estimatedFG
     }
   }
 `;
@@ -42,20 +47,12 @@ class CreateRecipe extends Component {
     this.setState({ [name]: val });
   };
 
-  update = (cache, { data: { createRecipe } }) => {
-    const { recipes } = cache.readQuery({ query: ALL_RECIPES_QUERY });
-    cache.writeQuery({
-      query: ALL_RECIPES_QUERY,
-      data: { recipes: recipes.concat([createRecipe]) }
-    });
-  };
-
   render() {
     return (
       <Mutation
         mutation={CREATE_RECIPE_MUTATION}
         variables={this.state}
-        update={this.update}
+        refetchQueries={[{ query: ALL_RECIPES_QUERY }]}
       >
         {(createRecipe, { error, loading }) => (
           <RecipeForm
@@ -97,18 +94,10 @@ class CreateRecipe extends Component {
                   <option value={"MEAD"}>MEAD</option>
                 </select>
               </label>
-              <label htmlFor="style">
-                Style
-                <input
-                  type="text"
-                  id="style"
-                  name="style"
-                  value={this.state.style}
-                  placeholder="Recipe Style"
-                  required
-                  onChange={this.handleOnChange}
-                />
-              </label>
+              <StyleSelect
+                value={this.state.style}
+                onChange={this.handleOnChange}
+              />
               <label htmlFor="batchSize">
                 Batch Size
                 <input

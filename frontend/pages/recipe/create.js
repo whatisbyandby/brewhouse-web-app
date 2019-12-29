@@ -1,11 +1,12 @@
 import CreateRecipe from "../../components/CreateRecipe";
+import PleaseSignIn from "../../components/PleaseSignIn";
 
 const Create = props => {
   return (
-    <div>
+    <PleaseSignIn>
       <h2>New Recipe</h2>
       <CreateRecipe />
-    </div>
+    </PleaseSignIn>
   );
 };
 

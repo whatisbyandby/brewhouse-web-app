@@ -30,7 +30,9 @@ class DeleteRecipe extends Component {
       confirm("Are you sure you want to delete this?")
     ) {
       const rowId = this.props.selectedRow.id;
-      const res = await deleteRecipeMutation({ variables: { id: rowId } });
+      const res = await deleteRecipeMutation({
+        variables: { id: rowId }
+      }).catch(error => alert(error.message));
     } else if (!this.props.selectedRow) {
       alert("No Row Selected");
     }
